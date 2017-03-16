@@ -17,7 +17,7 @@
     </div>
     <div class="text">
 	  <p>The T2 algorithm is the culmination of work I have done on harmonic analysis of jazz chord sequences in the last two years. The goal of such analysis is to determine the function of each chord and the harmonic structures in the chord sequences.</p>
-	  
+
 	  <p>Previous attempts to solve this problem in the computer music literature are based on formal grammar or production rules. These approaches are unsatisfactory because a grammar or rule base that describes the chord changes of a “typical” jazz tune will not very likely be found. So the algorithms in these research reports are illustrated and evaluated on just a few chord charts that they can handle.</p>
 
 	  <p>By reexamining the harmonic analysis problem and formulating it as a tonality segmentation problem, the T2 algorithm explicitly models modulations in chord sequences and will correctly analyze <i>all “typical” jazz tunes</i>. In fact T2 produces good results for the entire collection of tunes in Appendix D of Jerry Coker’s book <i>Improvising Jazz</i>.</p>
@@ -25,11 +25,9 @@
 	  <p>There are of course a lot of details in the design of the T2 algorithm, and if you are interested you can download a draft of my paper below to read about them.</p>
 
 	  <p>I believe this to be quite an important problem in computer music, for which I have now provided a good solution. For so long, projects, theses, and products have simulated jazz improvisation in one way or another, but none of them begins by performing a proper harmonic analysis on the chord sequences. With no knowledge of their harmony structures, an automatic accompaniment generator, for instance, cannot help but choose the wrong notes (say in the bass lines) sometimes. Attempts to generate improvised lines are also bound to have the same problem and be incomplete. An algorithm such as T2 is also interesting in its own right for its use in educational and compositional tools.</p>
-      
-      <p>I have written informally about the design and implementation of T2, the T2 algorithm, and T2G (a GUI version of T2) in my blog. The jump-off page for these articles is here:</p>
-      
-      <p class="indent"><a href="http://members.shaw.ca/akochoi/T2.html">http://members.shaw.ca/akochoi/T2.html</a></p>
-      
+
+      <p>I have written informally about the design and implementation of T2, the T2 algorithm, and T2G (a GUI version of T2) in my blog. See <a href="../T2.html">the jump-off page for these articles</a>.</p>
+
       <p>Some of the programs found on those pages are older versions. So please download them from the links on this page below.</p>
     </div>
     <div class="subtitle">
@@ -37,25 +35,21 @@
     </div>
     <div class="text">
       <p>My paper “Jazz Harmonic Analysis as Optimal Tonality Segmentation” which describes the T2 algorithm in detail will appear in the <a href="http://www.mitpressjournals.org/cmj">Computer Music Journal</a> 35:2 (Summer 2011).</p>
-      
+
       <p>Here is the source code of T2 (<i>updated May 9, 2011 to match description in CMJ paper</i>), an OCaml implementation of the algorithm I have described in the paper.  The zip archive also contains the test data files.</p>
 
-      <p class="indent"><a href="T2.zip">http://www.sixthhappiness.ca/jazz-harmonic-analysis/T2.zip</a></p>
+      <p class="indent"><a href="T2.zip">T2.zip</a></p>
 
 	  <p>The code was developed and tested using <a href="http://caml.inria.fr/">OCaml version 3.11.0<a>. The README.txt file in the archive contains information on how to build and use this program, and its terms of use.</p>
 
-	  <p>The latest version of T2G, a GUI version of T2, can be found here:</p>
-	  
-      <p class="indent"><a href="http://members.shaw.ca/akochoi/articles/T2G-version-2/index.html">http://members.shaw.ca/akochoi/articles/T2G-version-2/index.html</a></p>
-	  
-	  <p>T2G includes an automatic accompaniment generation function, as well as the harmonic analysis capability of T2.</p>
+	  <p>I have also written <a href="../articles/T2G-version-2/index.html">T2G</a>, a GUI version of T2. T2G includes an automatic accompaniment generation function, as well as the harmonic analysis capability of T2.</p>
 	</div>
 
     <div class="subtitle">
       Contact Information
     </div>
     <div class="text">
-      <p><a href="http://members.shaw.ca/akochoi/articles/contact-information/index.html">Click here</a> for my contact information.</p>
+      <p><a href="../articles/contact-information/index.html">Click here</a> for my contact information.</p>
       <p>Andrew Choi. Calgary. February 2009 (updated May 2011).</p>
 	</div>
 
