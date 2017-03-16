@@ -1,0 +1,153 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>T2 - A Jazz Harmonic Analysis Program</title>
+<link rel="stylesheet" href="../../css/base.css">
+<link rel="stylesheet" href="../../css/article.css">
+<link rel="stylesheet" href="../../css/highlight.css">
+</head>
+<body><div id="box0">
+<div id="header"><h1 class="blog-title"><a href="../../index.html">My OS X Programming Blog</a></h1></div>
+<div id="box1"><div id="box2">
+<div id="contents">
+<h2 class="title">T2 - A Jazz Harmonic Analysis Program</h2>
+<div class="date">25 Aug 2007</div>
+<div class="abstract"><p>The release of T2, a program that performs roman numeral analysis on jazz chord charts.</p></div>
+<div class="contents">
+<p>OK, it’s finished :-).</p>
+<p>In the last few months I’ve been studying jazz chord scale theory and harmonic analysis.  Jazz musicians analyze chord changes of tunes to get “harmonic road maps” which they can use in improvisation.  I wanted to perform this analysis by computer.  This is also a most fundamental step if the computer is to simulate jazz improvisation: without a proper analysis, the computer can’t really “purposefully” pick what notes to play!  I’ve revisited the computer music literature on jazz analysis and improvisation to confirm that no one currently knows how to do this well (in a later article, I’ll provide references to these works and explain why they have failed).  This is actually quite surprising if one considers the number of research papers and theses to date that claim to do jazz improvisation by computer in one form or another.  After a good deal of algorithm design, programming, and experimentation, I’ve finally arrived at a program I call T2, along with a few research results that have gone into it.  It’s definitely the best piece of research work I’ve ever done, and probably the best program I’ve ever written :-)!</p>
+<p>Quite simply, T2 is a program that performs roman numeral analysis on jazz chord charts.  Let me give you an idea of what its input and output look like:</p>
+<pre xml:space="preserve">
+~/Desktop$ cat Solar.toe 
+| Cm6 | Cm6 | Gm7 | C7 | FMaj7 | FMaj7 | Fm7 | Bb7 |
+| EbMaj7 | Ebm7 Ab7 | DbMaj7 | Dm7b5 G7b9 | Cm6 | Cm6 | Gm7 | C7 |
+| FMaj7 | FMaj7 | Fm7 | Bb7 | EbMaj7 | Ebm7 Ab7 | DbMaj7 | Dm7b5 G7b9 | Cm6 |
+~/Desktop$ ./t2 Solar.toe 
+ Cm:       F:                      Eb:                   Db:                 
+                     --&gt;                      --&gt;                 --&gt;        
+  Im6       IIm7   V7   IMaj        IIm7   V7    IMaj     IIm7 V7    IMaj     
+| Cm6 | / | Gm7  | C7 | FMaj7 | / | Fm7  | Bb7 | EbMaj7 | Ebm7 Ab7 | DbMaj7 | 
+            \______/                \______/              \____/             
+
+ Cm:                     F:                      Eb:                   
+             --&gt;                   --&gt;                      --&gt;        
+  IIm7b5 V7     Im6       IIm7   V7   IMaj        IIm7   V7    IMaj     
+| Dm7b5  G7b9 | Cm6 | / | Gm7  | C7 | FMaj7 | / | Fm7  | Bb7 | EbMaj7 | 
+  \______/                \______/                \______/             
+
+ Db:                 Cm:                 
+          --&gt;                    --&gt;     
+  IIm7 V7    IMaj     IIm7b5 V7     Im6   
+| Ebm7 Ab7 | DbMaj7 | Dm7b5  G7b9 | Cm6 | 
+  \____/              \______/           
+
+~/Desktop$ 
+</pre>
+<p>The analysis algorithm deduces a segmentation for the chart and the “key centers” of these segments.  It annotates the chords by roman numeral representation which shows their functions with respect to the key centers.  The analysis also shows dominant resolutions and ii-V relationships in the form of arrows and brackets, respectively.</p>
+<p>These and other jazz theory terms are defined in the excellent book:</p>
+<p class="quote">Barrie Nettles and Richard Graf.  <em>The Chord Scale Theory and Jazz Harmony.</em>  Advance Music.  1997.</p>
+<p>Another very good book on jazz theory is:</p>
+<p class="quote">Andrew Jaffe.  <em>Jazz Theory.</em>  Wm. C. Brown Company Publishers.  1983.</p>
+<p>(There’s also a 2nd edition but this is the one I have.)  Both books also discuss how we determine what scales and modes to use in improvisation from the analyses.  Another excellent book that covers this aspect extremely well (but doesn’t cover analysis as much) is:</p>
+<p class="quote">Mark Levine.  <em>The Jazz Theory Book.</em>  Sher Music Co.  1995.</p>
+<p>T2 actually does a little more than what’s been shown above.  Here’s (part of) a more complex analysis:</p>
+<pre xml:space="preserve">
+~/Desktop$ cat MoonglowExcerpt.toe
+| Bb7 | Bb7 _ A7 Ab7 | G7 | G7 | C9 | C9 | Cm7 Gb7 | F7 |
+| EbMaj7 | EbmMaj7 | BbMaj7 | C9 | Cm7 | Cb7 | Bb7 A7 | Ab7 A7 Bb6 _ |
+~/Desktop$ ./t2 MoonglowExcerpt.toe
+ Bb:                                                                          
+             ......&gt;  ..&gt;   ..&gt;  ------&gt;  -----------:........&gt;               
+  (subV7/VII)                                        subV7/V   (V7)   IVMaj    
+| Bb7         | / / A7   Ab7 | G7 | / | C9 | / | Cm7 Gb7     | F7   | EbMaj7 | 
+                                                 \_____________/              
+
+                                                         
+                                ........&gt;   ..&gt;   ..&gt;  ..
+  IVmMaj7   IMaj     (subV7/bII)                          
+| EbmMaj7 | BbMaj7 | C9          | Cm7 | Cb7 | Bb7   A7 | 
+                                   \...../               
+
+                         
+.&gt;                       
+  (bVII7) (VII7) IMaj     
+| Ab7     A7     Bb6  / | 
+                         
+
+~/Desktop$ 
+</pre>
+<p>Dotted arrows denote substitute dominant resolution.  A series of arrows denotes extended dominants.  Parenthesized roman numeral chords denote deceptive resolution.  Dotted brackets denote ii-V’s with substitute dominants (i.e., ii-bII7’s).  A solid arrow that changes midway into a dotted one denotes an “interpolated” substitute dominant chord (e.g., V7-bII7-I).</p>
+<p>Interested already?  Here’re the downloads for T2.  Play with it, have fun with it, dazzle your friends with it :-).</p>
+<ul>
+      <li>
+        <a href="t2-osxintel.zip" title="t2-osxintel.zip">T2 Mac OS X Intel version</a>
+      </li>
+      <li>
+        <a href="t2-osxppc.zip" title="t2-osxppc.zip">T2 Mac OS X PPC version </a>
+      </li>
+      <li>
+        <a href="t2-windows.zip" title="t2-windows.zip">T2 Windows version</a>
+        <em>(updated August 27, 2007)</em>
+      </li>
+      <li>
+        <a href="t2-other.tgz" title="t2-other.tgz">T2 bytecode version for all other systems such as Linux and BSD's</a>
+      </li>
+    </ul>
+<p>Here are the <a href="readme.txt" title="readme.txt">README</a> file and <a href="license.txt" title="license.txt">LICENSE</a> file.  Anyone is permitted to use T2 for research, educational, and non-commercial purposes.  I do not however give the permission for anyone to redistribute it.  I’m still deciding what to do with its source code (which shall not be available for the time being).  If I do release it, it will be under the same or more restrictive terms.  It will definitely not be released under GPL (I don’t do GPL any more :-)).  I’ll probably not put it in the public domain either.  I’ll explain why in later articles.</p>
+<p>I should note that T2 is just a computer program and a first version of the first one of its kind at that.  Its current implementation won’t analyze all changes “correctly”.  I do believe that its design and theory are sound, and that at this time it should be released in its current form so people can play with it.  But this isn’t “production” quality software.  Therefore, if you find examples of charts that cause it to fail, please sent them to me with what you believe to be the correct analyses.  This will help with my work tremendously.</p>
+<p>In the next few weeks in this blog, I’ll write about the algorithms used in T2 in the form of an informal research report/draft research paper.  I believe these results are important and fundamental enough that I should get them published eventually.</p>
+<p>Oh, the name T2 comes from T., the initial of my jazz guitar teacher thirty years ago.  T. was (and is) a great guitar player and kind man, but he never taught me jazz theory and analysis!  One can only go so far learning by example.  I’m hoping that T2, version 2 of T. :-), will teach me more.  T2 is written in OCaml and uses my programming library TOE.  I know connecting the words Caml and TOE is funny (please don’t ask and don’t write in about that) but I’ve chosen the name TOE long before I decided to rewrite it in OCaml.  Heck, I’ve rewritten it in Scheme, then Python from C++ before that.  TOE stands for The Other EMACS, where EMACS stands for Extendible Music Application Constructor Set.  Of course I ported Emacsen to Mac OS’s before that, thus “the other”.  Well, so much for names.</p>
+<p>Lastly, someone is bound to ask what happens when these changes are fed into T2.  So here it is:</p>
+<pre xml:space="preserve">
+ B:   G:        Eb:          G:             Eb:        B:           Eb:        
+         --&gt;        --&gt;              --&gt;        --&gt;        --&gt;               --
+  IMaj V7   IMaj V7    IMaj   IIm7 V7   IMaj V7    IMaj V7    IMaj   IIm7 V7    
+| B    D7 | G    Bb7 | Eb   | Am7  D7 | G    Bb7 | Eb   F#7 | B    | Fm7  Bb7 | 
+                              \____/                                 \____/    
+
+        G:               B:                Eb:               B:                
+-&gt;              --&gt;               --&gt;               --&gt;               --&gt;      
+  IMaj   IIm7 V7   IMaj   IIm7 V7    IMaj   IIm7 V7    IMaj   IIm7 V7    IMaj   
+| Eb   | Am7  D7 | G    | C#m7 F#7 | B    | Fm7  Bb7 | Eb   | C#m7 F#7 | B    | 
+         \____/           \____/            \____/            \____/           
+</pre>
+<p>Note the symmetry that is revealed.  This is consistent with what so many people try to show with diagrams containing triangles.</p>
+</div>
+<div class="category"><p>Category: Jazz, Programming, T2</p></div>
+</div>
+<div id="navigation">
+<h2 class="title">Articles</h2>
+<h3 class="article-title"><a href="../../articles/cantonese-AI-phonetic-IM-year-of-the-ram-release/index.html">Cantonese Artificially-intelligent Phonetic Input Method—Year of the RAM Release</a></h3>
+<div class="date">Date: 23 Jan 2015</div>
+<h3 class="article-title"><a href="../../articles/cantonese-AI-phonetic-IM-for-Windows-7/index.html">Cantonese Artificially-intelligent Phonetic Input Method for Windows 7</a></h3>
+<div class="date">Date: 27 Jul 2012</div>
+<h3 class="article-title"><a href="../../articles/CAP/index.html">CAP — a Cantonese Artificially-intelligent Phonetic Input Method</a></h3>
+<div class="date">Date: 23 May 2012</div>
+<h3 class="article-title"><a href="../../articles/three-little-pieces/index.html">Three Little Pieces</a></h3>
+<div class="date">Date: 30 Apr 2012</div>
+<h3 class="article-title"><a href="../../articles/unicode-processing-c++0x/index.html">Unicode Processing with C++0x</a></h3>
+<div class="date">Date: 16 Oct 2010</div>
+<h3 class="article-title"><a href="../../all.html">[Complete Article List...]</a></h3>
+<h3 class="article-title"><a href="../../rss.xml">[RSS]</a></h3>
+<h2 class="title">Categories</h2>
+<h3 class="article-title"><a href="../../General.html">General</a></h3>
+<h3 class="article-title"><a href="../../Jazz.html">Jazz</a></h3>
+<h3 class="article-title"><a href="../../Programming.html">Programming</a></h3>
+<h3 class="article-title"><a href="../../T2.html">T2</a></h3>
+<h2 class="title">Information</h2>
+<h3 class="article-title"><a href="../../articles/about-the-author/index.html">About the Author</a></h3>
+<h3 class="article-title"><a href="../../articles/about-this-website/index.html">About This Website</a></h3>
+<h3 class="article-title"><a href="../../articles/contact-information/index.html">Contact Information</a></h3>
+<h2 class="title">My Other Webpages</h2>
+<h3 class="article-title"><a href="http://members.shaw.ca/akochoi-gallery/">My Photo Gallery</a></h3>
+<h3 class="article-title"><a href="http://members.shaw.ca/akochoi-old/blog/">My Old Blog</a></h3>
+<h2 class="title">My Old Projects</h2>
+<h3 class="article-title"><a href="http://members.shaw.ca/akochoi-xemacs/">Carbon XEmacs</a></h3>
+<h3 class="article-title"><a href="http://members.shaw.ca/akochoi-emacs/">Emacs for Mac OS X “Carbon Emacs”</a></h3>
+<h3 class="article-title"><a href="http://mac-emacs.sourceforge.net/">Emacs for Mac OS 8/9</a></h3>
+</div>
+</div></div>
+<div id="footer">Copyright © 2007, 2008, 2009, 2010, 2011, 2012 Andrew Choi. All rights reserved. Do not aggregate.</div>
+</div></body>
+</html>

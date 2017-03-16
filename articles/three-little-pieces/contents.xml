@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE article [
+  <!ENTITY nbsp "&#160;">
+  <!ENTITY mdash "&#x2014;">
+  <!ENTITY ndash "&#x2013;">
+  <!ENTITY hellip "&#x2026;">
+  <!ENTITY lsquo "&#x2018;">
+  <!ENTITY rsquo "&#x2019;">
+  <!ENTITY ldquo "&#x201c;">
+  <!ENTITY rdquo "&#x201d;">
+]>
+
+<div>
+
+<p>I haven’t written one of these in quite a while. I’ve recently completed a project on which I’ve been working for almost two years and I’ll be announcing and releasing an exciting piece of software in the next few days. Presently I’d just like to verify that my “<a href="../haskell-literate-programming-pandoc-carbon-xemacs/index.html">blogging software system</a>” is still functioning correctly because my PC now runs <a href="http://www.opensuse.org/en/">OpenSUSE</a>/<a href="http://www.kde.org/">KDE</a> and it has newly installed Haskell, Pandoc, Emacs, etc. I also found and installed <a href="https://github.com/bard/mozrepl/wiki/Emacs-integration">MozRepl</a>, which allows a page displayed in Firefox to be refreshed from Emacs (very nice!). And at the same time this is a quick refresher course for me on the MarkDown language. So this is a good opportunity to write a short article on a few small programs I’ve written recently.</p><h1 id="switchmaindisplay">SwitchMainDisplay</h1><p><em>SwitchMainDisplay</em> is my Mac OS X utility for switching the main display on systems with multiple displays. It took 15 minutes to read the relevant documentation and 5 minutes to write. So I was quite surprised that it hasn’t been already written and made available elsewhere (including the App Store). A web search will reveal that a convenient way (e.g., a keyboard shortcut) to switch the main display is an often-requested Mac OS X feature.</p><p>Here’s the situation in which <em>SwitchMainDisplay</em> is useful. An external display is connected to your iMac or MacBook. Sometimes you want to use the display on the iMac or MacBook as the main display (the one with the menu bar and dock). And sometimes you want to use the external display as the main display. You want a quick and simple way to switch between the two.</p><p>The method provided by Mac OS X to change the main display is to open the <strong>System Preferences… &gt; Displays &gt; Arrangement</strong> panel and drag the (miniature) menu bar from its current position into the display to be used as the main display. Doing this every time one needs to switch main display can get a bit tedious.</p><p>So here they are: the <em>SwitchMainDisplay</em> <a href="SwitchMainDisplay-src.zip">Xcode project</a> and <a href="SwitchMainDisplay.zip">binary distribution (application)</a> (Mac OS X 10.6 or above). <em>SwitchMainDisplay</em>, when run, switches the main display to the “next” one and then exits. If there is only one display, <em>SwitchMainDisplay</em> beeps and does nothing. If there are more than two displays, <em>SwitchMainDisplay</em> will only switch between the first two. But the source code is included and it is easy to make the code work for three or more displays.</p><p>How you bind a keyboard shortcut to launch <em>SwitchMainDisplay</em> is “left as an exercise”. Basically, create a service in the Automator which receives “no input” from “any application”, then launch the application <em>SwitchMainDisplay</em>. Then in the <strong>System Preferences… &gt; Keyboard &gt; Keyboard Shortcuts &gt; Services</strong> panel, assign a shortcut to the created service.</p><p>Perhaps I should note that there are utilities like <a href="http://blog.boastr.net/?page_id=79">Secondbar</a> and <a href="http://homepage.mac.com/khsu/DejaMenu/DejaMenu.html">DejaMenu</a> which <em>avoid choosing a main display</em> by providing immediate access to the menu bar from all displays. However, I prefer being able to switch main display because: (1) I can access the dock there, and (2) if coordinates of new windows are kept near the origin (0, 0), new windows are always opened on the main display (otherwise quite confusing when the external display has been turned off).</p><p>Have fun!</p><h1 id="to_u81632string">to_u{8,16,32}string()</h1><p>This is just a quick update to my previous <a href="../unicode-processing-c++0x/index.html">Unicode Processing with C++0x</a> article. The GNU standard C++ library libstdc++ still lacks the <code>codecvt</code> facets <a href="http://en.cppreference.com/w/cpp/locale/codecvt_utf8"><code>codecvt_utf8</code></a> and <a href="http://en.cppreference.com/w/cpp/locale/codecvt_utf8_utf16"><code>codecvt_utf8_utf16</code></a> from the C++0x standard. If you use that library you’ll still need the code from my previous article to convert among UTF-8, UTF-16 and UTF-32 encodings.</p><p>If you’re on Linux, there are two options: install the <a href="http://www.boost.org/">Boost C++ Libraries</a> or <a href="http://solarianprogrammer.com/2011/10/16/llvm-clang-libc-linux/">install LLVM and libc++</a>. If you’re on Mac OS X Lion, Xcode 4.3.2 already includes LLVM and libc++.</p><p>Libc++ provides <code>codecvt_utf8</code> and <code>codecvt_utf8_utf16</code>. With these, the function <code>to_u8string</code>, <code>to_u16string</code>, and <code>to_u32string</code> are much simpler to implement:</p><pre class="sourceCode Cpp"><code class="sourceCode cpp"><span class="ot">#include &lt;codecvt&gt;</span>
+<span class="ot">#include &lt;string&gt;</span>
+
+<span class="kw">inline</span> std::string to_u8string(<span class="dt">const</span> std::u16string&amp; s)
+{
+  <span class="co">// Use &quot;static&quot; in case it is expensive to construct one.  Same below.</span>
+  <span class="dt">static</span> std::wstring_convert&lt;std::codecvt_utf8_utf16&lt;<span class="dt">char16_t</span>&gt;, <span class="dt">char16_t</span>&gt; utf16conv;
+  
+  <span class="kw">return</span> utf16conv.to_bytes(s);
+}
+
+<span class="kw">inline</span> std::u16string to_u16string(<span class="dt">const</span> std::string&amp; s)
+{
+  <span class="dt">static</span> std::wstring_convert&lt;std::codecvt_utf8_utf16&lt;<span class="dt">char16_t</span>&gt;, <span class="dt">char16_t</span>&gt; utf16conv;
+  
+  <span class="kw">return</span> utf16conv.from_bytes(s);
+}
+
+<span class="kw">inline</span> std::string to_u8string(<span class="dt">const</span> std::u32string&amp; s)
+{
+  <span class="dt">static</span> std::wstring_convert&lt;std::codecvt_utf8&lt;<span class="dt">char32_t</span>&gt;, <span class="dt">char32_t</span>&gt; utf32conv;
+  
+  <span class="kw">return</span> utf32conv.to_bytes(s);
+}
+
+<span class="kw">inline</span> std::u32string to_u32string(<span class="dt">const</span> std::string&amp; s)
+{
+  <span class="dt">static</span> std::wstring_convert&lt;std::codecvt_utf8&lt;<span class="dt">char32_t</span>&gt;, <span class="dt">char32_t</span>&gt; utf32conv;
+  
+  <span class="kw">return</span> utf32conv.from_bytes(s);
+}
+
+<span class="kw">inline</span> std::u16string to_u16string(<span class="dt">const</span> std::u32string&amp; s)
+{
+  <span class="kw">return</span> to_u16string(to_u8string(s));
+}
+
+<span class="kw">inline</span> std::u32string to_u32string(<span class="dt">const</span> std::u16string&amp; s)
+{
+  <span class="kw">return</span> to_u32string(to_u8string(s));
+}</code></pre><p>Note that since <code>wstring_convert</code> converts between a wide string and a byte string, conversions between UTF-16 and UTF-32 encodings require a call to <code>to_bytes</code> followed by one to <code>from_bytes</code>. Had we used <code>codecvt</code> instances directly, we should be able to perform the conversion in one step. But the code will be more complicated.</p><h1 id="makescreencast">makeScreencast</h1><p>I want to make screencasts on a Linux PC to demonstrate how to install and use my new software. So I’ve tested a number of programs for doing that. The most often recommended programs are <a href="http://recordmydesktop.sourceforge.net/about.php">recordMyDesktop</a>, <a href="http://www.youtube.com/results?search_query=ffmpeg+screencast"><code>ffmpeg</code></a>, and the <a href="http://live.gnome.org/GnomeShell/CheatSheet#Screencast_recording">Gnome screencast tool</a>. I’d like to record at full screen resolution (1920x1080) and record audio commentary at the same time. None of the tested programs worked very well for me: the common problem is the video lags behind audio.</p><p>I found a shell script <a href="http://audacity.238276.n2.nabble.com/New-script-for-recording-screencasts-on-Ubuntu-9-04-tt3081264.html">my-shooting-script-norm-lossless.sh</a> on the Web that prevents this audio/video synchronization problem by recording audio and video separately using two invocations of <code>ffmpeg</code> and then merging the results into a single file. Go download it and give it a try if you are experiencing synchronization problems with recording your screencasts. The following is a version which I’ve simplified and cleaned up to handle process IDs correctly. That’s really all you need.</p><pre class="sourceCode Bash"><code class="sourceCode bash"><span class="co">#!/bin/bash</span>
+
+<span class="ot">basename=$1</span>
+
+<span class="ot">screensize=</span>1920x1080
+
+<span class="co"># Start recording screen</span>
+<span class="kw">ffmpeg</span> -f x11grab -r 30 -s <span class="ot">$screensize</span> -i :0.0 -vcodec libx264 -b 4000k <span class="st">&quot;</span><span class="ot">$basename</span><span class="st">-video.avi&quot;</span> <span class="kw">&amp;</span>
+
+<span class="ot">video_pid=$(</span><span class="kw">pgrep</span> -n ffmpeg<span class="ot">)</span>
+
+<span class="co"># Start recording audio </span>
+<span class="kw">ffmpeg</span> -f alsa -ac 1 -i hw:2,0 -acodec pcm_s16le <span class="st">&quot;</span><span class="ot">$basename</span><span class="st">-audio.wav&quot;</span> <span class="kw">&amp;</span>
+
+<span class="ot">audio_pid=$(</span><span class="kw">pgrep</span> -n ffmpeg<span class="ot">)</span>
+
+<span class="co"># Wait for user to press Enter</span>
+<span class="kw">echo</span> <span class="st">&quot;Press &#39;Enter&#39; to stop recording.&quot;</span>
+<span class="kw">read</span> <span class="ot">dummy</span>
+
+<span class="kw">kill</span> <span class="ot">$video_pid</span>
+<span class="kw">kill</span> <span class="ot">$audio_pid</span>
+
+<span class="co"># Wait for the two subprocesses to terminate</span>
+<span class="kw">wait</span>
+
+<span class="co"># Merging video and audio recording</span>
+<span class="kw">ffmpeg</span> -isync -i <span class="st">&quot;</span><span class="ot">$basename</span><span class="st">-video.avi&quot;</span> -i <span class="st">&quot;</span><span class="ot">$basename</span><span class="st">-audio.wav&quot;</span> -map 0:0 -map 1:0 -acodec copy -vcodec copy <span class="st">&quot;</span><span class="ot">$basename</span><span class="st">.mov&quot;</span>
+
+<span class="kw">rm</span> <span class="st">&quot;</span><span class="ot">$basename</span><span class="st">-video.avi&quot;</span>
+<span class="kw">rm</span> <span class="st">&quot;</span><span class="ot">$basename</span><span class="st">-audio.wav&quot;</span></code></pre><p>To use it, save the script in a file, say, <code>makeScreencast</code>, make the file executable, and type <code>./makeScreencast &lt;filename&gt;</code>. To end the screencast, go back to the terminal window in which the <code>makeScreencast</code> command was issued and hit <em>Enter</em>. Note that my microphone is connected to alsa device <code>hw:2,0</code>. You will have to change that in your script according to your system configuration.</p><p>Have fun!</p>
+</div>

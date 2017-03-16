@@ -1,0 +1,104 @@
+div#contents h2.title {
+	text-align: center;
+	margin-right: 4em;
+	margin-left: 4em;
+	margin-top: 0.75em;
+}
+
+div#contents div.date {
+	text-align: center;
+	margin-top: 0.875em;
+	font-size: 90%;
+}
+
+div#contents div.abstract {
+	font-style: italic;
+	text-align: center;
+	margin: 0.875em 2em 0;
+}
+
+div#contents div.contents {
+	line-height: 1.25em;
+}
+
+div.contents p {
+	text-align: justify;
+	margin: 0.875em 0 0;
+}
+
+div.contents p.quote {
+	margin-left: 1.25em;
+	margin-right: 1.25em;
+}
+
+code {
+	font: 0.875em "Andale Mono", "Courier New", Courier, mono;
+}
+
+div.centered {
+	text-align: center;
+	margin: 0.875em 0 0;
+}
+
+dl {
+	font-size: 0.875em;
+}
+
+dd {
+	font-size: 115%;	
+}
+
+div#contents dl dd p {
+	margin: 0;
+}
+
+div#contents dl dt {
+	margin-top: 0.75em;
+}
+
+table {
+	font-size: 0.875em;
+	margin-top: 0.75em;
+	margin-bottom: auto;
+	margin-right: auto;
+	margin-left: auto;
+	border-spacing: 1em 0;
+}
+
+li {
+    margin-top: 0.325em;
+}
+
+pre {
+	margin-right: 1.25em;
+	margin-left: 1.25em;
+	font: 0.75em "Andale Mono", "Courier New", Courier, mono;
+	line-height: 1.25em;
+}
+
+img.alignright {
+	float: right;
+	margin: 0.375em 0 0.375em 0.75em;
+}
+
+img.alignleft {
+	float: left;
+	margin: 0.375em 0.75em 0.375em 0;
+}
+
+img.centered {
+  	display: block;
+	margin: 0.875em auto;
+}
+
+img.centeredbordered {
+  	display: block;
+	margin: 0.875em auto;
+	border: 1px outset #c5c5c5;
+}
+
+div#contents div.category {
+	margin-top: 0.875em;
+	font: 80% "Lucida Grande", Lucida, Verdana, sans-serif;
+}
+

@@ -1,0 +1,298 @@
+<?xml version="1.0" encoding="utf-8"?>
+<article-list>
+  <article>
+    <filename>articles/cantonese-AI-phonetic-IM-year-of-the-ram-release/</filename>
+    <title>Cantonese Artificially-intelligent Phonetic Input Method—Year of the RAM Release</title>
+    <date>Fri, 23 Jan 2015 17:00 MDT</date>
+    <category>Programming</category>
+    <abstract>
+      <p>I make a new release of my Cantonese Artificially-intelligent Phonetic (CAP) input method.  This includes a Mac OS X version for Mavericks and Yosemite, compatibility with latest Kubuntu/Ubuntu/Debian Linux distributions, and an updated statistical language model (that includes words like 雨遮革命 and 鳩嗚, and proper nouns like 黃之鋒)!  This article describes where to download and how to install it.</p>
+    </abstract>
+  </article>
+  <article>
+    <filename>articles/cantonese-AI-phonetic-IM-for-Windows-7/</filename>
+    <title>Cantonese Artificially-intelligent Phonetic Input Method for Windows 7</title>
+    <date>Fri, 27 Jul 2012 17:00 MDT</date>
+    <category>Programming</category>
+    <abstract>
+      <p>Here’s the Windows 7 version of my Cantonese Artificially-intelligent Phonetic (CAP) input method!  This article describes how to download and install it.</p>
+    </abstract>
+  </article>
+  <article>
+    <filename>articles/CAP/</filename>
+    <title>CAP — a Cantonese Artificially-intelligent Phonetic Input Method</title>
+    <date>Fri, 23 May 2012 17:00 MDT</date>
+    <category>Programming</category>
+    <abstract>
+      <p>The world deserves a better Cantonese phonetic input method!  The only true sentence-based, statistical-language-model-based (SLM-based) pinyin input methods is <a href="http://code.google.com/p/sunpinyin/">Sunpinyin</a>, which is a highly usable input method.  But it’s difficult for most Cantonese speakers to type pinyin (which requires thinking in Mandarin).  Numerous experiments on and variants of input methods based on SLMs have been written about in the literature, which claim to have very high recognition accuracies.  I’ve always wondered why these research results, if they’re so good, have never made it to production.  One can only speculate.  What I’d call “bells-and-whistles” input methods such as <a href="http://www.google.com/intl/zh-CN/ime/pinyin/">Google Pinyin</a>, <a href="http://pinyin.sogou.com/">Sogou Pinyin</a>, <a href="http://www.microsoft.com/china/pinyin/">Microsoft Pinyin</a>, and <a href="http://tw.media.yahoo.com/keykey/">Yahoo! Input Method</a> all appear to use word bigrams in some capacity, and/or a very large word dictionary.  That makes them nice to use, but not as accurate as Sunpinyin, which means more time spent in “word selection”.  Cantonese phonetic input methods based on SLMs have simply not existed, until now.  All Cantonese speakers should read on: CAP will change the way you type Chinese!</p>
+    </abstract>
+  </article>
+  <article>
+    <filename>articles/three-little-pieces/</filename>
+    <title>Three Little Pieces</title>
+    <date>Mon, 30 Apr 2012 17:00 MDT</date>
+    <category>Programming</category>
+    <abstract>
+      <p>One — a convenient Mac OS X utility to switch the main display on systems with multiple displays.  Two — C++0x routines for converting among UTF-8, UTF-16, UTF-32 encoded strings.  Three — a Linux script for recording screencasts with perfectly synchronized video and audio.</p>
+    </abstract>
+  </article>
+  <article>
+    <filename>articles/unicode-processing-c++0x/</filename>
+    <title>Unicode Processing with C++0x</title>
+    <date>Sat, 16 Oct 2010 17:00 MDT</date>
+    <category>Programming</category>
+    <abstract>
+      <p>I present a C++ class template and class library for writing programs that supports Unicode.  It uses the new character and string types defined in C++0x so future compatibility with this upcoming standard is ensured.  An iterator is also provided for sequential access to code points in UTF-16 encoded strings.</p>
+    </abstract>
+  </article>
+  <article>
+    <filename>articles/Haskell-bindings-for-JudySL/</filename>
+    <title>Haskell Bindings for JudySL</title>
+    <date>Sun, 13 Jun 2010 17:00 MDT</date>
+    <category>Programming</category>
+    <abstract>
+      <p>This article presents a set of Haskell bindings for <a href="http://judy.sourceforge.net/doc/JudySL_funcs_3x.htm">JudySL</a>, the functions in the <a href="http://judy.sourceforge.net/">Judy library</a> that implement associative arrays with variable-length byte string keys and integer values.  It concludes with a performance comparison between Judy arrays and hashing when applied to a simple dictionary lookup problem.</p>
+    </abstract>
+  </article>
+  <article>
+    <filename>articles/Db-1.85-the-original-BSD-license-Berkeley-DB/</filename>
+    <title>Db 1.85 — the Original, BSD license Berkeley DB</title>
+    <date>Thu, 27 May 2010 17:00 MDT</date>
+    <category>Programming</category>
+    <abstract>
+      <p>I discuss libraries for disk-based hash tables and B-trees such as Berkeley DB and Tokyo Cabinet and relational database systems such as MySQL and SQLite.  I describe how to install db 1.85, the original BSD licensed version of db, on Linux and Mac OS X.  Then we take an interesting turn in the second part of the article.</p>
+    </abstract>
+  </article>
+  <article>
+    <filename>articles/haskell-literate-programming-pandoc-carbon-xemacs/</filename>
+    <title>Haskell, Literate Programming, Pandoc, Carbon XEmacs, …</title>
+    <date>Wed, 28 Oct 2009 21:00 MDT</date>
+    <category>Programming</category>
+    <abstract>
+      <p>This is a summary of my experience in setting up a programming environment for writing literate Haskell programs on my Mac OS X and Linux machines.  It also includes a list of hints and resources that one’d need to get started in programming in Haskell.  The search for a good text markup language for literate programming led me to a new way of writing these Web articles.  I now use Pandoc, (X)Emacs, XSLT, and make files.  These are also discussed.</p>
+    </abstract>
+  </article>
+  <article>
+    <filename>articles/better-than-mac-text-completion-in-Qt/</filename>
+    <title>Better-Than-Mac Text Completion in Qt</title>
+    <date>Thu, 16 Jul 2009 17:00 MDT</date>
+    <category>Programming</category>
+    <abstract>
+      <p>I discuss my Qt project that demonstrates the implementation of text completion for a QLineEdit widget that provides very Mac-like interactions.  It works well on Mac, Linux, and Windows.  I’ve even added a few improvements over an ordinary Apple HIG text completion popup!</p>
+    </abstract>
+  </article>
+  <article>
+    <filename>articles/Qt-document-based-application/</filename>
+    <title>Qt Document-Based Application</title>
+    <date>Thu, 02 Jul 2009 12:00 MDT</date>
+    <category>Programming</category>
+    <abstract>
+      <p>I discuss Nokia’s recent release of the Qt GUI framework under the LGPL.  I also show how Qt can be used to write an application that behaves very Mac-like in the form of a skeleton of a document-based application.</p>
+    </abstract>
+  </article>
+  <article>
+    <filename>articles/jazz-harmonic-analysis-paper/</filename>
+    <title>Jazz Harmonic Analysis Paper</title>
+    <date>Mon, 23 Feb 2009 16:30 MST</date>
+    <category>Jazz</category>
+    <category>T2</category>
+    <abstract>
+      <p>In a paper I’ve just completed—Harmonic analysis of jazz chord sequences—I describe the T2 algorithm. This article explains some of the reasons I chose to work on this problem. There are (hopefully) also some insights into the state of computer music research and scientific research in general. Plus the question “is computer music more computer science or more music theory?”.</p>
+    </abstract>
+  </article>
+  <article>
+    <filename>articles/Big-Java-ME-Clock/</filename>
+    <title>Big Java ME Clock</title>
+    <date>Wed, 18 Feb 2009 14:30 MST</date>
+    <category>Programming</category>
+    <abstract>
+      <p>A clock written in Java ME.</p>
+    </abstract>
+  </article>
+  <article>
+    <filename>articles/T2G-version-2/</filename>
+    <title>T2G Version 2</title>
+    <date>Wed, 17 Dec 2008 17:30 MST</date>
+    <category>Jazz</category>
+    <category>Programming</category>
+    <category>T2</category>
+    <abstract>
+      <p>Version 2 of T2G with new and improved tonality segmentation algorithm.</p>
+    </abstract>
+  </article>
+  <article>
+    <filename>articles/T2G-getting-started-guide/</filename>
+    <title>T2G — Getting Started Guide</title>
+    <date>Fri, 19 Sep 2008 17:30 MST</date>
+    <category>Jazz</category>
+    <category>Programming</category>
+    <category>T2</category>
+    <abstract>
+      <p>A brief overview of how to use T2G.</p>
+    </abstract>
+  </article>
+  <article>
+    <filename>articles/T2G-jazz-harmonic-analysis-and-accompaniment-generation-software/</filename>
+    <title>T2G — Jazz Harmonic Analysis and Accompaniment Generation Software</title>
+    <date>Fri, 19 Sep 2008 17:00 MST</date>
+    <category>Jazz</category>
+    <category>Programming</category>
+    <category>T2</category>
+    <abstract>
+      <p>The release of T2G — my new jazz harmonic analysis and accompaniment generation software.</p>
+    </abstract>
+  </article>
+  <article>
+    <filename>articles/FCIM-a-cantonese-phonetic-input-method/</filename>
+    <title>FCIM — a Cantonese Phonetic Input Method</title>
+    <date>Mon, 08 Sep 2008 20:00 MST</date>
+    <category>Programming</category>
+    <abstract>
+      <p>Chinese input methods on Mac OS X, Cantonese phonetic input methods, and FCIM, my new fast Cantonese input method.</p>
+    </abstract>
+  </article>
+  <article>
+    <filename>articles/simple-dock-clock/</filename>
+    <title>SimpleDockClock</title>
+    <date>Mon, 30 Jun 2008 17:00 MST</date>
+    <category>Programming</category>
+    <abstract>
+      <p>A simple analog clock for the dock on Leopard.</p>
+    </abstract>
+  </article>
+  <article>
+    <filename>articles/xslt-website-templates/</filename>
+    <title>XSLT Website Templates</title>
+    <date>Fri, 14 Dec 2007 23:00 MST</date>
+    <category>Programming</category>
+    <abstract>
+      <p>This article describes the advantages of a static website over of a dynamic one, and outlines the use of XSLT style sheets and XML templates to generate webpages with consistent appearance and global contents. [Hint: you’re looking at one.]</p>
+    </abstract>
+  </article>
+  <article>
+    <filename>articles/t2-getting-started-guide/</filename>
+    <title>T2 Getting Started Guide</title>
+    <date>Mon, 27 Aug 2007 16:09 MST</date>
+    <category>Jazz</category>
+    <category>Programming</category>
+    <category>T2</category>
+    <abstract>
+      <p>A short note to for new users of T2.</p>
+    </abstract>
+  </article>
+  <article>
+    <filename>articles/t2-a-jazz-harmonic-analysis-program/</filename>
+    <title>T2 - A Jazz Harmonic Analysis Program</title>
+    <filename>articles/t2-a-jazz-harmonic-analysis-program/</filename>
+    <date>Sat, 25 Aug 2007 14:38 MST</date>
+    <category>Jazz</category>
+    <category>Programming</category>
+    <category>T2</category>
+    <abstract>
+      <p>The release of T2, a program that performs roman numeral analysis on jazz chord charts.</p>
+    </abstract>
+  </article>
+  <article>
+    <filename>articles/a-correct-version-of-myjazzband-2-lite-ocaml/</filename>
+    <title>A Correct Mac OS X Version of MyJazzBand 2 Lite - OCaml</title>
+    <date>Tue, 17 Jul 2007 09:49 MST</date>
+    <category>Jazz</category>
+    <category>Programming</category>
+    <abstract>
+      <p>A new version of the Mac OS X Version of MyJazzBand 2 Lite - OCaml that corrects a problem with one I post last month.</p>
+    </abstract>
+  </article>
+  <article>
+    <filename>articles/a-few-notes-on-ocamlbuild-ocamldebug-and-caml-mode/</filename>
+    <title>A Few Notes on Ocamlbuild, Ocamldebug, and Caml-mode</title>
+    <date>Sat, 02 Jun 2007 16:58 MST</date>
+    <category>Programming</category>
+    <abstract>
+      <p>A short writeup on programming in OCaml on Mac OS X. The use of ocamlbuild, ocamldebug, and caml-mode.</p>
+    </abstract>
+  </article>
+  <article>
+    <filename>articles/myjazzband-2-lite-ocaml/</filename>
+    <title>MyJazzBand 2 Lite - OCaml</title>
+    <date>Thu, 31 May 2007 14:32 MST</date>
+    <category>Jazz</category>
+    <category>Programming</category>
+    <abstract>
+      <p>Here is the new release of MyJazzBand 2 Lite (MJB2Lite), rewritten in OCaml!</p>
+    </abstract>
+  </article>
+  <article>
+    <filename>articles/python-scheme-and-ocaml-speed-comparison/</filename>
+    <title>Python, Scheme, and OCaml Speed Comparison</title>
+    <date>Fri, 18 May 2007 22:58 MST</date>
+    <category>Programming</category>
+    <abstract>
+      <p>Execution speed comparison of “chord scale theory” operations among Python, Scheme, and OCaml implementations.</p>
+    </abstract>
+  </article>
+  <article>
+    <filename>articles/ocaml-python-scheme-tuareg-mode-camldebug-and-carbon-xemacs/</filename>
+    <title>OCaml, Python, Scheme, Tuareg Mode, Camldebug, and Carbon XEmacs</title>
+    <date>Thu, 10 May 2007 21:01 MST</date>
+    <category>Programming</category>
+    <abstract>
+      <p>A discussion of expressiveness and efficiency of programming languages used in my previous projects, my switch to OCaml, and programming in OCaml under Mac OS X.</p>
+    </abstract>
+  </article>
+  <article>
+    <filename>articles/chart-translate/</filename>
+    <title>Chart Translate: Chord Chart File Format Converter</title>
+    <date>Thu, 03 May 2007 15:55 MST</date>
+    <category>Jazz</category>
+    <category>Programming</category>
+    <abstract>
+      <p>A utility to convert chord charts stored in MyJazzBand, Band-in-a-Box, and MusicXML format into MyJazzBand, Band-in-a-Box, MusicXML, and Lilypond format.</p>
+    </abstract>
+  </article>
+  <article>
+    <filename>articles/myjazzband-2-lite/</filename>
+    <title>MyJazzBand 2 Lite</title>
+    <date>Fri, 27 Apr 2007 21:20 MST</date>
+    <category>Jazz</category>
+    <category>Programming</category>
+    <abstract>
+      <p>Here is the release of MyJazzBand 2 Lite (MJB2Lite), a MIDI application for generating jazz accompaniments.</p>
+    </abstract>
+  </article>
+  <article>
+    <filename>articles/hello-again/</filename>
+    <title>Hello Again</title>
+    <date>Fri, 30 Mar 2007 16:33 MST</date>
+    <category>General</category>
+    <abstract>
+      <p>An explanation of why I have stopped writing my blog for a while and the new focus of my blog.</p>
+    </abstract>
+  </article>
+  <article>
+    <filename>articles/about-the-author/</filename>
+    <title>About the Author</title>
+    <date>Mon, 19 Feb 2007 20:48 MST</date>
+    <category>Info</category>
+    <abstract>
+      <p>Here is a short bio of me.</p>
+    </abstract>
+  </article>
+  <article>
+    <filename>articles/about-this-website/</filename>
+    <title>About This Website</title>
+    <date>Mon, 19 Feb 2007 23:08 MST</date>
+    <category>Info</category>
+    <abstract>
+      <p>Here is a description of the contents of this website.</p>
+    </abstract>
+  </article>
+  <article>
+    <filename>articles/contact-information/</filename>
+    <title>Contact Information</title>
+    <date>Wed, 28 Mar 2007 10:39 MST</date>
+    <category>Info</category>
+    <abstract>
+      <p>Here is my Email address etc.</p>
+    </abstract>
+  </article>
+</article-list>

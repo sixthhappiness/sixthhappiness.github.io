@@ -1,0 +1,157 @@
+% Cantonese Artificially-intelligent Phonetic Input Method—Year of the RAM Release
+% Andrew Choi
+% 23 Jan 2015
+
+# Download Locations and Checksums
+
+Click on a link in the _Filename_ column of the following table to
+download a new version of the CAP input method for your platform.  The
+values in the third column are MD5 checksums of these files.
+
+  OS             Filename                                            MD5 Checksums
+  -------------- --------------------------------------------------- ----------------------------------
+  Debian         [`ibus-cap_1.0_amd64.deb`][CAP deb]                 `8246a6903b76420c7bcd7bf83a401af8`
+  Mac OS X       [`Chinese - Cantonese AI Phonetic IM.zip`][CAP OSX] `914cb88f64aade01bc20b823830e971b`
+  32-bit Windows [`cap-Win32.msi`][CAP w32]                          `745cf35b900d58898fcd35deeb7db912`
+  64-bit Windows [`cap-x64.msi`][CAP w64]                            `5aa949f5081c6b0f53e9ce73c9e17e87`
+  -------------- --------------------------------------------------- ----------------------------------
+
+[CAP deb]: https://drive.google.com/open?id=0B2IrUQCNvax9QzBZbHJyWHVZLUE&authuser=0
+[CAP OSX]: https://drive.google.com/open?id=0B2IrUQCNvax9S00xaDBkVUpYdW8&authuser=0
+[CAP w32]: https://drive.google.com/open?id=0B2IrUQCNvax9ZzFpSE5BVXZIZnM&authuser=0
+[CAP w64]: https://drive.google.com/open?id=0B2IrUQCNvax9QTdoYnpkbkEta2s&authuser=0
+
+When you download one of these files, Google Drive (where it is
+stored) will warn you that it can’t scan the file for viruses because
+of (large) file size.  Each file is built on my computers, then
+uploaded directly to Google Drive, and therefore should be safe.  If
+you feel the need to, check the downloaded files’ MD5 checksums before
+installing.  The additionally cautious can scan with whatever
+anti-virus tools on their computers after downloading.  To proceed
+when prompted by Google Drive, click _Download anyway_.
+
+The Debian version has been tested on 64-bit Kubuntu 14.04.  It should
+work on 64-bit Kubuntu, Ubuntu, and Debian, version 14.04 and above.
+The `alien` command can be used to convert the `.deb` package into a
+`.rpm` package for installation on Red Hat Linux distributions and
+derivatives.  For information on the installation and use of CAP on
+Linux, read the [original release article][CAP].  This version
+currently still has a few bugs and occasionally hangs.  When that
+happens, right click on the keyboard icon in the system tray and
+choose _Restart_.
+
+[CAP]: ../CAP/index.html
+
+The 32-bit and 64-bit Windows versions will work on the respective
+versions of Windows 7.  They won’t work or will work only marginally
+on Windows 8.  Read the [Windows version release article][CAP for
+Win7] for information on the installation and use of CAP on Windows.
+
+[CAP for Win7]: ../cantonese-AI-phonetic-IM-for-Windows-7/index.html
+
+
+# Installation of CAP on Mac OS X
+
+The Mac OS X version of CAP has been tested on both Mavericks and
+Yosemite.
+
+Here is how to install CAP on Mac OS X.
+
+Download the zip file [`Chinese - Cantonese AI Phonetic IM.zip`][CAP
+OSX].
+
+If your web browser doesn’t automatically unzip it, double-click on
+the zip file to obtain an _application bundle_ named _Chinese -
+Cantonese AI Phonetic IM_.
+
+> ![](SG1.png)
+
+Move this file into the hidden folder `~/Library/Input Methods/`.  To
+access this folder, in the Finder, select “Go -> Go to Folder...” and
+type this folder’s name.  If you have an older version of this input
+method, first move that version out onto the desktop before moving the
+new version into the folder.
+
+> ![](SG2.png)
+
+> ![](SG3.png)
+
+> ![](SG4.png)
+
+> ![](SG5.png)
+
+Log out, then log in (alternatively, restart).  Open the _Keyboard_
+preferences panel; select the _Input Sources_ tab.  Click _+_.  Under
+_Chinese, Traditional_, select _Chinese - Cantonese AI Phonetic IM_
+and click _Add_.
+
+> ![](SG6.png)
+
+> ![](SG7.png)
+
+Since the CAP input method isn’t signed, in its default settings, [OS
+X’s Gatekeeper][Gatekeeper] will prompt you to explicitly allow CAP’s
+execution the first time it is opened.  To avoid this, open the
+_Security & Privacy_ preferences panel; select the _General_ tab.  If
+it isn’t already unlocked, click on the lock icon labeled _Click the
+lock to make changes_ and type your password.  Temporarily select
+_Anywhere_ under _Allow apps downloaded from:_.  When a dialog
+appears, click _Allow From Anywhere_.
+
+[Gatekeeper]: http://support.apple.com/en-ca/HT202491
+
+> ![](SG8.png)
+
+> ![](SG9.png)
+
+Open any application that lets you type text, such as _TextEdit_.
+Select the _Chinese - Cantonese AI Phonetic IM_ input method from the
+input method menu (upper-right corner of screen).
+
+> ![](SG10.png)
+
+The following dialog should appear:
+
+> ![](SG11.png)
+
+Click _Open_.  From here on you should be able to use the input method
+without any further alerts from OS X.
+
+> ![](SG12.png)
+
+**Important:** at this time you should go back to the _Security and
+Privacy_ preferences panel, _General_ tab and set _Allow apps
+downloaded from:_ to its previous, safer value.
+
+> ![](SG13.png)
+
+For instructions on the use of input method, read the [original CAP
+article][CAP].
+
+The OS X, Linux, and Windows versions should all work very similarly. 
+
+Again, I don’t really have much interest or sufficient time and
+resources to provide “user support” for CAP. So _please please please_
+use it only if you know enough about Mac OS X, Linux, or Windows to
+solve most problems on your own.  Don’t be surprised if I don’t reply
+to your Email containing questions that I think can be answered by a
+little experimentation.  Thank you for your understanding.
+
+
+# CAP License Reminder
+
+For detail CAP licensing information, read the file `Chinese -
+Cantonese AI Phonetic IM.app/Contents/Resources/LICENSE` within the
+Mac OS X application bundle.  To summarize:
+
+* You can only use it for personal and non-commercial purposes.  The
+  _and_ in the previous sentence is a logical conjunction, so no site
+  installation at _any_ type of organizations.
+
+* You may _not_ redistribute it.  I’m the only person in the world who
+  can distribute this software.
+
+* I’m not liable for any damages it may cause (although I don’t intend
+  nor expect it to cause any).
+
+Have fun!

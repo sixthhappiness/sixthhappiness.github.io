@@ -1,0 +1,70 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Qt Document-Based Application</title>
+<link rel="stylesheet" href="../../css/base.css">
+<link rel="stylesheet" href="../../css/article.css">
+<link rel="stylesheet" href="../../css/highlight.css">
+</head>
+<body><div id="box0">
+<div id="header"><h1 class="blog-title"><a href="../../index.html">My OS X Programming Blog</a></h1></div>
+<div id="box1"><div id="box2">
+<div id="contents">
+<h2 class="title">Qt Document-Based Application</h2>
+<div class="date">2 Jul 2009</div>
+<div class="abstract"><p>I discuss Nokia’s recent release of the Qt GUI framework under the LGPL.  I also show how Qt can be used to write an application that behaves very Mac-like in the form of a skeleton of a document-based application.</p></div>
+<div class="contents">
+<p>I’ve been reviewing different programming languages, libraries, and tools that I can use to implement my “next big project”, which will be an extension of <a href="../../T2.html">my T2G program</a>.  A “T2G2” I suppose.  T2G was written in OCaml and Objective C.  The former was used to implement the jazz harmonic analysis and automatic accompaniment algorithms because of it’s expressiveness and the efficiency of code written in it.  The latter was used for the GUI because T2G is a Mac application.</p>
+<p>I’ve come to an interesting decision on the implementation language for the music algorithms, which I will perhaps discuss in a future article.  I’ve also decided on what to use for the implementation of the GUI.  As you’ve probably guessed from the title of this article, it’s going to be <a href="http://www.qtsoftware.com/">Qt</a>.</p>
+<p>Qt is interesting for many reasons.  Not the least of which is the history of its licenses.  For those unfamiliar with the story back around 2000, an example of FSF bullying at its best (worst?), start by reading <a href="http://www.linuxtoday.com/news_story.php3?ltsn=2000-09-04-013-20-OS-LF-KE">one of its authors’ statement after adding GPL as a licensing option</a> and <a href="http://www.linuxtoday.com/news_story.php3?ltsn=2000-09-05-001-21-OP-LF-KE">Richard Stallman’s attack on Qt licensing</a>.  Much more recently, Nokia acquired Qt Software last year and released Qt under the LGPL this March (along with other licensing options).</p>
+<p>This is super news!  But not for reasons people have written about.  LGPL licensing will have little effect on free software and the Linux desktop (and certainly less on the demise of GNOME and Gtk+) because Qt has been available under the GPL since 2000.  And no, Adobe and others aren’t going to port their multimillion-line programs to Qt any time soon.  A commercial version of Qt has been available if they have wanted to.  The biggest beneficiaries are developers of new commercial products and developers who want their new projects to be unencumbered by the GPL, using a more <i>or</i> less restrictive license.</p>
+<p>For reasons I won’t repeat here, I will not write GPL code ever again (see <a href="http://members.shaw.ca/akochoi-old/blog/2004/09-12/index.html#5">some of my objections</a>, for example).  My experiment with releasing code into the public domain <a href="http://members.shaw.ca/akochoi-xemacs/">also met with a great deal of unwarranted hostility</a>.  My current solution is to release code under a non-commercial, no redistribution license, which serves me just fine because my code’s chief purpose is educational and for illustration of research results.  At the same time I also keep the door open for later commercialization.  For this I can only use LGPL or less restrictively licensed libraries.  That’s why the recent LGPL-ing of Qt is good news for me.</p>
+<p>Qt also has many technical advantages over other GUI libraries.  I’d much rather implement a GUI in C++ (Qt) than Objective C (Cocoa), and certainly much more than C (Gtk+, Carbon).  Of course a cross-platform library such as Qt will allow my programs to run on Windows and Linux as well as Macs—a huge advantage.  Of all the cross-platform libraries, Qt seems the most mature and closest in providing a GUI that conforms to <a href="http://developer.apple.com/documentation/userexperience/Conceptual/AppleHIGuidelines/XHIGIntro/XHIGIntro.html">Apple’s HIG</a>.  Those parts that don’t conform can be persuaded to do so as demonstrated by the sample project below.  The latest version of Qt will also run on Cocoa (as an alternative to Carbon, which it already supports) so it can be used for 64-bit applications.</p>
+<p>To start writing Qt programs simply <a href="http://www.qtsoftware.com/downloads">download and install the SDK</a> for your platform.  On Linux you may need additional libraries depending on which packages you already have.  To learn Qt, read the book <i>C++ GUI Programming with Qt 4</i>.  An earlier edition of this book is <a href="http://doc.qtsoftware.com/4.5/how-to-learn-qt.html">available online</a>.  I’ve found that to be sufficient.  Also read through whichever articles you need on the <a href="http://doc.qtsoftware.com/4.5/index.html">Qt Reference Documentation page</a>.  You may also find questions you have already answered in the <a href="http://lists.trolltech.com/mailman/listinfo/qt-interest">Qt Interest mailing list archive</a>.  And of course look at the sample programs in the Demos and Examples directories.</p>
+<p>One disadvantage of Qt is that information on its use on the Mac (especially under Cocoa) is still quite scarce.  Another is although GUI elements are native on the Mac, one must do a little extra work to make the GUI <i>behave</i> more Mac-like.</p>
+<p>My sample project <a href="QtDocBasedApp.zip">QtDocBasedApp</a> reproduces much of the behavior of a Cocoa document-based application created in Xcode using a standard project template.  It provides Open, Save, Save As sheet file dialogs and Quit and Close confirmation dialogs when there are modified documents.  Logout, restart, and shutdown are handled correctly.  The application may be terminated by choosing Quit in the dock menu.  Files can be dropped onto the application icon in the Finder or the dock.  It provides a “recent files” menu and a “window” menu.  It cascades new windows when they’re created.  It can also be built and provides reasonable interaction under Linux and Windows.</p>
+<p>This project also demonstrates a number of techniques for implementing Qt programs on the Mac and in general.  It shows how Cocoa and/or Carbon code can provide functionalities omitted by Qt, and how such code can coexist and selected by <code>CONFIG</code> variable in the project file (<code>.pro</code> file).  It also demonstrates the use of an external library (in this case <code>qtsingleapplication</code>) and how to specify its location in the project file for the different platforms.  See the file README.txt for more information about this project.</p>
+<p>Here’s a screenshot of the save confirmation sheet on a Mac.</p>
+<img class="centered" src="ConfirmSaveMac.jpg" alt="ConfirmSaveMac.jpg"><p>Here’s a screenshot of the quit confirmation dialog on Linux.</p>
+<img class="centered" src="ConfirmQuitLinux.jpg" alt="ConfirmQuitLinux.jpg"><p>Here’s a screenshot of the recent files menu on Windows.</p>
+<img class="centered" src="RecentFilesMenuWindows.jpg" alt="RecentFilesMenuWindows.jpg"><p>Here’s a screenshot of the Open Recent menu on the Mac.</p>
+<img class="centered" src="RecentFilesMenuMac.jpg" alt="RecentFilesMenuMac.jpg"><p>All these from the same code base!  Mac goodness from code written in Qt.</p>
+</div>
+<div class="category"><p>Category: Programming</p></div>
+</div>
+<div id="navigation">
+<h2 class="title">Articles</h2>
+<h3 class="article-title"><a href="../../articles/cantonese-AI-phonetic-IM-year-of-the-ram-release/index.html">Cantonese Artificially-intelligent Phonetic Input Method—Year of the RAM Release</a></h3>
+<div class="date">Date: 23 Jan 2015</div>
+<h3 class="article-title"><a href="../../articles/cantonese-AI-phonetic-IM-for-Windows-7/index.html">Cantonese Artificially-intelligent Phonetic Input Method for Windows 7</a></h3>
+<div class="date">Date: 27 Jul 2012</div>
+<h3 class="article-title"><a href="../../articles/CAP/index.html">CAP — a Cantonese Artificially-intelligent Phonetic Input Method</a></h3>
+<div class="date">Date: 23 May 2012</div>
+<h3 class="article-title"><a href="../../articles/three-little-pieces/index.html">Three Little Pieces</a></h3>
+<div class="date">Date: 30 Apr 2012</div>
+<h3 class="article-title"><a href="../../articles/unicode-processing-c++0x/index.html">Unicode Processing with C++0x</a></h3>
+<div class="date">Date: 16 Oct 2010</div>
+<h3 class="article-title"><a href="../../all.html">[Complete Article List...]</a></h3>
+<h3 class="article-title"><a href="../../rss.xml">[RSS]</a></h3>
+<h2 class="title">Categories</h2>
+<h3 class="article-title"><a href="../../General.html">General</a></h3>
+<h3 class="article-title"><a href="../../Jazz.html">Jazz</a></h3>
+<h3 class="article-title"><a href="../../Programming.html">Programming</a></h3>
+<h3 class="article-title"><a href="../../T2.html">T2</a></h3>
+<h2 class="title">Information</h2>
+<h3 class="article-title"><a href="../../articles/about-the-author/index.html">About the Author</a></h3>
+<h3 class="article-title"><a href="../../articles/about-this-website/index.html">About This Website</a></h3>
+<h3 class="article-title"><a href="../../articles/contact-information/index.html">Contact Information</a></h3>
+<h2 class="title">My Other Webpages</h2>
+<h3 class="article-title"><a href="http://members.shaw.ca/akochoi-gallery/">My Photo Gallery</a></h3>
+<h3 class="article-title"><a href="http://members.shaw.ca/akochoi-old/blog/">My Old Blog</a></h3>
+<h2 class="title">My Old Projects</h2>
+<h3 class="article-title"><a href="http://members.shaw.ca/akochoi-xemacs/">Carbon XEmacs</a></h3>
+<h3 class="article-title"><a href="http://members.shaw.ca/akochoi-emacs/">Emacs for Mac OS X “Carbon Emacs”</a></h3>
+<h3 class="article-title"><a href="http://mac-emacs.sourceforge.net/">Emacs for Mac OS 8/9</a></h3>
+</div>
+</div></div>
+<div id="footer">Copyright © 2007, 2008, 2009, 2010, 2011, 2012 Andrew Choi. All rights reserved. Do not aggregate.</div>
+</div></body>
+</html>

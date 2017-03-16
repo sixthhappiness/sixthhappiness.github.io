@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<?xml-stylesheet type="text/xsl" href="../../xslt/article.xslt"?>
+<article>
+  <title>CAP — a Cantonese Artificially-intelligent Phonetic Input Method</title>
+  <contents>
+    <include>contents.xml</include>
+  </contents>
+</article>

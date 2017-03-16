@@ -1,0 +1,126 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Cantonese Artificially-intelligent Phonetic Input Method—Year of the RAM Release</title>
+<link rel="stylesheet" href="../../css/base.css">
+<link rel="stylesheet" href="../../css/article.css">
+<link rel="stylesheet" href="../../css/highlight.css">
+</head>
+<body><div id="box0">
+<div id="header"><h1 class="blog-title"><a href="../../index.html">My OS X Programming Blog</a></h1></div>
+<div id="box1"><div id="box2">
+<div id="contents">
+<h2 class="title">Cantonese Artificially-intelligent Phonetic Input Method—Year of the RAM Release</h2>
+<div class="date">23 Jan 2015</div>
+<div class="abstract"><p>I make a new release of my Cantonese Artificially-intelligent Phonetic (CAP) input method.  This includes a Mac OS X version for Mavericks and Yosemite, compatibility with latest Kubuntu/Ubuntu/Debian Linux distributions, and an updated statistical language model (that includes words like 雨遮革命 and 鳩嗚, and proper nouns like 黃之鋒)!  This article describes where to download and how to install it.</p></div>
+<div class="contents"><div>
+
+<h1 id="download-locations-and-checksums">Download Locations and Checksums</h1>
+<p>Click on a link in the <em>Filename</em> column of the following table to download a new version of the CAP input method for your platform. The values in the third column are MD5 checksums of these files.</p>
+<table>
+<thead><tr class="header">
+<th align="left">OS</th>
+<th align="left">Filename</th>
+<th align="left">MD5 Checksums</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="left">Debian</td>
+<td align="left"><a href="https://drive.google.com/open?id=0B2IrUQCNvax9QzBZbHJyWHVZLUE&amp;authuser=0"><code>ibus-cap_1.0_amd64.deb</code></a></td>
+<td align="left"><code>8246a6903b76420c7bcd7bf83a401af8</code></td>
+</tr>
+<tr class="even">
+<td align="left">Mac OS X</td>
+<td align="left"><a href="https://drive.google.com/open?id=0B2IrUQCNvax9S00xaDBkVUpYdW8&amp;authuser=0"><code>Chinese - Cantonese AI Phonetic IM.zip</code></a></td>
+<td align="left"><code>914cb88f64aade01bc20b823830e971b</code></td>
+</tr>
+<tr class="odd">
+<td align="left">32-bit Windows</td>
+<td align="left"><a href="https://drive.google.com/open?id=0B2IrUQCNvax9ZzFpSE5BVXZIZnM&amp;authuser=0"><code>cap-Win32.msi</code></a></td>
+<td align="left"><code>745cf35b900d58898fcd35deeb7db912</code></td>
+</tr>
+<tr class="even">
+<td align="left">64-bit Windows</td>
+<td align="left"><a href="https://drive.google.com/open?id=0B2IrUQCNvax9QTdoYnpkbkEta2s&amp;authuser=0"><code>cap-x64.msi</code></a></td>
+<td align="left"><code>5aa949f5081c6b0f53e9ce73c9e17e87</code></td>
+</tr>
+</tbody>
+</table>
+<p>When you download one of these files, Google Drive (where it is stored) will warn you that it can’t scan the file for viruses because of (large) file size. Each file is built on my computers, then uploaded directly to Google Drive, and therefore should be safe. If you feel the need to, check the downloaded files’ MD5 checksums before installing. The additionally cautious can scan with whatever anti-virus tools on their computers after downloading. To proceed when prompted by Google Drive, click <em>Download anyway</em>.</p>
+<p>The Debian version has been tested on 64-bit Kubuntu 14.04. It should work on 64-bit Kubuntu, Ubuntu, and Debian, version 14.04 and above. The <code>alien</code> command can be used to convert the <code>.deb</code> package into a <code>.rpm</code> package for installation on Red Hat Linux distributions and derivatives. For information on the installation and use of CAP on Linux, read the <a href="../CAP/index.html">original release article</a>. This version currently still has a few bugs and occasionally hangs. When that happens, right click on the keyboard icon in the system tray and choose <em>Restart</em>.</p>
+<p>The 32-bit and 64-bit Windows versions will work on the respective versions of Windows 7. They won’t work or will work only marginally on Windows 8. Read the <a href="../cantonese-AI-phonetic-IM-for-Windows-7/index.html">Windows version release article</a> for information on the installation and use of CAP on Windows.</p>
+<h1 id="installation-of-cap-on-mac-os-x">Installation of CAP on Mac OS X</h1>
+<p>The Mac OS X version of CAP has been tested on both Mavericks and Yosemite.</p>
+<p>Here is how to install CAP on Mac OS X.</p>
+<p>Download the zip file <a href="https://drive.google.com/open?id=0B2IrUQCNvax9S00xaDBkVUpYdW8&amp;authuser=0"><code>Chinese - Cantonese AI Phonetic IM.zip</code></a>.</p>
+<p>If your web browser doesn’t automatically unzip it, double-click on the zip file to obtain an <em>application bundle</em> named <em>Chinese - Cantonese AI Phonetic IM</em>.</p>
+<blockquote><div class="figure"><img src="SG1.png"></div></blockquote>
+<p>Move this file into the hidden folder <code>~/Library/Input Methods/</code>. To access this folder, in the Finder, select “Go -&gt; Go to Folder…” and type this folder’s name. If you have an older version of this input method, first move that version out onto the desktop before moving the new version into the folder.</p>
+<blockquote><div class="figure"><img src="SG2.png"></div></blockquote>
+<blockquote><div class="figure"><img src="SG3.png"></div></blockquote>
+<blockquote><div class="figure"><img src="SG4.png"></div></blockquote>
+<blockquote><div class="figure"><img src="SG5.png"></div></blockquote>
+<p>Log out, then log in (alternatively, restart). Open the <em>Keyboard</em> preferences panel; select the <em>Input Sources</em> tab. Click <em>+</em>. Under <em>Chinese, Traditional</em>, select <em>Chinese - Cantonese AI Phonetic IM</em> and click <em>Add</em>.</p>
+<blockquote><div class="figure"><img src="SG6.png"></div></blockquote>
+<blockquote><div class="figure"><img src="SG7.png"></div></blockquote>
+<p>Since the CAP input method isn’t signed, in its default settings, <a href="http://support.apple.com/en-ca/HT202491">OS X’s Gatekeeper</a> will prompt you to explicitly allow CAP’s execution the first time it is opened. To avoid this, open the <em>Security &amp; Privacy</em> preferences panel; select the <em>General</em> tab. If it isn’t already unlocked, click on the lock icon labeled <em>Click the lock to make changes</em> and type your password. Temporarily select <em>Anywhere</em> under <em>Allow apps downloaded from:</em>. When a dialog appears, click <em>Allow From Anywhere</em>.</p>
+<blockquote><div class="figure"><img src="SG8.png"></div></blockquote>
+<blockquote><div class="figure"><img src="SG9.png"></div></blockquote>
+<p>Open any application that lets you type text, such as <em>TextEdit</em>. Select the <em>Chinese - Cantonese AI Phonetic IM</em> input method from the input method menu (upper-right corner of screen).</p>
+<blockquote><div class="figure"><img src="SG10.png"></div></blockquote>
+<p>The following dialog should appear:</p>
+<blockquote><div class="figure"><img src="SG11.png"></div></blockquote>
+<p>Click <em>Open</em>. From here on you should be able to use the input method without any further alerts from OS X.</p>
+<blockquote><div class="figure"><img src="SG12.png"></div></blockquote>
+<p><strong>Important:</strong> at this time you should go back to the <em>Security and Privacy</em> preferences panel, <em>General</em> tab and set <em>Allow apps downloaded from:</em> to its previous, safer value.</p>
+<blockquote><div class="figure"><img src="SG13.png"></div></blockquote>
+<p>For instructions on the use of input method, read the <a href="../CAP/index.html">original CAP article</a>.</p>
+<p>The OS X, Linux, and Windows versions should all work very similarly.</p>
+<p>Again, I don’t really have much interest or sufficient time and resources to provide “user support” for CAP. So <em>please please please</em> use it only if you know enough about Mac OS X, Linux, or Windows to solve most problems on your own. Don’t be surprised if I don’t reply to your Email containing questions that I think can be answered by a little experimentation. Thank you for your understanding.</p>
+<h1 id="cap-license-reminder">CAP License Reminder</h1>
+<p>For detail CAP licensing information, read the file <code>Chinese - Cantonese AI Phonetic IM.app/Contents/Resources/LICENSE</code> within the Mac OS X application bundle. To summarize:</p>
+<ul>
+<li><p>You can only use it for personal and non-commercial purposes. The <em>and</em> in the previous sentence is a logical conjunction, so no site installation at <em>any</em> type of organizations.</p></li>
+<li><p>You may <em>not</em> redistribute it. I’m the only person in the world who can distribute this software.</p></li>
+<li><p>I’m not liable for any damages it may cause (although I don’t intend nor expect it to cause any).</p></li>
+</ul>
+<p>Have fun!</p>
+</div></div>
+<div class="category"><p>Category: Programming</p></div>
+</div>
+<div id="navigation">
+<h2 class="title">Articles</h2>
+<h3 class="article-title"><a href="../../articles/cantonese-AI-phonetic-IM-year-of-the-ram-release/index.html">Cantonese Artificially-intelligent Phonetic Input Method—Year of the RAM Release</a></h3>
+<div class="date">Date: 23 Jan 2015</div>
+<h3 class="article-title"><a href="../../articles/cantonese-AI-phonetic-IM-for-Windows-7/index.html">Cantonese Artificially-intelligent Phonetic Input Method for Windows 7</a></h3>
+<div class="date">Date: 27 Jul 2012</div>
+<h3 class="article-title"><a href="../../articles/CAP/index.html">CAP — a Cantonese Artificially-intelligent Phonetic Input Method</a></h3>
+<div class="date">Date: 23 May 2012</div>
+<h3 class="article-title"><a href="../../articles/three-little-pieces/index.html">Three Little Pieces</a></h3>
+<div class="date">Date: 30 Apr 2012</div>
+<h3 class="article-title"><a href="../../articles/unicode-processing-c++0x/index.html">Unicode Processing with C++0x</a></h3>
+<div class="date">Date: 16 Oct 2010</div>
+<h3 class="article-title"><a href="../../all.html">[Complete Article List...]</a></h3>
+<h3 class="article-title"><a href="../../rss.xml">[RSS]</a></h3>
+<h2 class="title">Categories</h2>
+<h3 class="article-title"><a href="../../General.html">General</a></h3>
+<h3 class="article-title"><a href="../../Jazz.html">Jazz</a></h3>
+<h3 class="article-title"><a href="../../Programming.html">Programming</a></h3>
+<h3 class="article-title"><a href="../../T2.html">T2</a></h3>
+<h2 class="title">Information</h2>
+<h3 class="article-title"><a href="../../articles/about-the-author/index.html">About the Author</a></h3>
+<h3 class="article-title"><a href="../../articles/about-this-website/index.html">About This Website</a></h3>
+<h3 class="article-title"><a href="../../articles/contact-information/index.html">Contact Information</a></h3>
+<h2 class="title">My Other Webpages</h2>
+<h3 class="article-title"><a href="http://members.shaw.ca/akochoi-gallery/">My Photo Gallery</a></h3>
+<h3 class="article-title"><a href="http://members.shaw.ca/akochoi-old/blog/">My Old Blog</a></h3>
+<h2 class="title">My Old Projects</h2>
+<h3 class="article-title"><a href="http://members.shaw.ca/akochoi-xemacs/">Carbon XEmacs</a></h3>
+<h3 class="article-title"><a href="http://members.shaw.ca/akochoi-emacs/">Emacs for Mac OS X “Carbon Emacs”</a></h3>
+<h3 class="article-title"><a href="http://mac-emacs.sourceforge.net/">Emacs for Mac OS 8/9</a></h3>
+</div>
+</div></div>
+<div id="footer">Copyright © 2007, 2008, 2009, 2010, 2011, 2012 Andrew Choi. All rights reserved. Do not aggregate.</div>
+</div></body>
+</html>

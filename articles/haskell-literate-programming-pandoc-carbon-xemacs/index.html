@@ -1,0 +1,93 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Haskell, Literate Programming, Pandoc, Carbon XEmacs, …</title>
+<link rel="stylesheet" href="../../css/base.css">
+<link rel="stylesheet" href="../../css/article.css">
+<link rel="stylesheet" href="../../css/highlight.css">
+</head>
+<body><div id="box0">
+<div id="header"><h1 class="blog-title"><a href="../../index.html">My OS X Programming Blog</a></h1></div>
+<div id="box1"><div id="box2">
+<div id="contents">
+<h2 class="title">Haskell, Literate Programming, Pandoc, Carbon XEmacs, …</h2>
+<div class="date">28 Oct 2009</div>
+<div class="abstract"><p>This is a summary of my experience in setting up a programming environment for writing literate Haskell programs on my Mac OS X and Linux machines.  It also includes a list of hints and resources that one’d need to get started in programming in Haskell.  The search for a good text markup language for literate programming led me to a new way of writing these Web articles.  I now use Pandoc, (X)Emacs, XSLT, and make files.  These are also discussed.</p></div>
+<div class="contents"><div>
+
+<h1 id="haskell">Haskell</h1>
+<p>I have been studying and using the programming language <a href="http://www.haskell.org/">Haskell</a> in the past two months. I <a href="../ocaml-python-scheme-tuareg-mode-camldebug-and-carbon-xemacs/index.html">wrote about</a> how great OCaml was when I used it to implement and experiment with harmonic analysis algorithms for <a href="../jazz-harmonic-analysis-paper/index.html">my jazz harmonic analysis paper</a>. I found OCaml to be highly expressive and the compiled code to be very efficient. Having rewritten these algorithms in Haskell, I must say I now love Haskell equally, and perhaps even a little more for its elegance.</p>
+<p>Ultimately the main criteria for choice of a programming language are expressiveness and efficiency of code written in it. Expressiveness makes it easy (or at least not unpleasant) to code in that language. Efficiency because time and effort are not wasted on writing code that are inherently slow, like so many programming languages that have become popular in recent years. When I <a href="../python-scheme-and-ocaml-speed-comparison/index.html">was choosing</a> a programming language for my harmonic analysis work, I noticed that both OCaml and Haskell ranked very high in <a href="http://shootout.alioth.debian.org/gp4/index.php">a certain set of benchmarks</a>. Both are modern functional programming languages and seem very expressive. At the time I thought OCaml was a little “less weird” than Haskell, partly because of its imperative language features, which would be nice to have to fall back on “just in case”. But over the past few weeks I’ve rewritten my <a href="http://members.shaw.ca/akochoi-T2/jazz-harmonic-analysis/index.html">T2 algorithm</a> in Haskell and reimplementing things like dynamic programming/array construction and I/O in it was both fun and led to more readable code. I don’t miss statement sequencing, <em>for</em> loops, mutable arrays, etc. at all! I highly recommend anyone who’s starting a new programming project to take a close look at Haskell.</p>
+<p>Here are a few places to look to get started with Haskell. Install <a href="http://www.haskell.org/ghc/">GHC</a>, the Glasgow Haskell Compiler. For Mac OS X grab the installer package. Since the Debian Haskell packages are lagging behind and for no good reason divide the hierarchical libraries into many small pieces, for Debian-based Linux systems also grab the binary package and don’t install through the Linux package managers. Then you can use Cabal, Haskell’s own build and package system, to install additional Haskell tools such as <a href="http://johnmacfarlane.net/pandoc/">Pandoc</a>.</p>
+<p>For an introduction to Haskell, it’s tempting to recommend the <a href="http://book.realworldhaskell.org/">Real World Haskell book</a>, because one can read it online for free, and a number of <a href="http://www.haskell.org/haskellwiki/Tutorials">Haskell tutorials</a>. However, <a href="http://www.haskell.org/tutorial/">a Gentle Introduction to Haskell 98</a> is much better written, and shorter. Together with the <a href="http://www.haskell.org/haskellwiki/Language_and_library_specification">Haskell 98 Report</a>, it will provide basically everything you need to know.</p>
+<p>At some point you’ll wonder how much you need to understand about <em>monads</em> to proceed. So many people have tried to write about them that there’s a <a href="http://www.haskell.org/haskellwiki/Monad_tutorials_timeline">monad tutorials timeline</a>! Why not get it over with at the very beginning by reading <a href="http://homepages.inf.ed.ac.uk/wadler/papers/marktoberdorf/baastad.pdf">Wadler’s paper</a>, which is well-written and more comprehensible than any of the tutorials. If a more practical approach is preferred, certainly first learn to do I/O, then read some sample code for and learn to use a library that uses monads, such as <a href="http://legacy.cs.uu.nl/daan/parsec.html">Parsec</a>. Another hurdle you’ll probably encounter is to understand <em>laziness</em> in Haskell. The difference in execution model and a lack of intuition on <em>what</em> gets optimized <em>when</em> can cause difficulties in writing efficient programs. I’ve found the <a href="http://www.haskell.org/haskellwiki/Performance">Haskell Wiki’s Performance section</a> to be useful. So are Jones and Marlow’s paper <a href="http://research.microsoft.com/en-us/um/people/simonpj/Papers/inlining/">Secrets of the Glasgow Haskell Compiler inliner</a> and Jones et al.’s paper <a href="http://research.microsoft.com/~simonpj/Papers/grasp-jfit.ps.Z">The Glasgow Haskell compiler: a technical overview</a>. You can also find <a href="http://www.haskell.org/haskellwiki/Research_papers/Compilation">many other reports</a> on compilation of Haskell programs.</p>
+<h1 id="literate-programming-pandoc-and-carbon-xemacs">Literate Programming, Pandoc, and Carbon XEmacs</h1>
+<p>Once GHC is installed and set up, one will need a program editor for writing Haskell code. On my Mac I of course use <a href="http://members.shaw.ca/akochoi-xemacs/">Carbon XEmacs</a>, and in Linux I use (GTK) GNU Emacs. You’ll also want to set up <a href="http://www.haskell.org/haskellwiki/Haskell_mode_for_Emacs">Haskell mode</a>. Unfortunately the Haskell mode code is slightly incompatible with XEmacs 21.5.29 so a few trivial changes must be made to make it run on XEmacs.</p>
+<p>If you also want to write <a href="http://www.haskell.org/haskellwiki/Literate_programming">literate Haskell programs</a>, you’ll need to decide on which typesetting/text markup language to use. Many people use LaTeX through tools like <a href="http://people.cs.uu.nl/andres/lhs2tex/">lhs2TeX</a> and <a href="http://www.cit.gu.edu.au/~arock/SimpleLit/SimpleLit.pdf">SimpleLit</a>. If you’re a bit adventurous, or need to include other markup or programming languages, go with <a href="http://www.cs.tufts.edu/~nr/noweb/">Noweb</a>.</p>
+<p>I started out by experimenting with lhs2TeX and spending some time configuring <a href="http://mmm-mode.sourceforge.net/">MMM mode</a> for Emacs so it will support both LaTeX and Haskell code in the same buffer. Even had to fix Carbon XEmacs so AUCTeX mode will work correctly in it. After doing all that, I was quite disappointed to find that MMM mode doesn’t really work all that well. The biggest problem is that regions in submodes aren’t indented correctly. Indentation support is one of the main reasons why one would want different modes for different regions in a buffer to begin with! The need for and messiness of a minor mode such as MMM in Emacs points to the importance of integrating multi-language, indentation, and syntax coloring support into the core design of a program editor. But that’ll be another article for another time. For the problem at hand, my current solution, although far from perfect, is to use MMM mode with <a href="http://jblevins.org/projects/markdown-mode/">Markdown mode</a> (more on Markdown below) as the main mode and literate Haskell mode as the submode to edit the “commentary” parts of programs, so syntax coloring work correctly for the entire buffer. Then I switch manually to literate Haskell mode when I need to edit code.</p>
+<p>There are a few disadvantages in using LaTeX for literate programming. I’ve generally found that it requires too much concentration to be typesetting LaTeX while writing code in Haskell (I am getting old you know :-)). Also, although the typeset end result may look great, the source code isn’t too pretty to edit and look at! Another consideration is if one wishes to post a literate program to the Web, or convert it to some other formats, LaTeX usually doesn’t do very well. <a href="http://tug.org/utilities/texconv/textopc.html">Many tools</a> exist for converting LaTeX to HTML. But since LaTeX is quite a complicated language, these converters have many restrictions and none really generates aesthetically pleasing results.</p>
+<p>In fact the same kind of problems exist in marking up articles such as the one you’re currently reading for publishing on the Web. One certainly doesn’t need the full power of HTML, XML, or LaTeX for that! Up until now, I have written all the articles on this website directly in XHTML. I’ve always found HTML and XML to be a clumsy representation to write and edit manually. But I’m very attached to the idea of having XHTML-formatted articles so my entire website can be <a href="../xslt-website-templates/index.html">generated by a handful of XSLT templates using xsltproc</a>, or in fact completely on the client side if I only post the <code>.xml</code> files.</p>
+<p>So, why not solve both problems with one solution: the <a href="http://daringfireball.net/projects/markdown/">Markdown</a> markup language? Markdown is a tiny language for formatting web articles. Its design goal is that formatted sources should be as (humanly) readable as possible, much like how one would format text Email messages. As an example, you can view the <a href="contents.lhs">Markdown-formatted source</a> that was used to produce this article. You can see that it’s indeed very “plain text-like”. A number of Markdown processors are available. I recommend <a href="http://johnmacfarlane.net/pandoc/">Pandoc</a>, which has a very useful feature (see below) and interestingly is written in Haskell. Having adopted Pandoc and the Markdown format, I need to modify my work flow and tools to run Pandoc on the source of my Web articles. I’ve found it easiest to put the processing commands in a simple <a href="Make_file.txt">Makefile</a>. A Emacs Lisp function bound to a function key then automatically saves the file, invokes <code>make</code>, and previews the output in a web browser.</p>
+<p>So let’s get back to the choice of a markup language for literate programming in Haskell. It turns out that <a href="http://johnmacfarlane.net/pandoc/README.html#literate-haskell-support">Pandoc supports literate Haskell</a> really well. The Markdown format has just enough features for writing commentaries in programs. When it is insufficient, HTML and LaTeX code can be used directly. Pandoc will even colorize your code in HTML output if <a href="http://johnmacfarlane.net/pandoc/INSTALL.html#optional-syntax-highlighting-support">built with syntax highlighting support</a> (which is easy to do using Cabal).</p>
+<p>Here’s a little demonstration of a Haskell function <code>isqrt</code> that computes the square root of an integer using Newton’s method.</p>
+<pre class="sourceCode literate literatehaskell"><code class="sourceCode literatehaskell"><span class="ot">&gt;</span> isqrt n <span class="fu">=</span>
+<span class="ot">&gt;</span>   isqrt' n
+<span class="ot">&gt;</span>     <span class="kw">where</span>
+<span class="ot">&gt;</span>       isqrt' s <span class="fu">=</span>
+<span class="ot">&gt;</span>         <span class="kw">let</span> u <span class="fu">=</span> (s <span class="fu">+</span> n <span class="ot">`div`</span> s) <span class="ot">`div`</span> <span class="dv">2</span>
+<span class="ot">&gt;</span>         <span class="kw">in</span>
+<span class="ot">&gt;</span>           <span class="kw">if</span> u <span class="fu">&gt;=</span> s <span class="kw">then</span> s <span class="kw">else</span> isqrt' u</code></pre>
+<p>So the <a href="contents.lhs">source file of this article</a> is a literate Haskell program that can be loaded directly into the GHC interpreter (or compiler) to define the function <code>isqrt</code>. At the same time it is the Markdown formatted source that generates the HTML file you’re now reading. All that in a markup language that’s as readable as a text Email message!</p>
+<p>I’d consider that pretty cool, wouldn’t you?</p>
+<p>OK, if you’ve read this far, I think you deserve some reward (you also have way too much time!). So, here is some useful and exclusive information. The GHC 6.10.4 compiler <code>ghc</code> does not work under Snow Leopard out of the box. The fix for this is not difficult to <a href="http://www.mail-archive.com/haskell-cafe@haskell.org/msg64017.html">find on the Web</a>. Simply edit the file <code>/usr/bin/ghc</code> and add the options</p>
+<pre><code>-optc-m32 -opta-m32 -optl-m32</code></pre>
+<p>to the <code>exec</code> command. The difficult part is the installation of Pandoc. To do that, download <code>Cabal-1.6.0.2</code>, <code>HTTP-4000.0.8</code>, <code>zlib-0.5.2.0</code>, and <code>cabal-install-0.6.2</code> from the <a href="http://hackage.haskell.org/packages/archive/pkg-list.html">Hackage site</a> and install them by hand in that order. For each package, <code>ungzip</code>, <code>untar</code>, then at the top directory, do:</p>
+<pre><code>runhaskell Setup configure --ld-options="-arch i386" --gcc-option=-m32 --user
+runhaskell Setup build
+runhaskell Setup install</code></pre>
+<p>At this point use <code>cabal</code> to install <code>utf8-string</code> and <code>zip-archive</code>:</p>
+<pre><code>cabal install utf8-string
+cabal install zip-archive</code></pre>
+<p>Then install Pandoc:</p>
+<pre><code>cabal install pandoc --flags=highlighting</code></pre>
+<p>This will build Pandoc with highlighting support, which will colorize your Haskell code as demonstrated by the <code>isqrt</code> function above.</p>
+<p>Have fun!!</p>
+</div></div>
+<div class="category"><p>Category: Programming</p></div>
+</div>
+<div id="navigation">
+<h2 class="title">Articles</h2>
+<h3 class="article-title"><a href="../../articles/cantonese-AI-phonetic-IM-year-of-the-ram-release/index.html">Cantonese Artificially-intelligent Phonetic Input Method—Year of the RAM Release</a></h3>
+<div class="date">Date: 23 Jan 2015</div>
+<h3 class="article-title"><a href="../../articles/cantonese-AI-phonetic-IM-for-Windows-7/index.html">Cantonese Artificially-intelligent Phonetic Input Method for Windows 7</a></h3>
+<div class="date">Date: 27 Jul 2012</div>
+<h3 class="article-title"><a href="../../articles/CAP/index.html">CAP — a Cantonese Artificially-intelligent Phonetic Input Method</a></h3>
+<div class="date">Date: 23 May 2012</div>
+<h3 class="article-title"><a href="../../articles/three-little-pieces/index.html">Three Little Pieces</a></h3>
+<div class="date">Date: 30 Apr 2012</div>
+<h3 class="article-title"><a href="../../articles/unicode-processing-c++0x/index.html">Unicode Processing with C++0x</a></h3>
+<div class="date">Date: 16 Oct 2010</div>
+<h3 class="article-title"><a href="../../all.html">[Complete Article List...]</a></h3>
+<h3 class="article-title"><a href="../../rss.xml">[RSS]</a></h3>
+<h2 class="title">Categories</h2>
+<h3 class="article-title"><a href="../../General.html">General</a></h3>
+<h3 class="article-title"><a href="../../Jazz.html">Jazz</a></h3>
+<h3 class="article-title"><a href="../../Programming.html">Programming</a></h3>
+<h3 class="article-title"><a href="../../T2.html">T2</a></h3>
+<h2 class="title">Information</h2>
+<h3 class="article-title"><a href="../../articles/about-the-author/index.html">About the Author</a></h3>
+<h3 class="article-title"><a href="../../articles/about-this-website/index.html">About This Website</a></h3>
+<h3 class="article-title"><a href="../../articles/contact-information/index.html">Contact Information</a></h3>
+<h2 class="title">My Other Webpages</h2>
+<h3 class="article-title"><a href="http://members.shaw.ca/akochoi-gallery/">My Photo Gallery</a></h3>
+<h3 class="article-title"><a href="http://members.shaw.ca/akochoi-old/blog/">My Old Blog</a></h3>
+<h2 class="title">My Old Projects</h2>
+<h3 class="article-title"><a href="http://members.shaw.ca/akochoi-xemacs/">Carbon XEmacs</a></h3>
+<h3 class="article-title"><a href="http://members.shaw.ca/akochoi-emacs/">Emacs for Mac OS X “Carbon Emacs”</a></h3>
+<h3 class="article-title"><a href="http://mac-emacs.sourceforge.net/">Emacs for Mac OS 8/9</a></h3>
+</div>
+</div></div>
+<div id="footer">Copyright © 2007, 2008, 2009, 2010, 2011, 2012 Andrew Choi. All rights reserved. Do not aggregate.</div>
+</div></body>
+</html>

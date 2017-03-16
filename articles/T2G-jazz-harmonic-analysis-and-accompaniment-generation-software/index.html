@@ -1,0 +1,88 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>T2G — Jazz Harmonic Analysis and Accompaniment Generation Software</title>
+<link rel="stylesheet" href="../../css/base.css">
+<link rel="stylesheet" href="../../css/article.css">
+<link rel="stylesheet" href="../../css/highlight.css">
+</head>
+<body><div id="box0">
+<div id="header"><h1 class="blog-title"><a href="../../index.html">My OS X Programming Blog</a></h1></div>
+<div id="box1"><div id="box2">
+<div id="contents">
+<h2 class="title">T2G — Jazz Harmonic Analysis and Accompaniment Generation Software</h2>
+<div class="date">19 Sep 2008</div>
+<div class="abstract"><p>The release of T2G — my new jazz harmonic analysis and accompaniment generation software.</p></div>
+<div class="contents">
+<p>T2G is a computer program that performs harmonic analysis on jazz chord charts. It also generates rhythm section accompaniments with a walking bass line, and piano and drums comping. It is the culmination of research, experimentation, software design, and programming I've done in the past few years. No other program like it exists because the algorithms and techniques used in it are my original work. Specifically its algorithm for harmonic analysis  of chord changes surpasses all those in the current computer music literature. Incorporation of chord and scale analyses also make accompaniments it generates sound more realistic than those produced by other automatic accompaniment software.</p>
+<p>T2G integrates two programs I wrote, wrote about, and posted previously:</p>
+<ul>
+    	<li>
+    		<a href="../t2-a-jazz-harmonic-analysis-program/index.html">T2</a>, and
+    	</li>
+    	<li>
+    		<a href="../a-correct-version-of-myjazzband-2-lite-ocaml/index.html">MyJazzBand 2 Lite</a>
+    	</li>
+    </ul>
+<p>T2G also contains a GUI chord chart editor (thus the ‘G’), which is a complete rewrite of and greatly improves on that of my “shareware experiment” <a href="http://members.shaw.ca/akochoi-old/MyJazzBand/index.html">MyJazzBand</a>. It can still import chord charts from files in Band-in-a-Box and MyJazzBand 1.0 format. It now also supports drag-and-drop operations on bars, better utility of music fonts, display and editing of harmonic analyses, etc.</p>
+<p>T2G is capable of the same roman numeral analysis performed by T2. See my article <a href="../t2-a-jazz-harmonic-analysis-program/index.html">T2 - A Jazz Harmonic Analysis Program</a> for a description, examples, and jazz theory references. See also the <a href="../t2-getting-started-guide/index.html">T2 Getting Started Guide</a> for the chord types it recognizes and its algorithm’s limitations. Here’s an example of the use of T2G. Type or import into it the following chord chart (a variation on the Parker Blues changes).</p>
+<img class="centered" src="Blues.jpg" alt="Blues.jpg"><p>Select Chart-&gt;Analyze. T2G will then display the result of the analysis:</p>
+<img class="centered" src="Blues+analysis.jpg" alt="Blues+analysis.jpg"><p>The T2 algorithm deduces a segmentation for a chord chart and the <i>key centers</i> of these segments. It annotates the chord chart with roman numeral chords which show the chords’ functions with respect to the key centers. The analysis also shows <i>dominant resolutions</i> and <i>ii-V relationships</i> in the form of arrows and brackets, respectively. Dotted arrows and brackets denote <i>substitute dominant resolutions</i> and <i>ii-V’s with substitute dominants</i>, respectively. <i>Extended dominants</i> are represented by series of arrows. Parenthesized roman numeral chords denote <i>deceptive resolution</i>. These and other jazz theory terms and concepts are defined in these fine texts:</p>
+<p class="quote">Barrie Nettles and Richard Graf.  <a href="http://www.jazzharmony.net/"><em>The Chord Scale Theory and Jazz Harmony.</em></a>  Advance Music.  1997.</p>
+<p class="quote">Andrew Jaffe.  <em>Jazz Theory.</em>  Wm. C. Brown Company Publishers.  1983.</p>
+<p>One reason for performing this harmonic analysis on a tune is of course to obtain a “harmonic road map” for improvisation.  By the function of each chord with respect to a key center, one can determine what scales and modes to play, as nicely explained in the following text, for example:</p>
+<p class="quote">Mark Levine.  <a href="http://www.shermusic.com/new/1883217040.shtml"><em>The Jazz Theory Book.</em></a>  Sher Music Co. 1995.</p>
+<p>Notice that for the chord changes above T2G has determined that the key center for the entire tune is F major and displays that beneath the first bar. As an example of changing key centers, here’s an analysis of the chord changes of the tune Solar by T2G.</p>
+<img class="centered" src="Solar.jpg" alt="Solar.jpg"><p>Notice that the key center changes from C minor to F major, then to E♭ major, and so on.</p>
+<img class="alignright" src="Completion.jpg" alt="Completion.jpg"><p>T2G’s chord chart editor uses a new version of the layout algorithm I developed for MyJazzBand to “flow” bars legibly and beautifully in a document window and on a printed page. Text completion and input validation make chord entry quick and accurate. Cut, copy, and paste commands are available to insert, delete, modify, and duplicate bars. Drag-and-drop support allows bars to be easily moved or copied within a chord chart or between chord charts. Unlimited undo and redo are provided for all operations so any mistakes can be reversed and canceled operations can be re-applied. For more information on the use of T2G’s chord chart editor and its other components, refer to the <a href="../T2G-getting-started-guide/index.html">T2G — Getting Started Guide</a>.</p>
+<p>T2G contains the MyJazzBand 2 Lite code, which means it can generate jazz accompaniments from chord charts. It lacks MyJazzBand’s CoreMIDI integration; thus it can only output MIDI files but not play them interactively. Select Chart &gt; Generate and Open to generate an accompaniment from the current chord chart and automatically open that in the application Mac OS X uses to open MIDI files (by default QuickTime). That application can then be used to play the accompaniment.</p>
+<p>I’m distributing T2G under a license that permits free research, educational, and non-commercial use, but prohibits any redistribution. You’re of course welcome and encouraged to tell your friends, colleagues, students, and teachers about this page and my website and ask them to download it here. With that in mind, here are:</p>
+<p><a href="../T2G-version-2/index.html">[** A NEWER VERSION OF T2G IS NOW AVAILABLE. **]</a></p>
+<ul>
+    	<li>
+        	<a href="T2G-Intel.zip" title="T2G-Intel.zip">T2G for Intel Mac</a>, and
+      	</li>
+      	<li>
+        	<a href="T2G-PPC.zip" title="T2G-PPC.zip">T2G for PPC Mac.</a>
+      	</li>
+    </ul>
+<p>Mac OS X 10.4 or above is required. Questions can be sent to <a href="../contact-information/index.html">my Email address</a>. Before doing so, please first read the <a href="../T2G-getting-started-guide/index.html">T2G — Getting Started Guide</a> and reference material listed there.</p>
+</div>
+<div class="category"><p>Category: Jazz, Programming, T2</p></div>
+</div>
+<div id="navigation">
+<h2 class="title">Articles</h2>
+<h3 class="article-title"><a href="../../articles/cantonese-AI-phonetic-IM-year-of-the-ram-release/index.html">Cantonese Artificially-intelligent Phonetic Input Method—Year of the RAM Release</a></h3>
+<div class="date">Date: 23 Jan 2015</div>
+<h3 class="article-title"><a href="../../articles/cantonese-AI-phonetic-IM-for-Windows-7/index.html">Cantonese Artificially-intelligent Phonetic Input Method for Windows 7</a></h3>
+<div class="date">Date: 27 Jul 2012</div>
+<h3 class="article-title"><a href="../../articles/CAP/index.html">CAP — a Cantonese Artificially-intelligent Phonetic Input Method</a></h3>
+<div class="date">Date: 23 May 2012</div>
+<h3 class="article-title"><a href="../../articles/three-little-pieces/index.html">Three Little Pieces</a></h3>
+<div class="date">Date: 30 Apr 2012</div>
+<h3 class="article-title"><a href="../../articles/unicode-processing-c++0x/index.html">Unicode Processing with C++0x</a></h3>
+<div class="date">Date: 16 Oct 2010</div>
+<h3 class="article-title"><a href="../../all.html">[Complete Article List...]</a></h3>
+<h3 class="article-title"><a href="../../rss.xml">[RSS]</a></h3>
+<h2 class="title">Categories</h2>
+<h3 class="article-title"><a href="../../General.html">General</a></h3>
+<h3 class="article-title"><a href="../../Jazz.html">Jazz</a></h3>
+<h3 class="article-title"><a href="../../Programming.html">Programming</a></h3>
+<h3 class="article-title"><a href="../../T2.html">T2</a></h3>
+<h2 class="title">Information</h2>
+<h3 class="article-title"><a href="../../articles/about-the-author/index.html">About the Author</a></h3>
+<h3 class="article-title"><a href="../../articles/about-this-website/index.html">About This Website</a></h3>
+<h3 class="article-title"><a href="../../articles/contact-information/index.html">Contact Information</a></h3>
+<h2 class="title">My Other Webpages</h2>
+<h3 class="article-title"><a href="http://members.shaw.ca/akochoi-gallery/">My Photo Gallery</a></h3>
+<h3 class="article-title"><a href="http://members.shaw.ca/akochoi-old/blog/">My Old Blog</a></h3>
+<h2 class="title">My Old Projects</h2>
+<h3 class="article-title"><a href="http://members.shaw.ca/akochoi-xemacs/">Carbon XEmacs</a></h3>
+<h3 class="article-title"><a href="http://members.shaw.ca/akochoi-emacs/">Emacs for Mac OS X “Carbon Emacs”</a></h3>
+<h3 class="article-title"><a href="http://mac-emacs.sourceforge.net/">Emacs for Mac OS 8/9</a></h3>
+</div>
+</div></div>
+<div id="footer">Copyright © 2007, 2008, 2009, 2010, 2011, 2012 Andrew Choi. All rights reserved. Do not aggregate.</div>
+</div></body>
+</html>

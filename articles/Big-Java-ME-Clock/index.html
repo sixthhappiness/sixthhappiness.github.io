@@ -1,0 +1,59 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Big Java ME Clock</title>
+<link rel="stylesheet" href="../../css/base.css">
+<link rel="stylesheet" href="../../css/article.css">
+<link rel="stylesheet" href="../../css/highlight.css">
+</head>
+<body><div id="box0">
+<div id="header"><h1 class="blog-title"><a href="../../index.html">My OS X Programming Blog</a></h1></div>
+<div id="box1"><div id="box2">
+<div id="contents">
+<h2 class="title">Big Java ME Clock</h2>
+<div class="date">18 Feb 2009</div>
+<div class="abstract"><p>A clock written in Java ME.</p></div>
+<div class="contents">
+<p>I’m really too old to be changing cell phones :-). But I recently bought a Nokia N78, which I like a lot: it’s thin and light, and it has GPS/Nokia Maps, FM transmitter, hot-swappable MicroSD, etc. The price was reduced too since it was introduced earlier in 2008. I suppose for cell phones half a year can already be a “generation”, or two. After I got it, I also realized that I could write programs to run on it. That was just too much fun to resist!</p>
+<p>There’re a few choices to make when one starts to write programs to run on a certain cell phone. These can get a little complicated too since in addition to platforms and APIs that are common across cell phones, such as Java ME, MIDP, and JSRs (when they are supported), there’re also manufacturer specific ones such as Nokia’s <a href="http://www.symbian.com/index.asp">Symbian OS</a>, Google’s Android, and Apple’s iPhone SDK. I chose Java ME since it works on all cell phones, and it seemed like a easier place to start. Once I made that decision, I had the option to use either Eclipse or NetBeans as IDE. There’s a lot of documentation to read if you’re interested; you can start from this page at the <a href="http://www.forum.nokia.com/Resources_and_Information/Explore/Runtime_Platforms/Java.xhtml">Nokia Forum website</a>. I ended up choosing Eclipse (follow <a href="http://wiki.forum.nokia.com/index.php/Installing_Java_ME_development_tools_for_S60"> these installation instructions</a>) because I’m somewhat familiar with it. If you’re not, NetBeans may be a better choice since some tasks (such as building menus and specifying the navigation among them) seem to be easier in it. I also did all the development on a Windows PC because I couldn’t find a easy way to install Nokia’s S60 SDK on a Mac.</p>
+<p>So my little adventure into Java ME programming was this Java ME Midlet that displays a clock using the full screen on my N78. The reason I need such a clock is the one it displays by default is so small that I can’t see it very well (depending on the pair of eyeglasses I’m wearing).</p>
+<img class="centered" src="Screenshot.jpg" alt="Screenshot.jpg"><p>Here’re the <a href="BigClock.zip" title="BigClock.zip">source code</a> and <a href="BigClock.jar.zip" title="BigClock.jar.zip">Java ME Midlet</a> of my Big Java ME Clock. The clock will probably only look OK on a 320x240 screen unless you resize the PNG file for the clock face. The program also demonstrates how to use SVG Tiny graphics and rotation (JSR-226), which it uses to display the clock hands.</p>
+</div>
+<div class="category"><p>Category: Programming</p></div>
+</div>
+<div id="navigation">
+<h2 class="title">Articles</h2>
+<h3 class="article-title"><a href="../../articles/cantonese-AI-phonetic-IM-year-of-the-ram-release/index.html">Cantonese Artificially-intelligent Phonetic Input Method—Year of the RAM Release</a></h3>
+<div class="date">Date: 23 Jan 2015</div>
+<h3 class="article-title"><a href="../../articles/cantonese-AI-phonetic-IM-for-Windows-7/index.html">Cantonese Artificially-intelligent Phonetic Input Method for Windows 7</a></h3>
+<div class="date">Date: 27 Jul 2012</div>
+<h3 class="article-title"><a href="../../articles/CAP/index.html">CAP — a Cantonese Artificially-intelligent Phonetic Input Method</a></h3>
+<div class="date">Date: 23 May 2012</div>
+<h3 class="article-title"><a href="../../articles/three-little-pieces/index.html">Three Little Pieces</a></h3>
+<div class="date">Date: 30 Apr 2012</div>
+<h3 class="article-title"><a href="../../articles/unicode-processing-c++0x/index.html">Unicode Processing with C++0x</a></h3>
+<div class="date">Date: 16 Oct 2010</div>
+<h3 class="article-title"><a href="../../all.html">[Complete Article List...]</a></h3>
+<h3 class="article-title"><a href="../../rss.xml">[RSS]</a></h3>
+<h2 class="title">Categories</h2>
+<h3 class="article-title"><a href="../../General.html">General</a></h3>
+<h3 class="article-title"><a href="../../Jazz.html">Jazz</a></h3>
+<h3 class="article-title"><a href="../../Programming.html">Programming</a></h3>
+<h3 class="article-title"><a href="../../T2.html">T2</a></h3>
+<h2 class="title">Information</h2>
+<h3 class="article-title"><a href="../../articles/about-the-author/index.html">About the Author</a></h3>
+<h3 class="article-title"><a href="../../articles/about-this-website/index.html">About This Website</a></h3>
+<h3 class="article-title"><a href="../../articles/contact-information/index.html">Contact Information</a></h3>
+<h2 class="title">My Other Webpages</h2>
+<h3 class="article-title"><a href="http://members.shaw.ca/akochoi-gallery/">My Photo Gallery</a></h3>
+<h3 class="article-title"><a href="http://members.shaw.ca/akochoi-old/blog/">My Old Blog</a></h3>
+<h2 class="title">My Old Projects</h2>
+<h3 class="article-title"><a href="http://members.shaw.ca/akochoi-xemacs/">Carbon XEmacs</a></h3>
+<h3 class="article-title"><a href="http://members.shaw.ca/akochoi-emacs/">Emacs for Mac OS X “Carbon Emacs”</a></h3>
+<h3 class="article-title"><a href="http://mac-emacs.sourceforge.net/">Emacs for Mac OS 8/9</a></h3>
+</div>
+</div></div>
+<div id="footer">Copyright © 2007, 2008, 2009, 2010, 2011, 2012 Andrew Choi. All rights reserved. Do not aggregate.</div>
+</div></body>
+</html>

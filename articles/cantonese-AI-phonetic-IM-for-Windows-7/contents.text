@@ -1,0 +1,113 @@
+% Cantonese Artificially-intelligent Phonetic Input Method for Windows 7
+% Andrew Choi
+% 27 Jul 2012
+
+# CAP Input Method for Windows 7 Download and Installation
+
+Determine whether your PC is running a 32-bit or 64-bit version of
+Windows 7.  If you don’t know how, [this Microsoft support webpage][32
+or 64] shows you what to do.
+
+[32 or 64]: http://support.microsoft.com/kb/827218
+
+## Installation of CAP on a 64-bit Version of Windows 7
+
+1.  Download and install [the Microsoft Visual C++ 2010 SP1
+    Redistributable Package (x86)][vcredist_x86].  See the
+    “Instructions” section on that page for installation instructions.
+
+2.  Download and install [the Microsoft Visual C++ 2010 SP1
+    Redistributable Package (x64)][vcredist_x64].  See the
+    “Instructions” section on that page for installation instructions.
+
+3.  Download the file [cap-x64.msi][] file from my SkyDrive.
+    Double-click on it to start the Windows Installer.  Accept the
+    license agreement and click “Install”.  If Windows Installer asks:
+
+    > Do you want to allow the following program from an unknown publisher
+    > to make changes to this computer?
+
+    Click “yes” to allow Windows Installer to proceed with the
+    installation.
+
+[vcredist_x86]: http://www.microsoft.com/en-us/download/details.aspx?id=8328
+[vcredist_x64]: http://www.microsoft.com/en-us/download/details.aspx?id=13523
+[cap-x64.msi]: http://sdrv.ms/MQPVhE
+
+CAP should now be installed and ready for use.  See the notes in the
+section [CAP Usage Notes](#cap-usage-notes) for information on how to
+use it.
+
+## Installation of CAP on a 32-bit Version of Windows 7
+
+1.  Download and install [the Microsoft Visual C++ 2010 SP1
+    Redistributable Package (x86)][vcredist_x86].  See the
+    “Instructions” section on that page for installation instructions.
+
+2.  Download the file [cap-Win32.msi][] from my SkyDrive.
+    Double-click on it to start the Windows Installer.  Accept the
+    license agreement and click “Install”.  If Windows Installer asks:
+
+    > Do you want to allow the following program from an unknown publisher
+    > to make changes to this computer?
+
+    Click “yes” to allow Windows Installer to proceed with the
+    installation.
+
+[cap-Win32.msi]: http://sdrv.ms/MQQ3gY
+
+CAP should now be installed and ready for use.  See the notes in the
+next section for information on how to use it.
+
+## CAP Usage Notes
+
+The keyboard shortcut to switch input methods on Windows 7 is
+_Shift-Alt_.  The CAP icon appears in the Windows “system tray” when
+CAP is active.
+
+> ![](screenshot1.png)
+
+CAP can be added to and removed from the list of selectable input
+methods in the “Text Services and Input Languages” panel.  The latter
+can be accessed by choosing “Control Panel”, then “Clock, Language,
+and Region”.  In the “Region and Language” panel, choose the
+“Keyboards and Languages” tab and click “Change keyboards...”.
+
+> ![](screenshot2.png)
+
+For general information on the use of input methods (called input
+method editors or IMEs in Windows documentation) on Windows 7, see
+this [Microsoft page][], this [other Microsoft page][], or this
+[Pinyin Joe page][], for example.
+
+[Microsoft page]: http://windows.microsoft.com/en-US/windows7/Type-in-Chinese-Japanese-and-other-character-based-languages
+[other Microsoft page]: http://support.microsoft.com/kb/982729/zh-tw
+[Pinyin Joe page]: http://www.pinyinjoe.com/windows-7/win7-chinese-intro.htm
+
+See the article [CAP — a Cantonese Artificially-intelligent Phonetic
+Input Method][CAP] on how to use CAP.  The examples there show
+screenshots taken from the use of the Linux version of CAP, but the
+Windows version should work very much the same way.
+
+[CAP]: ../CAP/index.html
+
+Tables on the [Chinese Wikipedia page on Sidney Lau romanization][SL
+Romanization] should prove very helpful if you’re unfamiliar with that
+romanization.
+
+[SL Romanization]: http://zh.wikipedia.org/wiki/%E5%8A%89%E9%8C%AB%E7%A5%A5%E6%8B%BC%E9%9F%B3
+
+## CAP License
+
+For detail CAP licensing information, read the file
+`C:\ProgramData\SixthHappiness\CAP\1.0\License.txt` after
+installation.  To summarize:
+
+* You can only use it for personal and non-commercial purposes.
+
+* You may _not_ redistribute it.
+
+* I’m not liable for any damages it may cause (although I don’t intend
+  nor expect it to cause any).
+
+Have fun!

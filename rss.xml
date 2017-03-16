@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rss version="2.0"><channel><title>My OS X Programming Blog</title><link>http://members.shaw.ca/akochoi/index.html</link><description>Mac OS X Cocoa, Carbon, and CoreMIDI Programming</description><language>en-ca</language><copyright>Copyright 2007 Andrew Choi</copyright>
+  <item><title>Cantonese Artificially-intelligent Phonetic Input Method—Year of the RAM Release</title><link>http://members.shaw.ca/akochoi/articles/cantonese-AI-phonetic-IM-year-of-the-ram-release/index.html</link><description>
+      I make a new release of my Cantonese Artificially-intelligent Phonetic (CAP) input method.  This includes a Mac OS X version for Mavericks and Yosemite, compatibility with latest Kubuntu/Ubuntu/Debian Linux distributions, and an updated statistical language model (that includes words like 雨遮革命 and 鳩嗚, and proper nouns like 黃之鋒)!  This article describes where to download and how to install it.
+    </description><guid>http://members.shaw.ca/akochoi/articles/cantonese-AI-phonetic-IM-year-of-the-ram-release/index.html</guid><pubDate>Fri, 23 Jan 2015 17:00 MDT</pubDate><category>Programming</category></item>
+  <item><title>Cantonese Artificially-intelligent Phonetic Input Method for Windows 7</title><link>http://members.shaw.ca/akochoi/articles/cantonese-AI-phonetic-IM-for-Windows-7/index.html</link><description>
+      Here’s the Windows 7 version of my Cantonese Artificially-intelligent Phonetic (CAP) input method!  This article describes how to download and install it.
+    </description><guid>http://members.shaw.ca/akochoi/articles/cantonese-AI-phonetic-IM-for-Windows-7/index.html</guid><pubDate>Fri, 27 Jul 2012 17:00 MDT</pubDate><category>Programming</category></item>
+  <item><title>CAP — a Cantonese Artificially-intelligent Phonetic Input Method</title><link>http://members.shaw.ca/akochoi/articles/CAP/index.html</link><description>
+      The world deserves a better Cantonese phonetic input method!  The only true sentence-based, statistical-language-model-based (SLM-based) pinyin input methods is Sunpinyin, which is a highly usable input method.  But it’s difficult for most Cantonese speakers to type pinyin (which requires thinking in Mandarin).  Numerous experiments on and variants of input methods based on SLMs have been written about in the literature, which claim to have very high recognition accuracies.  I’ve always wondered why these research results, if they’re so good, have never made it to production.  One can only speculate.  What I’d call “bells-and-whistles” input methods such as Google Pinyin, Sogou Pinyin, Microsoft Pinyin, and Yahoo! Input Method all appear to use word bigrams in some capacity, and/or a very large word dictionary.  That makes them nice to use, but not as accurate as Sunpinyin, which means more time spent in “word selection”.  Cantonese phonetic input methods based on SLMs have simply not existed, until now.  All Cantonese speakers should read on: CAP will change the way you type Chinese!
+    </description><guid>http://members.shaw.ca/akochoi/articles/CAP/index.html</guid><pubDate>Fri, 23 May 2012 17:00 MDT</pubDate><category>Programming</category></item>
+  <item><title>Three Little Pieces</title><link>http://members.shaw.ca/akochoi/articles/three-little-pieces/index.html</link><description>
+      One — a convenient Mac OS X utility to switch the main display on systems with multiple displays.  Two — C++0x routines for converting among UTF-8, UTF-16, UTF-32 encoded strings.  Three — a Linux script for recording screencasts with perfectly synchronized video and audio.
+    </description><guid>http://members.shaw.ca/akochoi/articles/three-little-pieces/index.html</guid><pubDate>Mon, 30 Apr 2012 17:00 MDT</pubDate><category>Programming</category></item>
+  <item><title>Unicode Processing with C++0x</title><link>http://members.shaw.ca/akochoi/articles/unicode-processing-c++0x/index.html</link><description>
+      I present a C++ class template and class library for writing programs that supports Unicode.  It uses the new character and string types defined in C++0x so future compatibility with this upcoming standard is ensured.  An iterator is also provided for sequential access to code points in UTF-16 encoded strings.
+    </description><guid>http://members.shaw.ca/akochoi/articles/unicode-processing-c++0x/index.html</guid><pubDate>Sat, 16 Oct 2010 17:00 MDT</pubDate><category>Programming</category></item>
+  <item><title>Haskell Bindings for JudySL</title><link>http://members.shaw.ca/akochoi/articles/Haskell-bindings-for-JudySL/index.html</link><description>
+      This article presents a set of Haskell bindings for JudySL, the functions in the Judy library that implement associative arrays with variable-length byte string keys and integer values.  It concludes with a performance comparison between Judy arrays and hashing when applied to a simple dictionary lookup problem.
+    </description><guid>http://members.shaw.ca/akochoi/articles/Haskell-bindings-for-JudySL/index.html</guid><pubDate>Sun, 13 Jun 2010 17:00 MDT</pubDate><category>Programming</category></item>
+  <item><title>Db 1.85 — the Original, BSD license Berkeley DB</title><link>http://members.shaw.ca/akochoi/articles/Db-1.85-the-original-BSD-license-Berkeley-DB/index.html</link><description>
+      I discuss libraries for disk-based hash tables and B-trees such as Berkeley DB and Tokyo Cabinet and relational database systems such as MySQL and SQLite.  I describe how to install db 1.85, the original BSD licensed version of db, on Linux and Mac OS X.  Then we take an interesting turn in the second part of the article.
+    </description><guid>http://members.shaw.ca/akochoi/articles/Db-1.85-the-original-BSD-license-Berkeley-DB/index.html</guid><pubDate>Thu, 27 May 2010 17:00 MDT</pubDate><category>Programming</category></item>
+  <item><title>Haskell, Literate Programming, Pandoc, Carbon XEmacs, …</title><link>http://members.shaw.ca/akochoi/articles/haskell-literate-programming-pandoc-carbon-xemacs/index.html</link><description>
+      This is a summary of my experience in setting up a programming environment for writing literate Haskell programs on my Mac OS X and Linux machines.  It also includes a list of hints and resources that one’d need to get started in programming in Haskell.  The search for a good text markup language for literate programming led me to a new way of writing these Web articles.  I now use Pandoc, (X)Emacs, XSLT, and make files.  These are also discussed.
+    </description><guid>http://members.shaw.ca/akochoi/articles/haskell-literate-programming-pandoc-carbon-xemacs/index.html</guid><pubDate>Wed, 28 Oct 2009 21:00 MDT</pubDate><category>Programming</category></item>
+  <item><title>Better-Than-Mac Text Completion in Qt</title><link>http://members.shaw.ca/akochoi/articles/better-than-mac-text-completion-in-Qt/index.html</link><description>
+      I discuss my Qt project that demonstrates the implementation of text completion for a QLineEdit widget that provides very Mac-like interactions.  It works well on Mac, Linux, and Windows.  I’ve even added a few improvements over an ordinary Apple HIG text completion popup!
+    </description><guid>http://members.shaw.ca/akochoi/articles/better-than-mac-text-completion-in-Qt/index.html</guid><pubDate>Thu, 16 Jul 2009 17:00 MDT</pubDate><category>Programming</category></item>
+  <item><title>Qt Document-Based Application</title><link>http://members.shaw.ca/akochoi/articles/Qt-document-based-application/index.html</link><description>
+      I discuss Nokia’s recent release of the Qt GUI framework under the LGPL.  I also show how Qt can be used to write an application that behaves very Mac-like in the form of a skeleton of a document-based application.
+    </description><guid>http://members.shaw.ca/akochoi/articles/Qt-document-based-application/index.html</guid><pubDate>Thu, 02 Jul 2009 12:00 MDT</pubDate><category>Programming</category></item>
+  <item><title>Jazz Harmonic Analysis Paper</title><link>http://members.shaw.ca/akochoi/articles/jazz-harmonic-analysis-paper/index.html</link><description>
+      In a paper I’ve just completed—Harmonic analysis of jazz chord sequences—I describe the T2 algorithm. This article explains some of the reasons I chose to work on this problem. There are (hopefully) also some insights into the state of computer music research and scientific research in general. Plus the question “is computer music more computer science or more music theory?”.
+    </description><guid>http://members.shaw.ca/akochoi/articles/jazz-harmonic-analysis-paper/index.html</guid><pubDate>Mon, 23 Feb 2009 16:30 MST</pubDate><category>Jazz</category><category>T2</category></item>
+  <item><title>Big Java ME Clock</title><link>http://members.shaw.ca/akochoi/articles/Big-Java-ME-Clock/index.html</link><description>
+      A clock written in Java ME.
+    </description><guid>http://members.shaw.ca/akochoi/articles/Big-Java-ME-Clock/index.html</guid><pubDate>Wed, 18 Feb 2009 14:30 MST</pubDate><category>Programming</category></item>
+  <item><title>T2G Version 2</title><link>http://members.shaw.ca/akochoi/articles/T2G-version-2/index.html</link><description>
+      Version 2 of T2G with new and improved tonality segmentation algorithm.
+    </description><guid>http://members.shaw.ca/akochoi/articles/T2G-version-2/index.html</guid><pubDate>Wed, 17 Dec 2008 17:30 MST</pubDate><category>Jazz</category><category>Programming</category><category>T2</category></item>
+  <item><title>T2G — Getting Started Guide</title><link>http://members.shaw.ca/akochoi/articles/T2G-getting-started-guide/index.html</link><description>
+      A brief overview of how to use T2G.
+    </description><guid>http://members.shaw.ca/akochoi/articles/T2G-getting-started-guide/index.html</guid><pubDate>Fri, 19 Sep 2008 17:30 MST</pubDate><category>Jazz</category><category>Programming</category><category>T2</category></item>
+  <item><title>T2G — Jazz Harmonic Analysis and Accompaniment Generation Software</title><link>http://members.shaw.ca/akochoi/articles/T2G-jazz-harmonic-analysis-and-accompaniment-generation-software/index.html</link><description>
+      The release of T2G — my new jazz harmonic analysis and accompaniment generation software.
+    </description><guid>http://members.shaw.ca/akochoi/articles/T2G-jazz-harmonic-analysis-and-accompaniment-generation-software/index.html</guid><pubDate>Fri, 19 Sep 2008 17:00 MST</pubDate><category>Jazz</category><category>Programming</category><category>T2</category></item>
+  <item><title>FCIM — a Cantonese Phonetic Input Method</title><link>http://members.shaw.ca/akochoi/articles/FCIM-a-cantonese-phonetic-input-method/index.html</link><description>
+      Chinese input methods on Mac OS X, Cantonese phonetic input methods, and FCIM, my new fast Cantonese input method.
+    </description><guid>http://members.shaw.ca/akochoi/articles/FCIM-a-cantonese-phonetic-input-method/index.html</guid><pubDate>Mon, 08 Sep 2008 20:00 MST</pubDate><category>Programming</category></item>
+  <item><title>SimpleDockClock</title><link>http://members.shaw.ca/akochoi/articles/simple-dock-clock/index.html</link><description>
+      A simple analog clock for the dock on Leopard.
+    </description><guid>http://members.shaw.ca/akochoi/articles/simple-dock-clock/index.html</guid><pubDate>Mon, 30 Jun 2008 17:00 MST</pubDate><category>Programming</category></item>
+  <item><title>XSLT Website Templates</title><link>http://members.shaw.ca/akochoi/articles/xslt-website-templates/index.html</link><description>
+      This article describes the advantages of a static website over of a dynamic one, and outlines the use of XSLT style sheets and XML templates to generate webpages with consistent appearance and global contents. [Hint: you’re looking at one.]
+    </description><guid>http://members.shaw.ca/akochoi/articles/xslt-website-templates/index.html</guid><pubDate>Fri, 14 Dec 2007 23:00 MST</pubDate><category>Programming</category></item>
+  <item><title>T2 Getting Started Guide</title><link>http://members.shaw.ca/akochoi/articles/t2-getting-started-guide/index.html</link><description>
+      A short note to for new users of T2.
+    </description><guid>http://members.shaw.ca/akochoi/articles/t2-getting-started-guide/index.html</guid><pubDate>Mon, 27 Aug 2007 16:09 MST</pubDate><category>Jazz</category><category>Programming</category><category>T2</category></item>
+  <item><title>T2 - A Jazz Harmonic Analysis Program</title><link>http://members.shaw.ca/akochoi/articles/t2-a-jazz-harmonic-analysis-program/index.html</link><description>
+      The release of T2, a program that performs roman numeral analysis on jazz chord charts.
+    </description><guid>http://members.shaw.ca/akochoi/articles/t2-a-jazz-harmonic-analysis-program/index.html</guid><pubDate>Sat, 25 Aug 2007 14:38 MST</pubDate><category>Jazz</category><category>Programming</category><category>T2</category></item>
+  <item><title>A Correct Mac OS X Version of MyJazzBand 2 Lite - OCaml</title><link>http://members.shaw.ca/akochoi/articles/a-correct-version-of-myjazzband-2-lite-ocaml/index.html</link><description>
+      A new version of the Mac OS X Version of MyJazzBand 2 Lite - OCaml that corrects a problem with one I post last month.
+    </description><guid>http://members.shaw.ca/akochoi/articles/a-correct-version-of-myjazzband-2-lite-ocaml/index.html</guid><pubDate>Tue, 17 Jul 2007 09:49 MST</pubDate><category>Jazz</category><category>Programming</category></item>
+  <item><title>A Few Notes on Ocamlbuild, Ocamldebug, and Caml-mode</title><link>http://members.shaw.ca/akochoi/articles/a-few-notes-on-ocamlbuild-ocamldebug-and-caml-mode/index.html</link><description>
+      A short writeup on programming in OCaml on Mac OS X. The use of ocamlbuild, ocamldebug, and caml-mode.
+    </description><guid>http://members.shaw.ca/akochoi/articles/a-few-notes-on-ocamlbuild-ocamldebug-and-caml-mode/index.html</guid><pubDate>Sat, 02 Jun 2007 16:58 MST</pubDate><category>Programming</category></item>
+  <item><title>MyJazzBand 2 Lite - OCaml</title><link>http://members.shaw.ca/akochoi/articles/myjazzband-2-lite-ocaml/index.html</link><description>
+      Here is the new release of MyJazzBand 2 Lite (MJB2Lite), rewritten in OCaml!
+    </description><guid>http://members.shaw.ca/akochoi/articles/myjazzband-2-lite-ocaml/index.html</guid><pubDate>Thu, 31 May 2007 14:32 MST</pubDate><category>Jazz</category><category>Programming</category></item>
+  <item><title>Python, Scheme, and OCaml Speed Comparison</title><link>http://members.shaw.ca/akochoi/articles/python-scheme-and-ocaml-speed-comparison/index.html</link><description>
+      Execution speed comparison of “chord scale theory” operations among Python, Scheme, and OCaml implementations.
+    </description><guid>http://members.shaw.ca/akochoi/articles/python-scheme-and-ocaml-speed-comparison/index.html</guid><pubDate>Fri, 18 May 2007 22:58 MST</pubDate><category>Programming</category></item>
+  <item><title>OCaml, Python, Scheme, Tuareg Mode, Camldebug, and Carbon XEmacs</title><link>http://members.shaw.ca/akochoi/articles/ocaml-python-scheme-tuareg-mode-camldebug-and-carbon-xemacs/index.html</link><description>
+      A discussion of expressiveness and efficiency of programming languages used in my previous projects, my switch to OCaml, and programming in OCaml under Mac OS X.
+    </description><guid>http://members.shaw.ca/akochoi/articles/ocaml-python-scheme-tuareg-mode-camldebug-and-carbon-xemacs/index.html</guid><pubDate>Thu, 10 May 2007 21:01 MST</pubDate><category>Programming</category></item>
+  <item><title>Chart Translate: Chord Chart File Format Converter</title><link>http://members.shaw.ca/akochoi/articles/chart-translate/index.html</link><description>
+      A utility to convert chord charts stored in MyJazzBand, Band-in-a-Box, and MusicXML format into MyJazzBand, Band-in-a-Box, MusicXML, and Lilypond format.
+    </description><guid>http://members.shaw.ca/akochoi/articles/chart-translate/index.html</guid><pubDate>Thu, 03 May 2007 15:55 MST</pubDate><category>Jazz</category><category>Programming</category></item>
+  <item><title>MyJazzBand 2 Lite</title><link>http://members.shaw.ca/akochoi/articles/myjazzband-2-lite/index.html</link><description>
+      Here is the release of MyJazzBand 2 Lite (MJB2Lite), a MIDI application for generating jazz accompaniments.
+    </description><guid>http://members.shaw.ca/akochoi/articles/myjazzband-2-lite/index.html</guid><pubDate>Fri, 27 Apr 2007 21:20 MST</pubDate><category>Jazz</category><category>Programming</category></item>
+  <item><title>Hello Again</title><link>http://members.shaw.ca/akochoi/articles/hello-again/index.html</link><description>
+      An explanation of why I have stopped writing my blog for a while and the new focus of my blog.
+    </description><guid>http://members.shaw.ca/akochoi/articles/hello-again/index.html</guid><pubDate>Fri, 30 Mar 2007 16:33 MST</pubDate><category>General</category></item>
+  <item><title>About the Author</title><link>http://members.shaw.ca/akochoi/articles/about-the-author/index.html</link><description>
+      Here is a short bio of me.
+    </description><guid>http://members.shaw.ca/akochoi/articles/about-the-author/index.html</guid><pubDate>Mon, 19 Feb 2007 20:48 MST</pubDate><category>Info</category></item>
+  <item><title>About This Website</title><link>http://members.shaw.ca/akochoi/articles/about-this-website/index.html</link><description>
+      Here is a description of the contents of this website.
+    </description><guid>http://members.shaw.ca/akochoi/articles/about-this-website/index.html</guid><pubDate>Mon, 19 Feb 2007 23:08 MST</pubDate><category>Info</category></item>
+  <item><title>Contact Information</title><link>http://members.shaw.ca/akochoi/articles/contact-information/index.html</link><description>
+      Here is my Email address etc.
+    </description><guid>http://members.shaw.ca/akochoi/articles/contact-information/index.html</guid><pubDate>Wed, 28 Mar 2007 10:39 MST</pubDate><category>Info</category></item>
+</channel></rss>

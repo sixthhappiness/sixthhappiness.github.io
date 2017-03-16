@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<?xml-stylesheet type="text/xsl" href="../../xslt/article.xslt"?>
+<article>
+  <title>A Correct Mac OS X Version of MyJazzBand 2 Lite - OCaml</title>
+  <contents>
+    <p>It's quite difficult to get as much programming work done here in the summer: there're more things to see and do and places to visit.  There's also gardening (photos in the <a href="http://www.sixthhappiness.ca/gallery2/main.php/v/2007-garden-pictures/">gallery section</a>).  I have however been working on a few experiements with harmonic analysis which I'll write about quite soon.</p>
+    <p>In the mean time, I need to post this note with a correct Mac OS X version of MJB2Lite-OCaml:</p>
+    <p class="quote">
+      <a href="http://members.shaw.ca/akochoi-files/a-correct-version-of-myjazzband-2-lite-ocaml/mjb2lite-ocaml.zip" title="mjb2lite-ocaml.zip">mjb2lite-ocaml.zip</a>
+    </p>
+    <p>The <a href="../myjazzband-2-lite-ocaml/index.html">one I posted last month</a> didn't work.</p>
+  </contents>
+</article>

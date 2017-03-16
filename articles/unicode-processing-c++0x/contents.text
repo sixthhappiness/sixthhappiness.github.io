@@ -1,0 +1,237 @@
+% Unicode Processing with C++0x
+% Andrew Choi
+% 11 October 2010
+
+Unicode Processing with C++0x
+=============================
+
+Surprisingly, there is not a lot of information on writing C++
+programs that support Unicode.  A [Web search of _C++_ and
+_Unicode_][GoogleC++Unicode] produces the standard recommendation to
+use [ICU][], [Qt][], or [Boost][].  These solutions are
+unsatisfactory: the C++ interface of ICU inherits much awkwardness
+from its C origin (e.g., error codes instead of exceptions, high
+storage requirement per string variable); the other two are huge
+libraries with which to link just for getting Unicode support.
+
+[GoogleC++Unicode]: http://www.google.ca/search?q=c%2B%2B+unicode
+[ICU]: http://site.icu-project.org/
+[Qt]: http://qt.nokia.com/
+[Boost]: http://www.boost.org/
+
+It's really quite simple for a language such as C++ to support
+Unicode.  As the [C++0x standard][C++0x] shows, very few changes need
+to be made to the language itself, all of which concern string
+literals.  At the minimum, a program that works with Unicode should be
+able to process strings in the UTF-8, UTF-16, and UTF-32 encodings,
+and to convert values among them.  UTF-8 is good for I/O and does not
+require a byte order marker.  UTF-32 is useful when quick random
+access to individual code points is required.  UTF-16 is a compromise
+between storage efficiency and code-point access, especially in programs
+that works with Unihan characters.
+
+[C++0x]: http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2010/n3126.pdf
+
+The existing type `std::string` can already be used for UTF-8 encoded
+string values.  C++0x adds the character types `std::char16_t` and
+`std::char32_t` (and corresponding string types `std::u16string` and
+`std::u32string`) for use with UTF-16 and UTF-32 encoded string
+values, respectively.  The new standard also defines the class
+template `codecvt` for conversion among different encodings and
+requires that certain conversions to and from UTF-8, UTF-16, and
+UTF-32 be supported.
+
+Since no C++ compiler currently implements C++0x fully, the question
+is what one should do _now_ to write programs with Unicode support.
+Gcc already supports the new character types `char16_t` and `char32_t`
+[since version 4.4][GccC++0xSupport].  It also has partial (but
+useful) Unicode string literal support since that version.
+
+[GccC++0xSupport]: http://gcc.gnu.org/projects/cxx0x.html
+
+The template class `codecvt` must have been in `libstdc++` for even
+longer; [its current implementation][Libstdc++CodecvtDoc] is mostly
+just a wrapper for the `iconv` library.  It does not provide the
+specializations required by C++0x for UTF-8, UTF-16, and
+UTF-32. However, since `iconv` supports them, it can, in fact, be used
+to convert to and from these encodings.
+
+[Libstdc++CodecvtDoc]: http://gcc.gnu.org/onlinedocs/libstdc++/manual/facets.html#std.localization.facet.codecvt
+
+Therefore the code given below works only with `gcc` version 4.4 and
+above.  However, when fully C++0x compliant compilers are available,
+only the implementation of the class template `Converter` needs to be
+changed (most likely, simplified) and the rest of the code we write
+now should still work.
+
+The Converter Class Template
+============================
+
+Since the `codecvt` interface is more powerful than my needs, I've
+encapsulated all its awkwardness in a template class `Converter` in
+source files [`Converter.h`](Converter.h) and
+[`Converter.cc`](Converter.cc).  The `Converter.h` interface provides
+support for UTF-8, UTF-16, and UTF-32.  Other encodings supported by
+`iconv` can be added as needed as explained below.
+
+The simplest way to process Unicode using `Converter.h` is to use the
+overloaded functions `to_u8string`, `to_u16string`, and `to_u32string`
+to convert a string from the other two encodings.  For example,
+
+~~~ {.Cpp}
+// -*- compile-command:"g++ -std=c++0x -o t1 Converter.cc t1.cc" -*-
+
+#include <iostream>
+#include "Converter.h"
+
+int main()
+{
+  std::string s8;
+  // Read each line from standard input in UTF-8 encoding.
+  while (!getline(std::cin, s8).eof())
+    {
+      std::u32string s32 = to_u32string(s8);
+    
+      // Print the value of each code point in hexidecimal.
+      for (unsigned int i = 0; i < s32.length(); i++)
+        std::cout << std::hex << s32[i] << std::endl;
+    }
+}
+~~~
+
+Here's an example that uses a Unicode string literal.
+
+~~~ {.Cpp}
+#include <iostream>
+#include "Converter.h"
+
+int main()
+{
+  std::u16string s16 = u"鵝滿是快烙滴好耳痛";
+
+  std::cout << to_u8string(s16) << std::endl;
+}
+
+// Local Variables:
+// coding:utf-8
+// compile-command:"g++ -finput-charset=UTF-8 -std=c++0x -o t2 Converter.cc t2.cc"
+// End:
+~~~
+
+The following is an example that adds and uses a Big-5 to UTF-32
+converter.  The `storageMultiplier` template instantiation is
+necessary because the `libstdc++` implementation of
+`codecvt::max_length` does not return a correct value.  An
+instantiation of `storageMultiplier<T, F>` should return the maximum
+number of `T::storage_type` elements that can result from converting
+each `F::storage_type` element.  This information is only used to
+create a local buffer variable during the conversion.  The return
+value will always use only as much storage as necessary.
+
+~~~ {.Cpp}
+// -*- compile-command:"g++ -std=c++0x -o t3 Converter.cc t3.cc" -*-
+
+#include <iostream>
+#include "Converter.h"
+
+struct BIG5 {
+  typedef char storage_type;
+  static const char* iconvName() { return "BIG-5"; }
+};
+
+template<>
+int storageMultiplier<UTF32, BIG5>() { return 1; }
+
+int main()
+{
+  // Read each line from standard input in Big-5 encoding.
+  std::string sb5;
+  while (!std::getline(std::cin, sb5).eof())
+    {
+      // Convert the line to UTF-32 encoding.
+      std::u32string s32 = Converter<UTF32, BIG5>()(sb5);
+      
+      // Do something with it.  E.g., print number of code points.
+      std::cout << s32.length() << std::endl;
+    }
+}
+~~~
+
+u16string_iterator
+==================
+
+UTF-16 encoded strings deserve extra attention because they are space
+efficient for representing Unihan characters: most code points are
+represented by a single code unit while more rarely used ones are
+represented by surrogate pairs of code units (see the [Wikipedia entry
+for UTF-16][WikiEntryUTF-16], e.g.).  Although a `u16string::iterator`
+can be used to iterate through its _code units_, additional functions
+are needed to iterate through successive _code points_ in a UTF-16
+string.
+
+[WikiEntryUTF-16]: http://en.wikipedia.org/wiki/UTF-16/UCS-2
+
+For this I have defined a class `u16string_iterator` in source files
+[`U16StringIterator.h`](U16StringIterator.h) and
+[`U16StringIterator.cc`](U16StringIterator.cc).  `u16string_iterator`
+is a _constant_ iterator in that the underlying `u16string` cannot be
+modified through it.  As such it should really have been named
+`u16string_const_iterator`, but that name is just too long.
+
+The typical way to use `u16string_iterator` is to construct one from
+an `const_iterator` for a `u16string`.  Then iterating through this
+`u16string_iterator` will visit each code point, which can be accessed
+as a `char32_t` value by dereferencing the iterator.  E.g., the
+following function counts the number of code points in a `u16string`.
+
+~~~ {.Cpp}
+size_t u16string_codepoint_count(const std::u16string& s)
+{
+  size_t j = 0;
+  for (u16string_iterator i = s.begin(); i != s.end(); i++)
+    j++;
+
+  return j;
+}
+~~~
+
+This function is already defined in `U16StringIterator.cc` because it
+is required so often.
+
+Here're a few different ways one can use a `u16string_iterator`.
+
+Since `u16string_iterator` is bidirectional, here's how one can
+iterate backward through the code points in a `u16string`.
+
+~~~ {.Cpp}
+for (u16string_iterator i = s16.end(); i != s16.begin();)
+  std::cout << std::hex << *--i << std::endl;
+~~~
+
+Here's another way to iterate backward using a reverse iterator.
+
+~~~ {.Cpp}
+typedef std::reverse_iterator<u16string_iterator> ri;
+for (ri i = s16.rbegin(); i != s16.rend(); i++)
+  std::cout << std::hex << *i << std::endl;
+~~~
+
+Here's how to use the template function `advance` to print the third
+character from the beginning and the third character from the end of a
+`u16string`, respectively.
+
+~~~ {.Cpp}
+u16string_iterator i = s16.begin();
+advance(i, 2);
+std::cout << to_u8string(std::u32string(1, *i)) << std::endl;
+
+i = s16.end();
+advance(i, -3);
+std::cout << to_u8string(std::u32string(1, *i)) << std::endl;
+~~~
+
+And of course other algorithms in the standard template library will
+also work as long as one remembers `u16string_iterator` is a constant
+iterator.  Conceivably one can rewrite `u16string_iterator` as an
+output iterator.  But that problem, as they say in the business, will
+be "left as an exercise".

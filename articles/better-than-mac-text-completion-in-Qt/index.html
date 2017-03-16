@@ -1,0 +1,66 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Better-Than-Mac Text Completion in Qt</title>
+<link rel="stylesheet" href="../../css/base.css">
+<link rel="stylesheet" href="../../css/article.css">
+<link rel="stylesheet" href="../../css/highlight.css">
+</head>
+<body><div id="box0">
+<div id="header"><h1 class="blog-title"><a href="../../index.html">My OS X Programming Blog</a></h1></div>
+<div id="box1"><div id="box2">
+<div id="contents">
+<h2 class="title">Better-Than-Mac Text Completion in Qt</h2>
+<div class="date">16 Jul 2009</div>
+<div class="abstract"><p>I discuss my Qt project that demonstrates the implementation of text completion for a QLineEdit widget that provides very Mac-like interactions.  It works well on Mac, Linux, and Windows.  I’ve even added a few improvements over an ordinary Apple HIG text completion popup!</p></div>
+<div class="contents">
+<p>Qt has a class called <a href="http://doc.trolltech.com/4.5/qcompleter.html">QCompleter</a> for implementing text completion.  It’s quite easy to use: set up a string list model for the possible completions, hook it up with (e.g.) a <a href="http://doc.trolltech.com/4.5/qlineedit.html#setCompleter">QLineEdit</a> widget, and you’re all set.  As you type into this widget, a popup menu shows you all the possible completions.  See the <a href="http://doc.trolltech.com/4.5/tools-completer.html">sample code</a> for its use at Qt’s documentation website.</p>
+<p>Unfortunately the interaction provided by this default implementation is quite rudimentary and certainly not very “Mac-like”.  For instance, the text completion popup menu is always on and continuously updated with possible completions as the user types.  If one thinks of text completion as a “help” mechanism, one’d probably prefer a popup menu that appears only when a special key is pressed (F5 or Option-Escape on the Mac).</p>
+<p>Also, when the user selects one of the completions, QCompleter replaces the entire string in the QLineEdit widget with it and places the text cursor after its last character.  This is a bit counter-intuitive because one tends to think of the suffix inserted by the completion operation as a single unit.  E.g., if the user types a character at this time, this suffix should be replaced by that character.  On the Mac, the inserted suffix is highlighted, which provides the expected interaction.</p>
+<p>I wrote a <a href="FontPanelTest.zip">sample project</a> that shows how with a bit of code one can implement a text completion popup that behaves very much like one on the Mac.  In fact I’ve improved on that a little (see below).  Here’s a Mac screenshot of the kind of text box I provide for entering chords in my music analysis program.</p>
+<img class="centered" src="chord-completion-mac.jpg" alt="chord-completion-mac.jpg"><p>On Linux:</p>
+<img class="centered" src="chord-completion-linux.jpg" alt="chord-completion-linux.jpg"><p>And on Windows:</p>
+<img class="centered" src="chord-completion-win.jpg" alt="chord-completion-win.jpg"><p>What complicates the implementation somewhat is some music fonts (such as Jazz Text and Maestro Times) look better when used with their own sharp and flat characters which have different codes from the Unicode standard.  Here’s a screenshot of the use of these fonts for two different chord edit boxes and a font panel.</p>
+<img class="centered" src="font-selection.jpg" alt="font-selection.jpg"><p>Notice that the completion popup menu uses the same font as its chord edit box.  Cocoa text completion popups always use the system font, which to me <a href="../T2G-getting-started-guide/index.html">don’t look as nice for chords</a>.</p>
+<p>Here’s perhaps a bigger improvement.  When a Cocoa text completion popup is shown (as a result of the user hitting F5 or Opt-Esc), any key other than up or down arrow (and mouse events) will break out of text completion and hide the popup.  So when you type “E7” and hit F5, you see all the chords that begin with “E7”.  If you type ‘b’ at this time (which is automatically converted to a ♭ by the validator), a Cocoa text completion popup will hide itself and you need to hit F5 again to see all the chords that begin with “E7♭”.  My implementation will instead show these chords immediately.  In fact the user can back over characters of the original prefix and the popup will be updated accordingly.  In this sense once text completion starts, the text field behaves much like the search box of an incremental search, which provides not only greater convenience but also a natural and familiar interaction.</p>
+<p>In addition to serving as a nice sample implementation of text completion, this project also shows how to call up a non-model font panel that behaves very Mac-like, the use of a validator for input “error correction” (e.g., “abmaj7” is converted automatically to “A♭Maj7”), how to provide a concrete implementation of an abstract list model, and how widgets can be resized dynamically.  Lots of cool stuffs in a little sample program!</p>
+<p>Note that this code is for non-commercial use only and disallows derivative works.  However I will consider taking from it a couple of chunks of less than ten lines each “fair use”.</p>
+</div>
+<div class="category"><p>Category: Programming</p></div>
+</div>
+<div id="navigation">
+<h2 class="title">Articles</h2>
+<h3 class="article-title"><a href="../../articles/cantonese-AI-phonetic-IM-year-of-the-ram-release/index.html">Cantonese Artificially-intelligent Phonetic Input Method—Year of the RAM Release</a></h3>
+<div class="date">Date: 23 Jan 2015</div>
+<h3 class="article-title"><a href="../../articles/cantonese-AI-phonetic-IM-for-Windows-7/index.html">Cantonese Artificially-intelligent Phonetic Input Method for Windows 7</a></h3>
+<div class="date">Date: 27 Jul 2012</div>
+<h3 class="article-title"><a href="../../articles/CAP/index.html">CAP — a Cantonese Artificially-intelligent Phonetic Input Method</a></h3>
+<div class="date">Date: 23 May 2012</div>
+<h3 class="article-title"><a href="../../articles/three-little-pieces/index.html">Three Little Pieces</a></h3>
+<div class="date">Date: 30 Apr 2012</div>
+<h3 class="article-title"><a href="../../articles/unicode-processing-c++0x/index.html">Unicode Processing with C++0x</a></h3>
+<div class="date">Date: 16 Oct 2010</div>
+<h3 class="article-title"><a href="../../all.html">[Complete Article List...]</a></h3>
+<h3 class="article-title"><a href="../../rss.xml">[RSS]</a></h3>
+<h2 class="title">Categories</h2>
+<h3 class="article-title"><a href="../../General.html">General</a></h3>
+<h3 class="article-title"><a href="../../Jazz.html">Jazz</a></h3>
+<h3 class="article-title"><a href="../../Programming.html">Programming</a></h3>
+<h3 class="article-title"><a href="../../T2.html">T2</a></h3>
+<h2 class="title">Information</h2>
+<h3 class="article-title"><a href="../../articles/about-the-author/index.html">About the Author</a></h3>
+<h3 class="article-title"><a href="../../articles/about-this-website/index.html">About This Website</a></h3>
+<h3 class="article-title"><a href="../../articles/contact-information/index.html">Contact Information</a></h3>
+<h2 class="title">My Other Webpages</h2>
+<h3 class="article-title"><a href="http://members.shaw.ca/akochoi-gallery/">My Photo Gallery</a></h3>
+<h3 class="article-title"><a href="http://members.shaw.ca/akochoi-old/blog/">My Old Blog</a></h3>
+<h2 class="title">My Old Projects</h2>
+<h3 class="article-title"><a href="http://members.shaw.ca/akochoi-xemacs/">Carbon XEmacs</a></h3>
+<h3 class="article-title"><a href="http://members.shaw.ca/akochoi-emacs/">Emacs for Mac OS X “Carbon Emacs”</a></h3>
+<h3 class="article-title"><a href="http://mac-emacs.sourceforge.net/">Emacs for Mac OS 8/9</a></h3>
+</div>
+</div></div>
+<div id="footer">Copyright © 2007, 2008, 2009, 2010, 2011, 2012 Andrew Choi. All rights reserved. Do not aggregate.</div>
+</div></body>
+</html>

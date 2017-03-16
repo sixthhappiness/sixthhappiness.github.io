@@ -1,0 +1,67 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Jazz Harmonic Analysis Paper</title>
+<link rel="stylesheet" href="../../css/base.css">
+<link rel="stylesheet" href="../../css/article.css">
+<link rel="stylesheet" href="../../css/highlight.css">
+</head>
+<body><div id="box0">
+<div id="header"><h1 class="blog-title"><a href="../../index.html">My OS X Programming Blog</a></h1></div>
+<div id="box1"><div id="box2">
+<div id="contents">
+<h2 class="title">Jazz Harmonic Analysis Paper</h2>
+<div class="date">23 Feb 2009</div>
+<div class="abstract"><p>In a paper I’ve just completed—Harmonic analysis of jazz chord sequences—I describe the T2 algorithm. This article explains some of the reasons I chose to work on this problem. There are (hopefully) also some insights into the state of computer music research and scientific research in general. Plus the question “is computer music more computer science or more music theory?”.</p></div>
+<div class="contents">
+<p>The <a href="../Big-Java-ME-Clock/index.html">Java ME clock</a> I posted a few days ago was of course the result of a diversion. In the last few months I have in fact been writing up my work on T2 and harmonic analysis of jazz chord sequences. It took more time than expected because I went on a detour to make improvements to the algorithm, which resulted in <a href="../T2G-version-2/index.html">version 2 of T2G</a>. The good news is the algorithm is now easier to explain and works better than ever.</p>
+<p>Well, I have finally completed my paper “Harmonic analysis of jazz chord sequences” and it now has <a href="http://www.sixthhappiness.ca/jazz-harmonic-analysis/index.html">its own permanent webpage</a>. There you will also find links to download the source code of my OCaml implementation of the T2 algorithm and test data, which you can use to verify the results that are claimed in the paper. I will soon submit that paper for publication, which will symbolically mark the end of this project on harmonic analysis for me and let me move on to work on something else at least for the time being. That’s a wonderful feeling.</p>
+<p>A few bits of information about this work may be of some interesting, but don’t seem quite suitable for the technical paper. So I’ll write them up here.</p>
+<p>I’ve been interested in the harmonic analysis of chord sequences as far back as <a href="http://members.shaw.ca/akochoi-old/blog/2004/01-25/index.html#1">when I was working on MyJazzBand</a>, my automatic accompaniment generator. The problem I faced then was to find a way to generate better bass lines than existing programs such as Band-in-a-Box and MiBAC JAZZ. So I came up with <a href="http://members.shaw.ca/akochoi-old/blog/2004/02-08/index.html#5">this quick-and-dirty “analysis algorithm”</a>. It was just that: a more reasonable way of choosing what scales to play instead of making what seem to be random choices like other algorithms.</p>
+<p>Soon after I found my algorithm cited in <a href="http://hci.rwth-aachen.de/materials/publications/klein2005a.pdf">a thesis</a> and <a href="http://hci.rwth-aachen.de/materials/publications/buchholz2007a.pdf">a technical report</a> and compared to other harmonic analysis algorithms (reason not to Google yourself :-)). Of course it didn’t compare favorably because that was not what it was designed to do! This told me two things: that research scientists are sometimes too eager to find previous works to critize, and more importantly, there’s a lot of room for improvements on solutions to this problem.</p>
+<p>I had already looked for ready-made harmonic analysis algorithms before I devised my ad hoc one. More literature search after discovering the citation didn’t turned up any satisfactory solutions. This was <i>very surprising</i> because for a long time people have been building programs that attempt to simulate jazz improvisation while they have not solved this very fundamental problem! Perhaps it’s easier to get research grants for projects that generate “some music” rather than ones that, say, just analyze the harmonic structure of chord sequences.</p>
+<p>Two additional clues suggested this problem required further work. Existing methods were all grammar-based or rule-based (e.g., <a href="http://www-poleia.lip6.fr/~fdp/MusES-papers.html">ones suggested by F. Pachet et al.</a> and <a href="http://www.di.ufpe.br/%7Eglr/publications.html">ones by G. Ramalho et al.</a>). These can all be traced back to a grammar for blues chord changes in this paper: M. Steedman, A Generative Grammar for Jazz Chord Sequences. <i>Music Perception</i> 2 (1) (1984) 52-77. While grammars and rule bases can work as generative models when one limits the scope of the language, they break down as analytical models for open-ended collections of chord sequences. To be fair, the author did not originally suggest that his grammar can be used for <i>parsing</i> chord sequences: it wasn’t given in such a way for which an efficient parser can be built anyway. However he fixed this problem in his more recent paper: M. Steedman, The Blues and the Abstract Truth. <i>Mental Models in Cognitive Science</i>. A. Garnham and J. Oakhill (eds.), Erlbaum, Mahwah, NJ, 1996.</p>
+<p>It seemed logical to me, then, that we needed to move away from grammar-based and rule-based systems to build generalized harmonic analysis algorithms. Unfortunately a few recent works still go down that path, for example, see <a href="http://www.inf.ed.ac.uk/publications/thesis/online/IM080564.pdf">M. Wilding’s thesis</a>,  <a href="http://gsd.ime.usp.br/sbcm/2005/papers/short-12469.pdf">this SBCM paper</a>, and <a href="http://smc07.uoa.gr/SMC07%20Proceedings/SMC07%20Paper%2014.pdf">this SMC paper</a>. That’s why I feel that my paper needs to be published.</p>
+<p>The other thing that was very curious to me was that none of these papers referenced any good jazz theory books! Think about that for a moment: can we really expect successful algorithms to be designed and built without a good understanding of the underlying principles of the problem domain? Actually the output generated by these systems reveal their “foreignness” in the realm of jazz theory too: that the analyses are typically represented by parse trees or an explanation of the application of rules. A more natural representation is of course a chord chart annotated with tonality centers and symbols for elements of jazz theory (such as dominant resolutions, ii-Vs, etc.), commonly used by musicians.</p>
+<p>Prompted by this I spent a while studying very closely as many jazz theory books as I could. Andrew Jaffe’s <i>Jazz Theory</i>, Nettles and Graf’s <i>The Chord Scale Theory and Jazz Harmony</i>, Mark Levine’s <i>The Jazz Theory Book</i>, and others (full citations for these books can be found in my paper). That, apart from being a lot of fun, helped in generating many ideas and new problems (and the right problems!) to be solved.</p>
+<p>The end result of this very different approach is now of course summarized in my paper. <a href="http://www.sixthhappiness.ca/jazz-harmonic-analysis/index.html">Download it</a>, read it, play with the sample implementation, and generally have fun! Having worked on a solution for a problem for a while, one cannot help but become attached and think of it as superior to everything else around (but it is! :-)). If you can disregard that bit of ego for a moment though, perhaps you can find a few lessons in the account above. If they aren’t helpful to you in your search for or work on the next research project, let me hope at least they serve as background information which makes reading my paper a little more interesting.</p>
+<p>Andrew Choi. Calgary.</p>
+</div>
+<div class="category"><p>Category: Jazz, T2</p></div>
+</div>
+<div id="navigation">
+<h2 class="title">Articles</h2>
+<h3 class="article-title"><a href="../../articles/cantonese-AI-phonetic-IM-year-of-the-ram-release/index.html">Cantonese Artificially-intelligent Phonetic Input Method—Year of the RAM Release</a></h3>
+<div class="date">Date: 23 Jan 2015</div>
+<h3 class="article-title"><a href="../../articles/cantonese-AI-phonetic-IM-for-Windows-7/index.html">Cantonese Artificially-intelligent Phonetic Input Method for Windows 7</a></h3>
+<div class="date">Date: 27 Jul 2012</div>
+<h3 class="article-title"><a href="../../articles/CAP/index.html">CAP — a Cantonese Artificially-intelligent Phonetic Input Method</a></h3>
+<div class="date">Date: 23 May 2012</div>
+<h3 class="article-title"><a href="../../articles/three-little-pieces/index.html">Three Little Pieces</a></h3>
+<div class="date">Date: 30 Apr 2012</div>
+<h3 class="article-title"><a href="../../articles/unicode-processing-c++0x/index.html">Unicode Processing with C++0x</a></h3>
+<div class="date">Date: 16 Oct 2010</div>
+<h3 class="article-title"><a href="../../all.html">[Complete Article List...]</a></h3>
+<h3 class="article-title"><a href="../../rss.xml">[RSS]</a></h3>
+<h2 class="title">Categories</h2>
+<h3 class="article-title"><a href="../../General.html">General</a></h3>
+<h3 class="article-title"><a href="../../Jazz.html">Jazz</a></h3>
+<h3 class="article-title"><a href="../../Programming.html">Programming</a></h3>
+<h3 class="article-title"><a href="../../T2.html">T2</a></h3>
+<h2 class="title">Information</h2>
+<h3 class="article-title"><a href="../../articles/about-the-author/index.html">About the Author</a></h3>
+<h3 class="article-title"><a href="../../articles/about-this-website/index.html">About This Website</a></h3>
+<h3 class="article-title"><a href="../../articles/contact-information/index.html">Contact Information</a></h3>
+<h2 class="title">My Other Webpages</h2>
+<h3 class="article-title"><a href="http://members.shaw.ca/akochoi-gallery/">My Photo Gallery</a></h3>
+<h3 class="article-title"><a href="http://members.shaw.ca/akochoi-old/blog/">My Old Blog</a></h3>
+<h2 class="title">My Old Projects</h2>
+<h3 class="article-title"><a href="http://members.shaw.ca/akochoi-xemacs/">Carbon XEmacs</a></h3>
+<h3 class="article-title"><a href="http://members.shaw.ca/akochoi-emacs/">Emacs for Mac OS X “Carbon Emacs”</a></h3>
+<h3 class="article-title"><a href="http://mac-emacs.sourceforge.net/">Emacs for Mac OS 8/9</a></h3>
+</div>
+</div></div>
+<div id="footer">Copyright © 2007, 2008, 2009, 2010, 2011, 2012 Andrew Choi. All rights reserved. Do not aggregate.</div>
+</div></body>
+</html>

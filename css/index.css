@@ -1,0 +1,34 @@
+div#left-column {
+	float: left;
+	width: 40%;
+}
+
+div#right-column {
+	float: left;
+	width: 56%;
+}
+
+div#left-column {
+	margin-right: 4%;
+}
+
+p {
+	text-align: justify;
+	margin: 0.5em 0 0;
+}
+
+li {
+	margin-top: 0.325em;
+}
+
+div.left-section, div.right-section {
+	margin-top: 0.75em;
+}
+
+#right-column div.right-section h2 {
+	border-bottom: 1px solid #777;
+}
+
+#left-column div.left-section h2 {
+	border-bottom: 1px solid #777;
+}

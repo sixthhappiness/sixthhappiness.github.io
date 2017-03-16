@@ -1,0 +1,136 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>CAP — a Cantonese Artificially-intelligent Phonetic Input Method</title>
+<link rel="stylesheet" href="../../css/base.css">
+<link rel="stylesheet" href="../../css/article.css">
+<link rel="stylesheet" href="../../css/highlight.css">
+</head>
+<body><div id="box0">
+<div id="header"><h1 class="blog-title"><a href="../../index.html">My OS X Programming Blog</a></h1></div>
+<div id="box1"><div id="box2">
+<div id="contents">
+<h2 class="title">CAP — a Cantonese Artificially-intelligent Phonetic Input Method</h2>
+<div class="date">23 May 2012</div>
+<div class="abstract"><p>The world deserves a better Cantonese phonetic input method!  The only true sentence-based, statistical-language-model-based (SLM-based) pinyin input methods is <a href="http://code.google.com/p/sunpinyin/">Sunpinyin</a>, which is a highly usable input method.  But it’s difficult for most Cantonese speakers to type pinyin (which requires thinking in Mandarin).  Numerous experiments on and variants of input methods based on SLMs have been written about in the literature, which claim to have very high recognition accuracies.  I’ve always wondered why these research results, if they’re so good, have never made it to production.  One can only speculate.  What I’d call “bells-and-whistles” input methods such as <a href="http://www.google.com/intl/zh-CN/ime/pinyin/">Google Pinyin</a>, <a href="http://pinyin.sogou.com/">Sogou Pinyin</a>, <a href="http://www.microsoft.com/china/pinyin/">Microsoft Pinyin</a>, and <a href="http://tw.media.yahoo.com/keykey/">Yahoo! Input Method</a> all appear to use word bigrams in some capacity, and/or a very large word dictionary.  That makes them nice to use, but not as accurate as Sunpinyin, which means more time spent in “word selection”.  Cantonese phonetic input methods based on SLMs have simply not existed, until now.  All Cantonese speakers should read on: CAP will change the way you type Chinese!</p></div>
+<div class="contents"><div>
+
+<h1 id="cap-design-and-internals">CAP Design and Internals</h1>
+<p>So I know what you’re thinking. What? Another Chinese input method?! Or a better question might be, why did I spend all that time and effort on developing CAP? I suppose the simple answer is: I’ve found existing Chinese input methods to be archaic and bearly usable and I believe CAP represents a big step forward in how all Cantonese speakers should type Chinese in the future.</p>
+<p>The CAP, or Cantonese Artificially-intelligent Phonetic, input method is a phonetic Cantonese input method that uses a statistical language model (SLM) of Chinese sentences to minimize, and quite often eliminate, the need for the user to make word and phrase selection. It currently supports both <a href="http://en.wikipedia.org/wiki/Sidney_Lau_romanisation">Sidney Lau</a> and <a href="http://en.wikipedia.org/wiki/Jyutping">Jyutping</a> romanization for Cantonese. Romanization of consecutive characters is typed without separators (such as spaces or single quotes required by other input methods). Thus, very fast Chinese input is possible since the user is not required to “context switch” between (phonetic) character entry and candidate selection.</p>
+<p>Technically, the SLM used by CAP is a <a href="http://citeseerx.ist.psu.edu/viewdoc/summary?doi=10.1.1.157.819">Stolcke entropy-based pruned</a>, <a href="http://citeseerx.ist.psu.edu/viewdoc/summary?doi=10.1.1.129.7219">Katz Backoff</a>, trigram word model of Chinese sentences. Candidate phrases and sentences are identified using a branch-and-bound, best-first heuristic search with pruning (thus the AI in the name CAP). The search is implemented as an incremental dynamic programming algorithm which only requires the smallest possible amount of computation after each character of a romanization is entered.</p>
+<p>The SLM is compressed using a collection of techniques to minimize its storage requirement: <a href="http://www.colips.org/conference/iscslp2006/anthology/2000/paper/or04/111.pdf">scalar quantization, incremental coding</a>, and <a href="http://citeseerx.ist.psu.edu/viewdoc/summary?doi=10.1.1.164.3395">tightly packed tries</a>. It’s also represented as a searchable, serialized data structure that is “freeze-dried” to disk. Initialization of the “heuristic search engine” amounts to simply memory-mapping the disk data structures. This allows CAP to start up virtually instantaneously. This is a powerful but often overlooked programming technique.</p>
+<p>As with any non-trivial programming project, the implementation details that I needed to introduce to make CAP time and space efficient are more interesting and challenging than the mechanics of and mathematics for a SLM-based input method. That’s partly why this project has taken so long to complete. Most of CAP is written in C++. A few programs used in generating the SLM are implemented in Haskell (for its ability to parse things, using Parsec). The interface between CAP and the IBus subsystem on Linux is in C and C++. The interface between CAP and the Input Method Kit on Mac OS X is in Objective C++.</p>
+<p>There is no publicly available Cantonese pronunciation dictionary database of Chinese (compound) words that are unburdened by license agreements (c’mon governments and research centers using public money!). So the one used in CAP was painstakingly constructed by me, working on my own, which took a great deal of time as you can imagine! The character pronunciation table used by CAP is based on the <a href="http://unicode.org/charts/unihan.html">Unihan database</a> provided by the Unicode Consortium. When there’re variations, ties are broken based on <em>my</em> pronunciation, as someone who grew up in the 60’s and before anyone speaks with “relaxed pronunciation” （懶音）, the “proper Cantonese pronunciation campaign” （正音運動）, and all that silliness.</p>
+<h1 id="cap-usage">CAP Usage</h1>
+<p>So what does CAP look like in action? Here’s a screenshot after I typed (in Sidney Lau romanization):</p>
+<pre><code>n g o h  m o o n  s i  f a a i  l o k  d i k  h o  y i  t u n g</code></pre>
+<blockquote><div class="figure"><img src="snapshot1.png"></div></blockquote>
+<p>The spaces between the roman characters above are added only for legibility and should <em>not</em> be typed. CAP determines the most likely phrase for this romanization and displays that in the <em>conversion buffer</em> (the underlined characters). To accept this phrase, simply type a punctuation mark or hit <em>space</em> or <em>enter</em>. So imagine how fast one can type if CAP always suggests the correct sentence: type the romanization of a sentence (without spaces or other separators), punctuation mark, romanization, punctuation mark, and so on.</p>
+<p>What if the sentence you intended to type with that romanization was</p>
+<blockquote><p>鵝滿是快烙滴好耳痛</p></blockquote>
+<p>instead? CAP shows you all words that can begin the current romanization in the conversion buffer in a candidate window, ordered by decreasing likelihood it determines for them given the context. The candidate window shows only one row of candidates at a time and can be scrolled up and down using the <em>up</em> and <em>down</em> keys or the <em>page-up</em> and <em>page-down</em> keys. Of course if you’ve used any kind of input method at all, you’re familiar with this.</p>
+<p>Since the word 『鵝』 is not in the candidate window, we hit <em>Down</em> to look for it, and it appears as the third candidate on that row.</p>
+<blockquote><div class="figure"><img src="snapshot2.png"></div></blockquote>
+<p>Hit “3” to select it.</p>
+<blockquote><div class="figure"><img src="snapshot3.png"></div></blockquote>
+<p>Then look for the word 『滿』 which is the sixth candidate in the candidate window. Hit “6” to select it.</p>
+<blockquote><div class="figure"><img src="snapshot4.png"></div></blockquote>
+<p>In the same way select 『是』 (fourth candidate).</p>
+<blockquote><div class="figure"><img src="snapshot5.png"></div></blockquote>
+<p>Select 『快』 (fourth candidate).</p>
+<blockquote><div class="figure"><img src="snapshot6.png"></div></blockquote>
+<p>Select 『烙』 (sixth candidate).</p>
+<blockquote><div class="figure"><img src="snapshot7.png"></div></blockquote>
+<p>At this point, CAP correctly chooses 『滴好耳痛』 as the rest of the sentence using the SLM. Simply hit <em>space</em> or <em>enter</em> to select it or type a punctuation mark.</p>
+<p>Notice that when you type sentences that are more unusual, CAP behaves much like a conventional word-based phonetic input method. An alternative way to type the second example above is to choose words in the candidate window <em>as we type the romanization</em>. After a while of using CAP, one would develop a good intuition of whether to start choosing words in the candidate window, or to wait for CAP to “settle” in to the correct phrase or sentence.</p>
+<p>The SLM used by CAP was built from a corpus of <a href="http://en.wikipedia.org/wiki/Written_vernacular_Chinese"><em>modern written Chinese</em></a> （白話文）, similar to the writing style of articles in the <a href="http://zh.wikipedia.org/wiki/Wikipedia:%E9%A6%96%E9%A1%B5">Chinese Wikipedia</a>. The corpus also contains some of my own writings (that’s why it works <em>very well</em> for me!), and a small number of <a href="http://en.wikipedia.org/wiki/Written_Cantonese"><em>written Cantonese</em></a> articles. So some sentences written in a more colloquial style will convert correctly but others perhaps not as well. This is not a limitation of the method, but is the result of selection of text I’ve made for the corpus when the SLM was built. At least for this release of CAP the SLM will be fixed and new phrases and sentences cannot be added.</p>
+<p>By design, as soon as CAP is able to convert a prefix of the romanization entered, the converted Chinese characters will immediately appear in the conversion buffer, followed by a few unconverted roman characters. I think this is more natural and efficient because it lets the user concentrate more on the task of typing <em>Chinese</em> and not roman characters.</p>
+<p>But what if one needs to correct typing mistakes and actually see the romanization? If I make a mistake only a few characters ago, I usually just hit <em>backspace</em> a few times and re-type. However, when a mistake is made at the beginning of a long romanization, I can hit the <em>left-arrow</em> key to move the cursor towards the beginning of the conversion buffer. <em>Alt-left-arrow</em> (<em>command-left-arrow</em> on a Mac) will move all the way to the beginning of the conversion buffer. <em>Control-left-arrow</em> (<em>option-left-arrow</em> on a Mac) will move one word at a time. The <em>right-arrow</em>, <em>alt-right-arrow</em>, and <em>control-right-arrow</em> keys will work in the opposite direction correspondingly.</p>
+<p>For example if I’ve intended to type 廣東話輸入法, whose romanization is:</p>
+<pre><code>g w o n g  d u n g  w a  s u e  y a p  f a a t</code></pre>
+<p>but omit the first ‘w’, and realize my mistake only after having entered the entire romanization:</p>
+<blockquote><div class="figure"><img src="snapshot8.png"></div></blockquote>
+<p>I can hit <em>alt-left-arrow</em> to go to the beginning of the conversion buffer:</p>
+<blockquote><div class="figure"><img src="snapshot9.png"></div></blockquote>
+<p>Then hit <em>right-arrow</em> and type ’w’ after the ‘g’:</p>
+<blockquote><div class="figure"><img src="snapshot10.png"></div></blockquote>
+<p>Then hit <em>alt-right-arrow</em> to go back to the end of the conversion buffer:</p>
+<blockquote><div class="figure"><img src="snapshot11.png"></div></blockquote>
+<p>Instead of hitting <em>alt-right-arrow</em>, I can hit <em>right-arrow</em> or <em>control-right-arrow</em> a number of times to reach the end of the conversion buffer.</p>
+<p>Therefore a quick way to switch from a converted Chinese characters display to a romanization display and back in the conversion buffer is to hit <em>alt-left-arrow</em> and <em>alt-right-arrow</em>, respectively.</p>
+<p>As a general rule, characters to the left of the cursor in the conversion buffer are converted as far as possible. Characters to the right of it are always displayed as roman characters, which allows editing.</p>
+<p>When the content of the conversion buffer matches what the user wants to type, he can hit <em>space</em> or <em>enter</em>, or type a punctuation mark to accept that conversion. A punctuation mark is converted into the corresponding Unicode CJK punctuation and then appended. The ‘,’, ‘.’, ‘!’, ‘?’, ‘;’, ‘[’, and ‘]’ keys on the ASCII keyboard are converted into the Unicode characters ‘，’, ‘。’, ‘！’, ‘？’, ‘、’, ‘『’, and ‘』’, respectively. Advanced users can edit the file <code>Punctuations.plist</code> (in directory <code>/usr/share/ibus-cap</code> on Linux) to change the set of characters that are considered punctuations, and the Unicode characters into which they are translated.</p>
+<h1 id="cantonese-romanization">Cantonese Romanization</h1>
+<p>To me, Jyutping is weird. I’d rather type <code>yuet</code> and not <code>jyut</code> as the romanization of 『粵』, and <code>ja</code> and not <code>zaa</code> for 『炸』, <code>seung</code> and not <code>soeng</code> for 『上』, etc. Not to say that the Sidney Lau romanization takes no effort to learn. Any phonetic transcription system requires some time to learn and some getting used to.</p>
+<p>One of the key hurdles for Cantonese romanization beginners is to distinguish the “a” and “aa” sounds. E.g., in Sidney Lau romanizaton, 『達』 is romanized as <code>daat</code> while 『突』 is <code>dat</code> (think long versus short sounds). Also 『腳踭』 is <code>geuk jaang</code> while 『高僧』 is <code>go jang</code>. Notice that 『打』 is romanized <code>da</code> (with a single ‘a’) although logically it should be <code>daa</code>. This is an exception in the Sidney Lau romanization because the short “a” sound never appears by itself.</p>
+<p>Another difficulty is to distinguish the “u” and “oo” sounds. For example， 『繪』 is romanized as <code>kooi</code> while 『驅』 is <code>kui</code> (again long and short sounds). So strictly speaking 『虎』, 『配』, 『伴』, and 『活』 must be romanized as <code>foo</code>, <code>pooi</code>, <code>boon</code>, and <code>woot</code>, respectively, while 『送』, 『屬』, 『水』, 『信』, and 『術』 must be romanized as <code>sung</code>, <code>suk</code>, <code>sui</code>, <code>sun</code>, and <code>sut</code>, respectively. Fortunately, cases where “u” and “oo” must be typed exactly (as in the example of 『驅』 and 『繪』 above) are very rare. CAP makes this easier by allowing “oo” to be entered as “u” instead <em>in cases where it doesn’t matter</em>, which is almost all the time. So 『虎』, 『配』, 『伴』, and 『活』 can be typed as <code>fu</code>, <code>pui</code>, <code>bun</code>, and <code>wut</code> as well.</p>
+<p>In Sidney Lau romanization, 『叉』 is romanized as <code>cha</code>. Since the letter ‘c’ isn’t used any other way in a romanization, CAP allows the <em>initial</em> “ch” to be abbreviated to “c” as a shorthand. Therefore 『叉』 can also be romanized as <code>ca</code>.</p>
+<p>So take your time, study the examples on the <a href="http://zh.wikipedia.org/wiki/%E5%8A%89%E9%8C%AB%E7%A5%A5%E6%8B%BC%E9%9F%B3">Chinese version of Wikipedia page on Sidney Lau romanization</a>, practice, enunciate and articulate your senteneces in your mind (or out loud if you’re alone <code>:-)</code>), and you’ll be typing Chinese in CAP quickly before you know it.</p>
+<h1 id="installation-and-setup-on-linux">Installation and Setup on Linux</h1>
+<p>So how do you install and setup CAP on your Linux PC? First, download a <code>.deb</code> or <code>.rpm</code> package from <a href="http://sdrv.ms/LzNNxv">my ibus-cap SkyDrive directory</a>. Since you use Linux, you should already know the following: download a <code>.deb</code> package if your Linux distro is Debian, Ubuntu, etc.; download a <code>.rpm</code> package if your linux distro is RedHat, Fedora, OpenSuse, etc. For 32-bit distros, download the package with <code>i386</code> in the filename. For 64-bit distros, download the package with <code>amd64</code> or <code>x86_64</code> in the filename. <code>Ibus-cap</code> works under both the GNOME and KDE desktop environments, provided that IBus has been installed.</p>
+<p>Once downloaded, install the <code>ibus-cap</code> package as you would install any other packages on your Linux PC. Usually that simply amounts to double-clicking on the package file icon. <code>Ibus-cap</code> depends on the <code>ibus</code> and <code>libcanberra</code> packages. These will be installed automatically if they’re not already installed on your system.</p>
+<p>The following is a snapshot of the panel displayed by the <em>Apper</em> software manager after I click on the file <code>ibus-cap-1.0-2.x86_64.rpm</code> in the <em>Dolphin</em> file manager on OpenSuse. When I click the <em>Continue</em> button in the panel, I’ll be asked to type in the administrator password so that the installation can proceed.</p>
+<blockquote><div class="figure"><img src="snapshot12.png"></div></blockquote>
+<p>On some distros such as Ubuntu, once IBus is installed, you need to select IBus as the “input method engine”. Do this by clicking on <em>System Settings</em> (wrench and cogwheel icon), double-clicking <em>Language Support</em> and in the “Keyboard input method system:” popup menu, choosing <em>ibus</em>.</p>
+<blockquote><div class="figure"><img src="snapshot13.png"></div></blockquote>
+<p>On some distros such as OpenSuse, simply installing IBus will make it available to a user when he logs in. For IBus to work correctly with other applications, make sure that the <code>ibus-qt</code>, <code>ibus-gtk</code>, <code>ibus-gtk-32bit</code>, and <code>ibus-gtk3</code> packages are also installed. If they’re not, a simple way to get them all at once is to install one of the IBus input methods, e.g., <code>ibus-table-chinese-cantonese</code>.</p>
+<p>Once you’re using IBus as the input method engine, <code>ibus-cap</code> needs to be added as one of the available input methods. Right click on the IBus icon in the system tray (looks like a mini keyboard) and choose the <em>Preferences</em> popup menu item.</p>
+<blockquote><div class="figure"><img src="snapshot14.png"></div></blockquote>
+<p>The <em>IBus Preferences</em> panel will appear. Click the <em>Input Method</em> tab. In the <em>Select an input method</em> popup menu, select <em>Chinese</em> -&gt; <em>Cantonese AI Phonetic IM</em>, then click the Add button. The resulting panel should look like this:</p>
+<blockquote><div class="figure"><img src="snapshot15.png"></div></blockquote>
+<p>You may also wish to set other options in the <em>General</em> and <em>Advanced</em> tabs. E.g., I set <em>Show language panel</em> to <em>embedded in menu</em>. Note that currently <em>Candidates orientation</em> does not affect how <code>ibus-cap</code> displays candidates (it’s always horizontal).</p>
+<p>Now you’re ready to use CAP! <em>When a GUI element that supports text input (such as a text box) is in focus</em>, you can hit the keyboard shortcut to enable the input method (this shortcut is customizable under the <em>General</em> tab). If you have added more than one input method in IBus Preferences, you can hit the keyboard shortcut to cycle through them (also customizable under the <em>General</em> tab). When CAP is active, the IBus icon (mini keyboard) will switch to the <code>ibus-cap</code> icon (the character 『粵』):</p>
+<blockquote><div class="figure"><img src="snapshot16.png"></div></blockquote>
+<p>That sigifies that you’re using CAP as input method and can start typing Cantonese romanization, as shown in all the examples above.</p>
+<p>Left clicking the <code>ibus-cap</code> icon will allow you to change a couple of options: the use of <em>Sidney Lau</em> or <em>Jyutping</em> romanization, and whether CAP should output traditional or simplified Chinese characters.</p>
+<blockquote><div class="figure"><img src="snapshot17.png"></div></blockquote>
+<p>The choice of these options are persistent, in the sense that they’ll remain set next time you login and across reboots.</p>
+<p>Note that when <em>Show language panel</em> is not set to <em>embedded in menu</em> in the IBus Preferences panel, this options menu may appear as a “torn-off toolbar” somewhere on the display.</p>
+<h1 id="license">License</h1>
+<p><code>Ibus-cap</code> is an original, copyright program designed and written by me.</p>
+<p>A Mac OS X Lion version of CAP will be made available soon and a Windows version is being implemented. These will most likely be “free-to-use” programs but will not be open-source (certainly <em>never</em> GPL!). <code>Ibus-cap</code> is distributed in binary form only.</p>
+<p>The public is given the permission to use <code>ibus-cap</code> only for personal and non-commercial purposes.</p>
+<p>Redistribution of <code>ibus-cap</code> or its parts in binary or any other form without permission, with or without modification, is prohibited.</p>
+<p>I am not liable for any losses or damages caused by the use of this program.</p>
+<p>For more information on the licence of CAP, see the file <code>LICENSE</code> (in directory <code>/usr/share/doc/ibus-cap/</code> on Linux).</p>
+<p>I don’t really have much interest or sufficient time and resources to provide “user support” for CAP. So please, use it only if you know enough about Linux to solve most problems on your own. Also please don’t be surprised if I don’t reply to your Email containing questions that I think can be answered by a little experimentation. Just remember this is not a free or open-source project.</p>
+</div></div>
+<div class="category"><p>Category: Programming</p></div>
+</div>
+<div id="navigation">
+<h2 class="title">Articles</h2>
+<h3 class="article-title"><a href="../../articles/cantonese-AI-phonetic-IM-year-of-the-ram-release/index.html">Cantonese Artificially-intelligent Phonetic Input Method—Year of the RAM Release</a></h3>
+<div class="date">Date: 23 Jan 2015</div>
+<h3 class="article-title"><a href="../../articles/cantonese-AI-phonetic-IM-for-Windows-7/index.html">Cantonese Artificially-intelligent Phonetic Input Method for Windows 7</a></h3>
+<div class="date">Date: 27 Jul 2012</div>
+<h3 class="article-title"><a href="../../articles/CAP/index.html">CAP — a Cantonese Artificially-intelligent Phonetic Input Method</a></h3>
+<div class="date">Date: 23 May 2012</div>
+<h3 class="article-title"><a href="../../articles/three-little-pieces/index.html">Three Little Pieces</a></h3>
+<div class="date">Date: 30 Apr 2012</div>
+<h3 class="article-title"><a href="../../articles/unicode-processing-c++0x/index.html">Unicode Processing with C++0x</a></h3>
+<div class="date">Date: 16 Oct 2010</div>
+<h3 class="article-title"><a href="../../all.html">[Complete Article List...]</a></h3>
+<h3 class="article-title"><a href="../../rss.xml">[RSS]</a></h3>
+<h2 class="title">Categories</h2>
+<h3 class="article-title"><a href="../../General.html">General</a></h3>
+<h3 class="article-title"><a href="../../Jazz.html">Jazz</a></h3>
+<h3 class="article-title"><a href="../../Programming.html">Programming</a></h3>
+<h3 class="article-title"><a href="../../T2.html">T2</a></h3>
+<h2 class="title">Information</h2>
+<h3 class="article-title"><a href="../../articles/about-the-author/index.html">About the Author</a></h3>
+<h3 class="article-title"><a href="../../articles/about-this-website/index.html">About This Website</a></h3>
+<h3 class="article-title"><a href="../../articles/contact-information/index.html">Contact Information</a></h3>
+<h2 class="title">My Other Webpages</h2>
+<h3 class="article-title"><a href="http://members.shaw.ca/akochoi-gallery/">My Photo Gallery</a></h3>
+<h3 class="article-title"><a href="http://members.shaw.ca/akochoi-old/blog/">My Old Blog</a></h3>
+<h2 class="title">My Old Projects</h2>
+<h3 class="article-title"><a href="http://members.shaw.ca/akochoi-xemacs/">Carbon XEmacs</a></h3>
+<h3 class="article-title"><a href="http://members.shaw.ca/akochoi-emacs/">Emacs for Mac OS X “Carbon Emacs”</a></h3>
+<h3 class="article-title"><a href="http://mac-emacs.sourceforge.net/">Emacs for Mac OS 8/9</a></h3>
+</div>
+</div></div>
+<div id="footer">Copyright © 2007, 2008, 2009, 2010, 2011, 2012 Andrew Choi. All rights reserved. Do not aggregate.</div>
+</div></body>
+</html>

@@ -1,0 +1,216 @@
+% Three Little Pieces
+% Andrew Choi
+% 30 April 2012
+
+I haven’t written one of these in quite a while.  I’ve recently completed a
+project on which I’ve been working for almost two years and I’ll be announcing
+and releasing an exciting piece of software in the next few days.  Presently
+I’d just like to verify that my “[blogging software system][LitProgArt]” is
+still functioning correctly because my PC now runs [OpenSUSE][]/[KDE][] and it
+has newly installed Haskell, Pandoc, Emacs, etc.  I also found and installed
+[MozRepl][], which allows a page displayed in Firefox to be refreshed from
+Emacs (very nice!).  And at the same time this is a quick refresher course for
+me on the MarkDown language.  So this is a good opportunity to write a short
+article on a few small programs I’ve written recently.
+
+[LitProgArt]: ../haskell-literate-programming-pandoc-carbon-xemacs/index.html
+[OpenSUSE]: http://www.opensuse.org/en/
+[KDE]: http://www.kde.org/
+[MozRepl]:https://github.com/bard/mozrepl/wiki/Emacs-integration
+
+SwitchMainDisplay
+=================
+
+_SwitchMainDisplay_ is my Mac OS X utility for switching the main display on
+systems with multiple displays.  It took 15 minutes to read the relevant
+documentation and 5 minutes to write.  So I was quite surprised that it hasn’t
+been already written and made available elsewhere (including the App Store).
+A web search will reveal that a convenient way (e.g., a keyboard shortcut) to
+switch the main display is an often-requested Mac OS X feature.
+
+Here’s the situation in which _SwitchMainDisplay_ is useful.  An external
+display is connected to your iMac or MacBook.  Sometimes you want to use the
+display on the iMac or MacBook as the main display (the one with the menu bar
+and dock).  And sometimes you want to use the external display as the main
+display.  You want a quick and simple way to switch between the two.
+
+The method provided by Mac OS X to change the main display is to open the
+__System Preferences... > Displays > Arrangement__ panel and drag the
+(miniature) menu bar from its current position into the display to be used as
+the main display.  Doing this every time one needs to switch main display can
+get a bit tedious.
+
+So here they are: the _SwitchMainDisplay_ [Xcode
+project][SwitchMainDisplay-src.zip] and [binary
+distribution (application)][SwitchMainDisplay.zip] (Mac OS X 10.6 or above).
+_SwitchMainDisplay_, when run, switches the main display to the “next” one and
+then exits.  If there is only one display, _SwitchMainDisplay_ beeps and does
+nothing.  If there are more than two displays, _SwitchMainDisplay_ will only
+switch between the first two.  But the source code is included and it is easy
+to make the code work for three or more displays.
+
+[SwitchMainDisplay-src.zip]: SwitchMainDisplay-src.zip
+[SwitchMainDisplay.zip]: SwitchMainDisplay.zip
+
+How you bind a keyboard shortcut to launch _SwitchMainDisplay_ is “left as an
+exercise”.  Basically, create a service in the Automator which receives “no
+input” from “any application”, then launch the application
+_SwitchMainDisplay_.  Then in the __System Preferences... > Keyboard >
+Keyboard Shortcuts > Services__ panel, assign a shortcut to the created
+service.
+
+Perhaps I should note that there are utilities like [Secondbar][] and
+[DejaMenu][] which _avoid choosing a main display_ by providing immediate
+access to the menu bar from all displays.  However, I prefer being able to
+switch main display because: (1) I can access the dock there, and (2) if
+coordinates of new windows are kept near the origin (0, 0), new windows are
+always opened on the main display (otherwise quite confusing when the external
+display has been turned off).
+
+[Secondbar]: http://blog.boastr.net/?page_id=79
+[DejaMenu]: http://homepage.mac.com/khsu/DejaMenu/DejaMenu.html
+
+Have fun!
+
+to_u{8,16,32}string()
+=====================
+
+This is just a quick update to my previous [Unicode Processing with
+C++0x][C++0xUnicode] article.  The GNU standard C++ library libstdc++ still
+lacks the `codecvt` facets [`codecvt_utf8`][] and [`codecvt_utf8_utf16`][]
+from the C++0x standard.  If you use that library you’ll still need the code
+from my previous article to convert among UTF-8, UTF-16 and UTF-32 encodings.
+
+[C++0xUnicode]: ../unicode-processing-c++0x/index.html
+[`codecvt_utf8`]: http://en.cppreference.com/w/cpp/locale/codecvt_utf8
+[`codecvt_utf8_utf16`]: http://en.cppreference.com/w/cpp/locale/codecvt_utf8_utf16
+
+If you’re on Linux, there are two options: install the [Boost C++
+Libraries][boost] or [install LLVM and libc++][InstallLLVM].  If you’re on Mac
+OS X Lion, Xcode 4.3.2 already includes LLVM and libc++.
+
+[boost]: http://www.boost.org/
+[InstallLLVM]: http://solarianprogrammer.com/2011/10/16/llvm-clang-libc-linux/
+
+Libc++ provides `codecvt_utf8` and `codecvt_utf8_utf16`.  With these, the
+function `to_u8string`, `to_u16string`, and `to_u32string` are much simpler to
+implement:
+
+~~~ {.Cpp}
+#include <codecvt>
+#include <string>
+
+inline std::string to_u8string(const std::u16string& s)
+{
+  // Use "static" in case it is expensive to construct one.  Same below.
+  static std::wstring_convert<std::codecvt_utf8_utf16<char16_t>, char16_t> utf16conv;
+  
+  return utf16conv.to_bytes(s);
+}
+
+inline std::u16string to_u16string(const std::string& s)
+{
+  static std::wstring_convert<std::codecvt_utf8_utf16<char16_t>, char16_t> utf16conv;
+  
+  return utf16conv.from_bytes(s);
+}
+
+inline std::string to_u8string(const std::u32string& s)
+{
+  static std::wstring_convert<std::codecvt_utf8<char32_t>, char32_t> utf32conv;
+  
+  return utf32conv.to_bytes(s);
+}
+
+inline std::u32string to_u32string(const std::string& s)
+{
+  static std::wstring_convert<std::codecvt_utf8<char32_t>, char32_t> utf32conv;
+  
+  return utf32conv.from_bytes(s);
+}
+
+inline std::u16string to_u16string(const std::u32string& s)
+{
+  return to_u16string(to_u8string(s));
+}
+
+inline std::u32string to_u32string(const std::u16string& s)
+{
+  return to_u32string(to_u8string(s));
+}
+~~~
+
+Note that since `wstring_convert` converts between a wide string and a byte
+string, conversions between UTF-16 and UTF-32 encodings require a call to
+`to_bytes` followed by one to `from_bytes`.  Had we used `codecvt` instances
+directly, we should be able to perform the conversion in one step.  But the
+code will be more complicated.
+
+makeScreencast
+==============
+
+I want to make screencasts on a Linux PC to demonstrate how to install and use
+my new software.  So I've tested a number of programs for doing that.  The
+most often recommended programs are [recordMyDesktop][],
+[`ffmpeg`][ffmpegScreencastYouTubeSearch], and the [Gnome screencast
+tool][GnomeScreencast].  I’d like to record at full screen resolution
+(1920x1080) and record audio commentary at the same time.  None of the tested
+programs worked very well for me: the common problem is the video lags behind
+audio.
+
+[recordMyDesktop]: http://recordmydesktop.sourceforge.net/about.php
+[ffmpegScreencastYouTubeSearch]: http://www.youtube.com/results?search_query=ffmpeg+screencast
+[GnomeScreencast]: http://live.gnome.org/GnomeShell/CheatSheet#Screencast_recording
+
+I found a shell script [my-shooting-script-norm-lossless.sh][] on the Web that
+prevents this audio/video synchronization problem by recording audio and video
+separately using two invocations of `ffmpeg` and then merging the results into
+a single file.  Go download it and give it a try if you are experiencing
+synchronization problems with recording your screencasts.  The following is a
+version which I’ve simplified and cleaned up to handle process IDs correctly.
+That’s really all you need.
+
+[my-shooting-script-norm-lossless.sh]: http://audacity.238276.n2.nabble.com/New-script-for-recording-screencasts-on-Ubuntu-9-04-tt3081264.html
+
+~~~ {.Bash}
+#!/bin/bash
+
+basename=$1
+
+screensize=1920x1080
+
+# Start recording screen
+ffmpeg -f x11grab -r 30 -s $screensize -i :0.0 -vcodec libx264 -b 4000k "$basename-video.avi" &
+
+video_pid=$(pgrep -n ffmpeg)
+
+# Start recording audio 
+ffmpeg -f alsa -ac 1 -i hw:2,0 -acodec pcm_s16le "$basename-audio.wav" &
+
+audio_pid=$(pgrep -n ffmpeg)
+
+# Wait for user to press Enter
+echo "Press 'Enter' to stop recording."
+read dummy
+
+kill $video_pid
+kill $audio_pid
+
+# Wait for the two subprocesses to terminate
+wait
+
+# Merging video and audio recording
+ffmpeg -isync -i "$basename-video.avi" -i "$basename-audio.wav" -map 0:0 -map 1:0 -acodec copy -vcodec copy "$basename.mov"
+
+rm "$basename-video.avi"
+rm "$basename-audio.wav"
+~~~
+
+To use it, save the script in a file, say, `makeScreencast`, make the file
+executable, and type `./makeScreencast <filename>`.  To end the screencast, go
+back to the terminal window in which the `makeScreencast` command was issued
+and hit _Enter_.  Note that my microphone is connected to alsa device
+`hw:2,0`.  You will have to change that in your script according to your
+system configuration.
+
+Have fun!

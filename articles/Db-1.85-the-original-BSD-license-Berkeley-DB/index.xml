@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<?xml-stylesheet type="text/xsl" href="../../xslt/article.xslt"?>
+<article>
+  <title>Db 1.85 — the Original, BSD license Berkeley DB</title>
+  <contents>
+    <include>contents.xml</include>
+  </contents>
+</article>

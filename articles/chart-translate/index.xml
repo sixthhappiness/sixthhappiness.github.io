@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<?xml-stylesheet type="text/xsl" href="../../xslt/article.xslt"?>
+<article>
+  <title>Chart Translate: Chord Chart File Format Converter</title>
+  <contents>
+    <p>The MJB2Lite program I released last week allows you to generate jazz accompaniment MIDI files from chord charts stored in its own native text format or from Band-in-a-Box (BiaB) files.  You can find and download many BiaB files from the Web.  But what if the chords in the downloaded BiaB files aren't correct or aren't the exact ones that you want?  If you have the BiaB application, you can use it to change the chords.  The ChartTranslate utility allows you to do that without the BiaB application.  It can also convert chord charts to formats that can be imported by Finale or Lilypond for printing.</p>
+    <p>Here's an excerpt from the README.txt file of the ChartTranslate distribution:</p>
+    <p class="quote">
+      <p>ChartTranslate is an utility program for conversion of chord charts among various file formats.  It reads files in the following formats:</p>
+      <ul>
+        <li>MyJazzBand (.mjb or .toe),</li>
+        <li>Band in a Box (.sg? or .mg?), and</li>
+        <li>XML exported by Finale (.xml)</li>
+      </ul>
+      <p>and writes files in the following formats:</p>
+      <ul>
+        <li>MyJazzBand (.mjb or .toe),</li>
+        <li>Band in a Box (.sg?),</li>
+        <li>XML for imported into Finale (.xml), and</li>
+        <li>Lilypond (.ly).</li>
+      </ul>
+    </p>
+    <p>For details on how to use ChartTranslate and its software license, read the files README.txt and LICENSE.txt that come with the distribution.</p>
+    <p>Here are the downloads for the different platforms:</p>
+    <ul>
+      <li>
+        <a href="http://members.shaw.ca/akochoi-files/chart-translate/charttranslate.zip" title="charttranslate.zip">Mac OS X (tested under 10.4)</a>
+      </li>
+      <li>
+        <a href="http://members.shaw.ca/akochoi-files/chart-translate/dist.zip" title="dist.zip">Windows (tested under XP)</a>
+      </li>
+      <li>
+        <a href="http://members.shaw.ca/akochoi-files/chart-translate/dist.tgz" title="dist.tgz">All other systems, such as Linux and BSD’s</a>
+      </li>
+    </ul>
+  </contents>
+</article>

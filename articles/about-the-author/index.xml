@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<?xml-stylesheet type="text/xsl" href="../../xslt/article.xslt"?>
+<article>
+  <title>About the Author</title>
+  <contents>
+    <img src="metulips.jpg" alt="Me &amp; Tulips" class="alignright"/>
+    <p>Hi!  My name is Andrew Choi (<span xml:lang="zh-Hant" lang="zh-Hant">蔡基安</span>) and this is my personal website.</p>
+    <p>I was born and grew up in Hong Kong.  I went to university and graduate school in the US.  I then went back to Hong Kong and taught university.  I now live in Calgary, Canada.</p>
+    <p>I went to school at Good Shepherd Kindergarten and Primary School (a.m.), Wah Yan College (Kowloon), University of San Francisco, and University of California at Davis. My B.S., M.S., and Ph.D. are all in computer science.  I taught at the computer science departments at the Chinese University of Hong Kong and the University of Hong Kong.</p>
+    <p>I taught many different subjects in computer science over the 15 years I was with the universities.  But my favorite ones were always those related to programming and the construction of real and useful software systems, like compilers, OS, real-time systems, DBMS, design patterns, C++, and so on. I have done research in and published papers on OS, database systems, computational geometry, image processing, DSP, and computer music.  However, my first love has always been <em>writing beautiful programs</em>.</p>
+    <p>I ported GNU Emacs to Mac OS classic and Mac OS X, and later XEmacs to Mac OS X.  I also wrote an automatic jazz accompaniment program called MyJazzBand and the TOE library. I developed algorithms for and wrote T2, a program for jazz harmonic analysis. I am now working on a new verison of MyJazzBand.</p>
+    <p>I play the guitar and a little electric bass. I have read a lot of Frank Herbert, William Gibson, and Larry Niven. I cook and garden. I speak Cantonese, English, and some Mandarin. I read and write English and Chinese.</p>
+    <p>Andrew Choi.</p>
+  </contents>
+</article>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<?xml-stylesheet type="text/xsl" href="../../xslt/article.xslt"?>
+<article>
+  <title>MyJazzBand 2 Lite - OCaml</title>
+  <contents>
+    <p>I’m happy to announce the release of MJB2Lite-OCaml, the OCaml version of MyJazzBand 2 Lite.  Compared to <a href="../myjazzband-2-lite/index.html">the one in Python I released a few weeks ago</a>, this new version is even better designed and written :-): it is, afterall, a revision of a revision!  And it runs at least ten times faster.  Since profiling and optimization were performed on the Python version during its implementation to make it quite efficient, the difference between the two versions is currently quite minimal to a user.  But all future development of “the MJB2 series of software tools” will continue from this OCaml version.  And as my harmonic analysis algorithms increase in complexity, its benefits will no doubt become more apparent.</p>
+    <p>MJB2Lite-OCaml takes chord charts of jazz tunes as input in a simple text format or the Band-in-a-Box file format and generates MIDI files of accompaniments consisting of a walking bassline and comping piano and drums for them.  MJB2Lite-OCaml performs harmonic analysis on the chords and models chords and scales in detail.  Its design and implementation make it easy to experiment with the use of different automatic composition algorithms in it.  Due to these factors, its output sounds better and is more realistic than any competing systems currently available: commercial products and research implementations included.  I welcome head-to-head comparisons :-).</p>
+    <p>So here are the downloads:</p>
+    <ul>
+      <li>Mac OS X (tested under 10.4) <a href="../a-correct-version-of-myjazzband-2-lite-ocaml/index.html">[Here’s the corrected version (added July 17, 2007).]</a></li>
+      <li>
+        <a href="mjb2lite-ocaml-windows.zip" title="mjb2lite-ocaml-windows.zip">Windows (tested under XP)</a>
+      </li>
+      <li>
+        <a href="mjb2lite-ocaml-other.tgz" title="mjb2lite-ocaml-other.tgz">Bytecode version for all other systems such as Linux and BSD’s</a>
+      </li>
+    </ul>
+    <p>If you have questions and comments about MJB2Lite-OCaml, please use the MJB2Lite forum on <a href="http://www.sixthhappiness.ca/forum/">my bulletin board</a> or <a href="http://sixthhappiness.ca/wordpress/index.php/contact-information/">send them to me</a>.</p>
+    <p>Enjoy the program!</p>
+  </contents>
+</article>

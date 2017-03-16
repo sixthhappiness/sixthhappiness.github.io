@@ -1,0 +1,86 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>FCIM — a Cantonese Phonetic Input Method</title>
+<link rel="stylesheet" href="../../css/base.css">
+<link rel="stylesheet" href="../../css/article.css">
+<link rel="stylesheet" href="../../css/highlight.css">
+</head>
+<body><div id="box0">
+<div id="header"><h1 class="blog-title"><a href="../../index.html">My OS X Programming Blog</a></h1></div>
+<div id="box1"><div id="box2">
+<div id="contents">
+<h2 class="title">FCIM — a Cantonese Phonetic Input Method</h2>
+<div class="date">8 Sep 2008</div>
+<div class="abstract"><p>Chinese input methods on Mac OS X, Cantonese phonetic input methods, and FCIM, my new fast Cantonese input method.</p></div>
+<div class="contents">
+<p>Apple does not provide a Cantonese phonetic input method (IM) as a standard part of Mac OS X.  Many Cantonese speakers I know type Chinese using some form of Cangjie or Pinyin.  I only write in Chinese occasionally.  I’ve always found radical- or stroke-based IMs unusable because one needs to first visualize the ideograms.  One, my brain doesn’t work that way.  Two, half the time I’ve forgotten how to write them anyway.  Pinyin is of course based on Mandarin; my Mandarin is passable for a tourist at best :-).</p>
+<p>So a Cantonese phonetic IM is really the only logical choice for me.  On Mac OS X one can supply a simple character table to specify a custom IM.  So <a href="http://members.shaw.ca/akochoi-old/blog/2003/11-02/index.html#2">I created one</a> based on <a href="http://members.shaw.ca/akochoi-old/blog/2003/08-24/index.html#5">an old ones I used for Emacs</a> and that has served as my Chinese IM in the past few years.  The problem with this custom IM is that it is just a very rudimentary implementation.  You type the romanization of a character, hit space to initiate the “conversion”, then select the character you want by number and arrow keys.  There’s no dynamic prompting (so one must always hit a space for each character).  There’re no built-in or user-defined word dictionaries.  And there’s not even a preferences panel (e.g., the font type and size of the candidate window can’t be changed).</p>
+<img src="FCIM-screenshot-1.jpg" alt="FCIM-screenshot-1" class="alignright"><p>Proponents of non-phonetic IMs will often point to their coding’s uniqueness property as an advantage: that each key sequence uniquely identifies a character.  However, that was only relevant back when computers were slow, main memory was small, and IMs could perform no more processing than a simple table lookup.  Intrinsically a Cantonese phonetic IM can be very fast if an implementation can eliminate as many of the extra key strokes for candidate selection as possible.  Ideally if the IM perfectly “understands” the sentences being typed, the only necessary key strokes are ones corresponding to the characters’ romanization.  Of course implementing a system having even close to such ability is a major undertaking (great programming project kids!).  See <a href="http://www.opensolaris.org/os/project/input-method/documents/sunpinyin_code_tour_ime/">Sunpinyin IM</a> for how a statistical model is used to convert Pinyin into sentences, for example.  My IM implementation doesn’t understand sentences but by using a good word dictionary and logically-ordered candidate lists, it is still highly useable.  </p>
+<p>To this date, I still can’t find a good implementation of a Cantonese phonetic IM for Mac OS X that I actually enjoy using.  I should mention the <a href="http://openvanilla.org/">OpenVanilla project</a> which has a nice GUI and brings together a large number of input methods.  A custom coding table in XCIN format can be added to OpenVanilla to support Cantonese phonetic input.  One can then enable dynamic prompting and associated words (via a supplementary module) to make the IM reasonably usable.  However, the associated words feature still requires selections too often and among too many candidates.  For a number of reasons, some technical and some not, I decided to start from scratch with a new implementation instead of modifying OpenVanilla to work the way I want.</p>
+<img src="FCIM-screenshot-2.jpg" alt="FCIM-screenshot-2" class="alignright"><p>So, my own Cantonese phonetic IM is called FCIM.  FCIM stands for either fast Cantonese IM or Fish Creek IM.  Fish Creek runs a few hundred meters behind my backyard.  Here’re the system requirements and features of FCIM:</p>
+<ul>
+    	<li>FCIM requires Mac OS X 10.5 (Leopard), because it uses the Input Method Kit framework, which was introduced in that version.</li>
+    	
+    	<li>It supports both <a href="http://lshk.ctl.cityu.edu.hk/cantonese.php">Jyutping</a> and <a href="http://en.wikipedia.org/wiki/Sidney_Lau_romanisation">Sidney Lau</a> romanizations.  And since I’ve provided the source code of FCIM and the “FCIM database builder”, you can add your own favorite romanization.  Currently the FCIM database builder constructs its character pronunciation table from the <a href="http://unicode.org/charts/unihan.html">Unihan database</a> provided by the Unicode Consortium.  One can of course modify the code to use another pronunciation database.</li>
+    	
+    	<li>It uses a built-in word dictionary to minimize the number of key presses other than those for the characters’ romanization and also to minimize the number of candidates to select from.  For example, to input <span xml:lang="zh-Hant" lang="zh-Hant">百貨公司</span>, one simply types “baakfohgungsi”, then a space to select the sole candidate.  Currently FCIM uses <a href="http://technology.chtsai.org/wordlist/">Chih-Hao Tsai’s word list</a> but it can be easily modified to use other lists.  Using that list, 83.7% of the words correspond to key sequences that uniquely identify them.</li>
+
+    	<li>Candidate lists are sorted by decreasing occurrence frequencies, so commonly-used characters and words will appear earlier in them.  Currently it uses <a href="http://technology.chtsai.org/charfreq/">frequency data collected by Shih-Kun Huang</a>, but it can be modified to use another source of character frequency data.</li>
+
+    	<li>Dynamic prompting is always on, so no key press is needed to ”start a conversion”.  This frees up the space key to select the first (or only) candidate and makes more sense to me anyway.</li>
+
+    	<li>A simple preferences panel is provided, which lets you choose the font type and size used by the candidate window.</li>
+    </ul>
+<p>Sounds good?  Here’re download links for the binary distributions.  Get either of these:</p>
+<ul>
+    	<li>the <a href="http://members.shaw.ca/akochoi-files/FCIM-a-cantonese-phonetic-input-method/FCIM%20JyutPing.zip">Jyutping distribution</a>.</li>
+    	
+    	<li>the <a href="http://members.shaw.ca/akochoi-files/FCIM-a-cantonese-phonetic-input-method/FCIM%20SidneyLau.zip">Sidney Lau distribution</a>.</li>
+    </ul>
+<p>To install, move or copy the application bundle named <code>FCIM</code> into the <code>Input Methods</code> folder in the <code>Library</code> folder in your “home” folder.  Log out, then log in again (or restart).  Select <code>System Preferences...</code> in the “Apple” menu.  Then select <code>International</code>, then the <code>Input Menu</code> tab; scroll to find and enable the FCIM input method.  Use the Input menu to switch among different input methods.  That’s it.</p>
+<p>There really isn’t a lot to explain in terms of how to use FCIM.  When it is the active IM, just type in the romanization you’re using.  When you type a (multi-character) word, type the romanization for all its characters without spaces or any other keys in between.  When the contents of the “conversion buffer” (shown underlined in the text) correspond to any characters or words, a candidate window pops up.  Use the number keys to choose a candidate.  The space key also chooses the first candidate.  Use the arrow keys for scrolling if there’re multiple rows of candidates.  Commonly-used punctuation marks such as comma and period will convert immediately to their full-width counterparts.  The set of these punctuation marks can be customized as described below.</p>
+<p>I distribute FCIM under a license (see the file “• License”) that permits research, educational, and non-commercial use, but prohibits redistribution in any form.  I do this because I’ve had problems in the past with people taking credit for code I've written and even downright misrepresentation and plagiarism.  FCIM is provide “as is”, which means that you use it at your own risk and I’m not able to provide a lot of technical support for it.  Thus if you’re a Mac novice, you probably shouldn’t use it.</p>
+<p>With that in mind, here is the <a href="http://members.shaw.ca/akochoi-files/FCIM-a-cantonese-phonetic-input-method/FCIM.zip">source distribution of FCIM</a>.  The Unihan data file is too big to be included so it must be downloaded from <a href="http://unicode.org/charts/unihan.html">its source</a>.  This and other instructions for building FCIM can be found in the file “• Read Me”.</p>
+<p>If you can program, you can change FCIM to work the way you want it to (observing the no-redistribution license).  Both the FCIM and FCIMDatabaseBuilder projects are only a few hundred lines of code, and should be easy to understand and modify.  Otherwise, you can still customize the punctuation, character, and word tables used by FCIM by editing the files <code>FCIMPunctuations.plist</code>, <code>FCIMCharacters.plist</code>, and <code>FCIMPhrases.plist</code>, resp.  These files are located in the <code>Contents/Resources</code> folder of the FCIM application bundle, which can be exposed by right-clicking the FCIM icon and choosing “Show Package Contents”.  Since the character and word tables are quite large, it’ll be much faster to edit them using a text editor (such as TextEdit) rather than say the “Property List Editor”.</p>
+<p>Here’re the limitations of the data tables currently used in FCIM.  Since a Cantonese pronunciation table for words isn’t available (very disappointing!), the pronunciations of words are deduced from those of characters.  But since some characters have multiple pronuncations, incorrect pronunciations of words are added to the table as well.  For example, both “yausui” and “yausuet” selects the word <span xml:lang="zh-Hant" lang="zh-Hant">遊說</span>, but of course only the first pronunciation is correct.  Also occurrence frequency data of words isn’t available.  So it is estimated from that of characters.  This does not always result in good ordering of words in candidate lists.</p>
+<p>In any case, that’s how much time I’ve wanted to spend on FCIM for the moment.  In its current state, I still enjoy using it much more than any other IMs.  Of course since it’s my own code, I can always make improvements to it in the future when necessary or when better data files become available.</p>
+</div>
+<div class="category"><p>Category: Programming</p></div>
+</div>
+<div id="navigation">
+<h2 class="title">Articles</h2>
+<h3 class="article-title"><a href="../../articles/cantonese-AI-phonetic-IM-year-of-the-ram-release/index.html">Cantonese Artificially-intelligent Phonetic Input Method—Year of the RAM Release</a></h3>
+<div class="date">Date: 23 Jan 2015</div>
+<h3 class="article-title"><a href="../../articles/cantonese-AI-phonetic-IM-for-Windows-7/index.html">Cantonese Artificially-intelligent Phonetic Input Method for Windows 7</a></h3>
+<div class="date">Date: 27 Jul 2012</div>
+<h3 class="article-title"><a href="../../articles/CAP/index.html">CAP — a Cantonese Artificially-intelligent Phonetic Input Method</a></h3>
+<div class="date">Date: 23 May 2012</div>
+<h3 class="article-title"><a href="../../articles/three-little-pieces/index.html">Three Little Pieces</a></h3>
+<div class="date">Date: 30 Apr 2012</div>
+<h3 class="article-title"><a href="../../articles/unicode-processing-c++0x/index.html">Unicode Processing with C++0x</a></h3>
+<div class="date">Date: 16 Oct 2010</div>
+<h3 class="article-title"><a href="../../all.html">[Complete Article List...]</a></h3>
+<h3 class="article-title"><a href="../../rss.xml">[RSS]</a></h3>
+<h2 class="title">Categories</h2>
+<h3 class="article-title"><a href="../../General.html">General</a></h3>
+<h3 class="article-title"><a href="../../Jazz.html">Jazz</a></h3>
+<h3 class="article-title"><a href="../../Programming.html">Programming</a></h3>
+<h3 class="article-title"><a href="../../T2.html">T2</a></h3>
+<h2 class="title">Information</h2>
+<h3 class="article-title"><a href="../../articles/about-the-author/index.html">About the Author</a></h3>
+<h3 class="article-title"><a href="../../articles/about-this-website/index.html">About This Website</a></h3>
+<h3 class="article-title"><a href="../../articles/contact-information/index.html">Contact Information</a></h3>
+<h2 class="title">My Other Webpages</h2>
+<h3 class="article-title"><a href="http://members.shaw.ca/akochoi-gallery/">My Photo Gallery</a></h3>
+<h3 class="article-title"><a href="http://members.shaw.ca/akochoi-old/blog/">My Old Blog</a></h3>
+<h2 class="title">My Old Projects</h2>
+<h3 class="article-title"><a href="http://members.shaw.ca/akochoi-xemacs/">Carbon XEmacs</a></h3>
+<h3 class="article-title"><a href="http://members.shaw.ca/akochoi-emacs/">Emacs for Mac OS X “Carbon Emacs”</a></h3>
+<h3 class="article-title"><a href="http://mac-emacs.sourceforge.net/">Emacs for Mac OS 8/9</a></h3>
+</div>
+</div></div>
+<div id="footer">Copyright © 2007, 2008, 2009, 2010, 2011, 2012 Andrew Choi. All rights reserved. Do not aggregate.</div>
+</div></body>
+</html>

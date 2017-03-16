@@ -1,0 +1,101 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>T2G Version 2</title>
+<link rel="stylesheet" href="../../css/base.css">
+<link rel="stylesheet" href="../../css/article.css">
+<link rel="stylesheet" href="../../css/highlight.css">
+</head>
+<body><div id="box0">
+<div id="header"><h1 class="blog-title"><a href="../../index.html">My OS X Programming Blog</a></h1></div>
+<div id="box1"><div id="box2">
+<div id="contents">
+<h2 class="title">T2G Version 2</h2>
+<div class="date">17 Dec 2008</div>
+<div class="abstract"><p>Version 2 of T2G with new and improved tonality segmentation algorithm.</p></div>
+<div class="contents">
+<p>Here is version 2 of T2G, which I have just completed. Externally it looks and works the same as <a href="../T2G-jazz-harmonic-analysis-and-accompaniment-generation-software/index.xml">the version I posted a while earlier</a> (see its <a href="../T2G-getting-started-guide/index.xml">Getting Started Guide</a> for instructions on using it), but it uses a new tonality segmentation algorithm which greatly improved on that of its predecessor.</p>
+<p>I was writing up the harmonic analysis algorithm I devised for T2G for publication. For many reasons (which I describe in my write-up) the T2 algorithm is already far better than any algorithm for solving this problem in the current computer music literature. I was using the set of tunes in Appendix D of Jerry Coker’s book <i>Improvising Jazz</i> as test data for the algorithm. These tunes are represented by key centers and Roman numeral chords and provide a good benchmark for the performance of harmonic analysis algorithms. My previous version of the segmentation algorithm performs reasonably well and generates the same segmentation shown in Coker’s book for many of the tunes.</p>
+<p>But a complete description of the old segmentation algorithm would need to include an explanation of why it failed for some of the test cases. I thought about how much I wouldn’t enjoy writing that. So I stopped writing and started to work on a better algorithm. After much algorithm design, programming, experimentation, and hand-checking program output, I arrive at the current algorithm. Well, it’s good! Among the 78 tunes in Coker‘s appendix, the new algorithm generates the same exact segmentation for 56 of them. For 14 other tunes, it generates the same sequences of key centers but assigns dominant chords to consecutive key centers differently. This is because the algorithm prefers to group dominant chords with chords into which they resolve. For the remaining 8 tunes, the algorithm either adds segments to or omits segments from the segmentations in Coker’s book. For each of these tunes, however, we can present a good case for its decision.</p>
+<p>Did I mention this new algorithm is good :-)?</p>
+<p>So here’re the downloads:</p>
+<div style="border:1px dotted red;margin-top:8px;margin-left:8px;margin-right:8px">
+	  <div style="margin-left:8px;margin-right:8px">
+  	    <p><em>[Update 2015-01-25: version 2.0.3. Updated for Mac OS X Mavericks and Yosemite. ]</em></p>
+	    <ul>
+    	      <li>
+		<p><a href="https://drive.google.com/open?id=0B2IrUQCNvax9Sm9BR0NrdDk0M1k&amp;authuser=0" title="T2G-2.0.3.zip">T2G version 2.0.3</a> (MD5 checksum: <tt>e643612aaf6edfa01084cd2fc5ae6c0c</tt>)</p>
+
+		<p>Note that since T2G isn’t signed, <a href="http://support.apple.com/en-ca/HT202491">OS X’s Gatekeeper</a> will prompt you to explicitly allow its execution the first time it is opened.</p>
+
+		<p>The Quicktime Player in newer versions of OS X doesn’t play MIDI files so some other application must be selected as the default handler of MIDI files for “Chart -&gt; Generate and Open” to work correctly.</p>
+      	      </li>
+    	    </ul>
+	  
+  	    <p><em>[Update 2013-07-17: version 2.0.2. Compiled for Mac OS X 10.7 target; for Intel Macs only. ]</em></p>
+	    <ul>
+    	      <li>
+		<p><a href="T2G-2.0.2.zip" title="T2G-2.0.2.zip">T2G version 2.0.2 for Intel Mac</a></p>
+      	      </li>
+    	    </ul>
+
+  	    <p><em>[Update 2009-01-17: version 2.0.1. Tempo change in chart editor correctly written to MIDI file.]</em></p>
+	    <ul>
+    	      <li>
+		<p><a href="T2G-Intel-2.0.1.zip" title="T2G-Intel-2.0.1.zip">T2G version 2.0.1 for Intel Mac</a>, and</p>
+      	      </li>
+      	      <li>
+		<p><a href="T2G-PPC-2.0.1.zip" title="T2G-PPC-2.0.1.zip">T2G version 2.0.1 for PPC Mac.</a></p>
+      	      </li>
+    	    </ul>
+	  </div>
+	</div>
+<ul>
+    	  <li>
+            <p><a href="T2G-Intel.zip" title="T2G-Intel.zip">T2G version 2 for Intel Mac</a>, and</p>
+      	  </li>
+      	  <li>
+            <p><a href="T2G-PPC.zip" title="T2G-PPC.zip">T2G version 2 for PPC Mac.</a></p>
+      	  </li>
+	</ul>
+<p>Note that T2G is distributed under a license that permits free research, educational, and non-commercial use, but prohibits any redistribution. Mac OS X 10.4 or above is required to run it.</p>
+<p><a href="Testfiles.zip" title="Testfiles.zip">Here</a> is the set of test data in case anyone wishes to verify my claims above. A command-line version of T2 with the new tonality segmenation algorithm and a draft of my paper will be available quite soon.</p>
+</div>
+<div class="category"><p>Category: Jazz, Programming, T2</p></div>
+</div>
+<div id="navigation">
+<h2 class="title">Articles</h2>
+<h3 class="article-title"><a href="../../articles/cantonese-AI-phonetic-IM-year-of-the-ram-release/index.html">Cantonese Artificially-intelligent Phonetic Input Method—Year of the RAM Release</a></h3>
+<div class="date">Date: 23 Jan 2015</div>
+<h3 class="article-title"><a href="../../articles/cantonese-AI-phonetic-IM-for-Windows-7/index.html">Cantonese Artificially-intelligent Phonetic Input Method for Windows 7</a></h3>
+<div class="date">Date: 27 Jul 2012</div>
+<h3 class="article-title"><a href="../../articles/CAP/index.html">CAP — a Cantonese Artificially-intelligent Phonetic Input Method</a></h3>
+<div class="date">Date: 23 May 2012</div>
+<h3 class="article-title"><a href="../../articles/three-little-pieces/index.html">Three Little Pieces</a></h3>
+<div class="date">Date: 30 Apr 2012</div>
+<h3 class="article-title"><a href="../../articles/unicode-processing-c++0x/index.html">Unicode Processing with C++0x</a></h3>
+<div class="date">Date: 16 Oct 2010</div>
+<h3 class="article-title"><a href="../../all.html">[Complete Article List...]</a></h3>
+<h3 class="article-title"><a href="../../rss.xml">[RSS]</a></h3>
+<h2 class="title">Categories</h2>
+<h3 class="article-title"><a href="../../General.html">General</a></h3>
+<h3 class="article-title"><a href="../../Jazz.html">Jazz</a></h3>
+<h3 class="article-title"><a href="../../Programming.html">Programming</a></h3>
+<h3 class="article-title"><a href="../../T2.html">T2</a></h3>
+<h2 class="title">Information</h2>
+<h3 class="article-title"><a href="../../articles/about-the-author/index.html">About the Author</a></h3>
+<h3 class="article-title"><a href="../../articles/about-this-website/index.html">About This Website</a></h3>
+<h3 class="article-title"><a href="../../articles/contact-information/index.html">Contact Information</a></h3>
+<h2 class="title">My Other Webpages</h2>
+<h3 class="article-title"><a href="http://members.shaw.ca/akochoi-gallery/">My Photo Gallery</a></h3>
+<h3 class="article-title"><a href="http://members.shaw.ca/akochoi-old/blog/">My Old Blog</a></h3>
+<h2 class="title">My Old Projects</h2>
+<h3 class="article-title"><a href="http://members.shaw.ca/akochoi-xemacs/">Carbon XEmacs</a></h3>
+<h3 class="article-title"><a href="http://members.shaw.ca/akochoi-emacs/">Emacs for Mac OS X “Carbon Emacs”</a></h3>
+<h3 class="article-title"><a href="http://mac-emacs.sourceforge.net/">Emacs for Mac OS 8/9</a></h3>
+</div>
+</div></div>
+<div id="footer">Copyright © 2007, 2008, 2009, 2010, 2011, 2012 Andrew Choi. All rights reserved. Do not aggregate.</div>
+</div></body>
+</html>

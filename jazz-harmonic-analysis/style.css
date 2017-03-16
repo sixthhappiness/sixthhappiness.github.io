@@ -1,0 +1,36 @@
+html {
+	font-family: Georgia, "Times New Roman", Times, serif;
+}
+
+div.title {
+	font-size: x-large;
+	margin-bottom: 1em;
+	font-weight: bold;
+	text-align: center;
+}
+
+div.text {
+	font-size: medium;
+	margin-bottom: 0.6em;
+}
+
+div.footer {
+	font-size: x-small;
+	text-align: center;
+	margin-top: 1.5em;
+}
+
+div.subtitle {
+	font-size: large;
+	margin-bottom: 0.6em;
+	font-weight: bold;
+	margin-top: 1em;
+}
+
+p.indent {
+	text-indent: 2em;
+}
+
+div.image {
+	text-align: center;
+}

@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<?xml-stylesheet type="text/xsl" href="../../xslt/article.xslt"?>
+<article>
+  <title>T2 Getting Started Guide</title>
+  <contents>
+<p>Let me write up this little “getting started” guide for people interested in playing with T2.  Please note that T2 is an on-going project and these descriptions are subject to change.</p>
+
+<p>The input accepted by T2 are text files containing chord charts.  On Mac OS X, the T2 application behaves much like a text editor (such as TextEdit), and can be used to create these input files.  It can read files with the extension “.toe” or “.txt” and write files with the extension “.toe”.  When a file is opened, T2 displays its contents in the upper panel of the document window, analyzes the chord changes, and displays the analysis in the lower panel.  If you edit the file (in the upper panel), click the “Analyze” button to get T2 to perform a new analysis on the modified contents.</p>
+
+<p>On Windows and other systems, T2 can only be used from the command line, and you need to create the input files using a text editor.  On Windows, e.g., type the chord chart into the “Notepad” accessory and save it to a file.  Let “Notepad” use the default extension of “.txt”.  Then run the “Command Prompt” accessory and at the prompt, type:</p>
+
+<pre xml:space="preserve">
+C:&gt;t2 &lt;path-and-filename-of-chord-chart-file&gt;.txt
+</pre>
+
+<p>(Don’t type the prompt “C:&gt;” and replace the part within brackets with appropriate values.)  Of course the path leading to your t2.exe file needs to be set in the PATH variable.  Otherwise you must type the entire path leading to it.  E.g.,</p>
+
+<pre xml:space="preserve">
+C:&gt;Desktop\T2-Windows\T2-Windows\t2 Desktop\T2-Windows\T2-Windows\Blues40.toe
+</pre>
+
+<p>Perhaps an even easier way is to save the input files in the same directory as the t2.exe file.  Then in Command Prompt, using the "cd" command to go into that directory.  Then to run T2 all you need to type is "t2" followed by the name of the input file.</p>
+
+<p>The Windows version of T2 I posted on August 25 didn’t handle DOS-style newlines correctly.  Please <a title="t2-windows.zip" href="t2-windows.zip">download a new version</a> that does, if you have the old version.</p>
+
+<p>T2 currently recognizes the chord types:</p>
+
+<pre xml:space="preserve">
+"" (major triad), Maj7, Maj9, 6, 69, Maj7#11,
+sus, 7sus, 9sus,
+m, m7, m9, m11, m6, mMaj7,
+7, 9, 13, 7b9, 13b9, 7#9, 13#9,
+7b5, 9b5, 7#5, 9#5, 7+, 9+, 7#5#9, 7b5b9, 7#5b9, 7b5#9, 7#11, 9#11,
+m7b5, dim, dim7,
++, aug
+</pre>
+
+<p>Chord roots are, of course, ‘A’ to ‘G’ optionally followed by “#”, “##”, “b”, “bb”.  Notice that sharps are denoted by the “number sign” and flats by the lowercase letter ‘b’.  Certain chords with certain chord roots contain notes “beyond” a double sharp or double flat and are not representable in the system, e.g., Abbm and F##+.</p>
+
+<p>The chord chart is composed of one or more lines.  Each line contains one or more bars.  A bar begins with a bar line and ends with a bar line, which starts the next bar, except at the end of a line, which just ends the line.  A bar must contain one, two, or four “items”.  Each item must be a chord or a place-holder “_” (underscore).  E.g.,</p>
+
+<pre xml:space="preserve">
+| Cm Ab | Cm6 Cm7 | Fm7 _ Gm Bb7#5 | EbMaj7 Dm7 G7 _ |
+</pre>
+
+<p>One or more spaces may be use to separate chords.  Spaces before and after the bar lines are optional.</p>
+
+<p>T2 can currently only analyze tunes in 4/4 time.</p>
+
+<p>T2 understands the concept of <em>harmonic rhythm</em> as defined by Nettles and Garf but this aspect of the implementation currently only works correctly when the tune consists only of four-bar patterns.</p>
+
+<p>T2 currently only recognizes a handful of turnarounds, namely:</p>
+
+<pre xml:space="preserve">
+IMaj - bIIIMaj - bVIMaj - bIIMaj
+IMaj - bIIm7 - IIm7 - V7
+IMaj - bIIdim - IIm7 - V7
+IMaj - #Idim - IIm7 - #IIdim
+IIIm7 - bIIIm7 - IIm7 - bII7
+IIIm7 - bIIIm7 - IIm7 - V7
+IMaj - bIIIm7 - IIm7 - bII7
+IMaj - bIIIm7 - IIm7 - V7
+</pre>
+
+<p>Turnarounds are not really analyzable in the usual sense so ones other than these will currently cause T2 to “overanalyze” around where they appear.</p>
+
+<p>The hardest (and most innovative :-)) part of the design of T2 is the algorithms used for segmentation of the chord chart and the determination of the key centers.  Currently T2 errs on the side of keeping more segments around than a musician probably does (thus resulting in a more “fragmented” analysis).  In some cases this results in poor analyses.  Any insight and information on this aspect of jazz analysis is appreciated.</p>
+
+<p>T2 was tested on the 84 tunes in Appendix D of the book:</p>
+
+<p class="quote">
+Jerry Coker.  <em>Improvising Jazz.</em>  Simon &amp; Schuster, 1964.
+</p>
+
+<p>In most cases, T2 segments the chords in a manner identical or similar to one used in the book.  Notably problematic charts for T2 include #29 (Stella by Starlight) and a few others.  Obviously for copyright reasons I cannot post all the files containing the changes in the book.  But anyone can repeat the same experiments to verify my claims.  As such, this set of tunes give us a standard against which we can compare current and future harmonic analysis programs.</p>
+  </contents>
+</article>

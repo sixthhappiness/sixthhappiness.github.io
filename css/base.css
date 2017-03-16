@@ -1,0 +1,141 @@
+/*
+@font-face {
+    font-family: georgiaWithHei;
+    src: local(Georgia);
+}
+
+@font-face {
+    font-family: georgiaWithHei;
+    src: local("LiSong Pro");
+    unicode-range: U+3000-33FF, U+4E00-9FFF;
+}
+*/
+
+body {
+    background: #fff;
+    font: 100% Georgia, "Times New Roman", Times, "Liberation Serif";
+    line-height: 1.125em;
+    margin: 0;
+}
+
+:lang(zh-Hant) {
+    font-family: PMingLiU, MingLiU, "Li Sung", sans-serif, Sans;
+}
+
+h1.blog-title {
+	font: 180% "Trebuchet MS", Helvetica, sans-serif;
+ 	text-decoration: none;
+	text-align: left;
+	padding: 0.5em 0 1.75em 0.5em;
+	margin-top: 0.5em;
+	border: 1px solid #777777;
+ }
+
+h2.title {
+	margin: 0;
+	font: bold 125% "Lucida Grande", Lucida, Verdana, sans-serif;
+}
+
+h1, h2, h3 {
+	margin: 0;
+	line-height: 1.25em;
+}
+
+
+h1 {
+	font: 1.2em "Trebuchet MS", Helvetica, sans-serif;
+	margin-top: 1.3em;
+	text-decoration: underline;
+}
+
+h2 {
+	margin-top: 1.2em;
+	font: 1em "Trebuchet MS", Helvetica, sans-serif;
+}
+
+a {
+ 	color: #3D5A7D;
+  	text-decoration: none;
+}
+
+a:hover {
+  	color: #222;
+ 	background: #ddd;
+	text-decoration: underline;
+}
+
+p {
+	font-size: 0.875em;
+	margin: 0;
+}
+
+div#header {
+	text-align: center;
+}
+
+div#box0 {
+	width: 80%;
+	margin: 0.325em auto 0.125em;
+}
+
+div#box1 {
+	clear: both;
+	float: left;
+	width: 100%;
+}
+
+div#box2 {
+	float: left;
+	width: 100%;
+	right: 20%;
+	position: relative;
+}
+
+div#contents, div#navigation {
+	float: left;
+	position: relative;
+	overflow: hidden;
+	padding-bottom: 0.875em;
+}
+
+div#contents {
+	width: 78%;
+	left: 20%;
+}
+
+div#navigation {
+	width: 18%;
+	left: 24%;
+}
+
+div#navigation h2.title {
+	font-family: "Lucida Grande", Lucida, Verdana, sans-serif;
+	font-size: 0.95em;
+	line-height: 1.25em;
+	margin-top: 0.75em;
+	margin-bottom: 0;
+	border-bottom: 1px solid #777;
+}
+
+div#navigation h3.article-title {
+	font-family: "Lucida Grande", Lucida, Verdana, sans-serif;
+	font-size: 0.8em;
+	line-height: 1.25em;
+	margin-top: 0.5625em;
+}
+
+div#navigation div.date {
+	font-family: "Lucida Grande", Lucida, Verdana, sans-serif;
+	font-size: 0.6875em;
+	margin-top: 0.125em;
+}
+
+div#footer {
+	clear:both;
+	font-family: "Lucida Grande", Lucida, Verdana, sans-serif;
+	padding-top: 0.25em;
+	text-align: center;
+	font-size: 0.5em;
+	color: #999;
+	background-color: #ddd;
+}

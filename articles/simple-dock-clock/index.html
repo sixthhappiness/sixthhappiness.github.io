@@ -1,0 +1,66 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>SimpleDockClock</title>
+<link rel="stylesheet" href="../../css/base.css">
+<link rel="stylesheet" href="../../css/article.css">
+<link rel="stylesheet" href="../../css/highlight.css">
+</head>
+<body><div id="box0">
+<div id="header"><h1 class="blog-title"><a href="../../index.html">My OS X Programming Blog</a></h1></div>
+<div id="box1"><div id="box2">
+<div id="contents">
+<h2 class="title">SimpleDockClock</h2>
+<div class="date">30 Jun 2008</div>
+<div class="abstract"><p>A simple analog clock for the dock on Leopard.</p></div>
+<div class="contents">
+<p>I recently bought an aluminum iMac, and it came with Leopard.  All my other Mac’s were running Tiger before so I’ve only used this new version of Mac OS X for a few weeks.  Talk about being the <i>opposite</i> of an early adopter!</p>
+<p>One of the things I miss in Leopard is having an analog clock in the dock.  In fact since Panther, Apple hasn’t provided Clock.app in the Applications folder.  System Preferences lets you display a clock on the right side of the menu bar.  But the analog version is just too small.  I prefer analog clocks.  A clock in the dock is the right size.  The dock is a logical location for it because the date is shown on the dock icon for iCal.  It’s also not distracting like a “floating” clock.  So everytime I upgraded, I copied Clock.app to the new Applications Folder and that has worked.</p>
+<p>But Clock.app from Jaguar no longer works for this purpose on Leopard.  So I found myself writing this quick little application (and trying out Xcode 3).  Let’s call it SimpleDockClock.  I wish someone else has written it and let other people use it for free.  For those who prefer a “floating” clock, I <a href="http://members.shaw.ca/akochoi-old/blog/2003/08-17/index.html#3">posted some code</a> for that a long time ago.  It still works!</p>
+<img class="centered" src="SimpleDockClock.jpg" alt="SimpleDockClock.jpg"><p>But here’re the <a href="SimpleDockClock-src.zip" title="SimpleDockClock-src.zip">source code</a> and <a href="SimpleDockClock.zip" title="SimpleDockClock.zip">the binary</a> of my new SimpleDockClock.  The binary requires at least Mac OS X 10.4 to run, but obviously it also runs on 10.5.  Simply add SimpleDockClock.app to Login Items in the Accounts panel in System Preferences to run it automatically every time you login.  Drag its application icon to the dock to “reserve” a place for it there.</p>
+<p>The appearance of the clock is customizable too, albeit not too easily.  Replace ClockFace.png, HourHand.png, and MinuteHand.png with your own images.  Change the dimensions, origins, etc., hard coded in ClockController.m, if necessary.  Note, however, that redistribution of SimpleDockClock or its parts is prohibited.  So do this only for your personal use.</p>
+<p><i>[Update 21 July 2008: New clock face!]</i>  SimpleDockClock is another one of those programs whose artwork took me much longer to do than their programming.  I’ve always found design of icons and other graphic elements to be a challenging task.  Recent hardware and system software advances have raised the bar on how good these must look even higher.  Short of really learning to draw properly :-), I describe below my attempts to get acceptable results with the help of software tools.</p>
+<p>In fact the only software I used for creating the clock face for SimpleDockClock was the GPL 3D modeling software <a href="http://www.blender.org/">Blender</a>.  It took a few days of reading and experimentation to learn enough about Blender to do what I wanted (but obviously Blender is capable of much much more).  You can find many tutorials on Blender on the Web, but I recommend going through a few simple ones quickly.  Then just read as much of the <a href="http://www.blender.org/documentation/htmlI/">Blender User Guide</a> as you need.  There’re also many discussion forums and resources on the Web.  I should at least mention the <a href="http://tellim.com/texture_cd/">Blender Texture Disc</a>, which contains many nice and useful textures and materials.</p>
+<p>One of the benefits of designing icons using 3D modeling software is that once you’ve decided how the subject will look, the creation of its model is a more ”technical” process rather than artistic one.  That, I can handle.  And for a clock, this is quite easy.  Here’s a (real) clock I have:</p>
+<img class="centered" src="RealClock.jpg" alt="RealClock.jpg"><p>Here’s a 3D model of that clock I created in Blender:</p>
+<img class="centered" src="Model.jpg" alt="Model.jpg"><p>I took some liberty with dimensions, colors, and materials.  That’s another benefit of 3D modeling software: that one can experiment with the model, camera positions and angles, light sources, etc. quite easily.  Since the <a href="http://developer.apple.com/documentation/UserExperience/Conceptual/AppleHIGuidelines/XHIGIntro/chapter_1_section_1.html">Apple Human Interface Guidelines</a> have very specific recommendations for how icons should look on the screen, the clock face ended up the way it now looks.  A quick tip for rendering objects in Blender with a transparent background: select ”Premul” in the ”Render” button in the ”Scene” panel; also select ”RGBA” in the ”Format” button and choose a file format that supports alpha channel (e.g., PNG).</p>
+<p>So, that was quite a bit of fun!  Of course I have left out a lot of details on the use of Blender.  That information is <i>out there</i> on the Web and “left as exercise”.  It may take a little time to learn (easier if you know some computer graphics).  But perhaps this is becoming an essential skill a computer user should have nowadays, like you needed to know a good drawing program such as Illustrator.  Sure, I’m not going to become a full-time icon designer any time soon.  But it’ll be much easier to create a few icons for the programs I write in the future.</p>
+</div>
+<div class="category"><p>Category: Programming</p></div>
+</div>
+<div id="navigation">
+<h2 class="title">Articles</h2>
+<h3 class="article-title"><a href="../../articles/cantonese-AI-phonetic-IM-year-of-the-ram-release/index.html">Cantonese Artificially-intelligent Phonetic Input Method—Year of the RAM Release</a></h3>
+<div class="date">Date: 23 Jan 2015</div>
+<h3 class="article-title"><a href="../../articles/cantonese-AI-phonetic-IM-for-Windows-7/index.html">Cantonese Artificially-intelligent Phonetic Input Method for Windows 7</a></h3>
+<div class="date">Date: 27 Jul 2012</div>
+<h3 class="article-title"><a href="../../articles/CAP/index.html">CAP — a Cantonese Artificially-intelligent Phonetic Input Method</a></h3>
+<div class="date">Date: 23 May 2012</div>
+<h3 class="article-title"><a href="../../articles/three-little-pieces/index.html">Three Little Pieces</a></h3>
+<div class="date">Date: 30 Apr 2012</div>
+<h3 class="article-title"><a href="../../articles/unicode-processing-c++0x/index.html">Unicode Processing with C++0x</a></h3>
+<div class="date">Date: 16 Oct 2010</div>
+<h3 class="article-title"><a href="../../all.html">[Complete Article List...]</a></h3>
+<h3 class="article-title"><a href="../../rss.xml">[RSS]</a></h3>
+<h2 class="title">Categories</h2>
+<h3 class="article-title"><a href="../../General.html">General</a></h3>
+<h3 class="article-title"><a href="../../Jazz.html">Jazz</a></h3>
+<h3 class="article-title"><a href="../../Programming.html">Programming</a></h3>
+<h3 class="article-title"><a href="../../T2.html">T2</a></h3>
+<h2 class="title">Information</h2>
+<h3 class="article-title"><a href="../../articles/about-the-author/index.html">About the Author</a></h3>
+<h3 class="article-title"><a href="../../articles/about-this-website/index.html">About This Website</a></h3>
+<h3 class="article-title"><a href="../../articles/contact-information/index.html">Contact Information</a></h3>
+<h2 class="title">My Other Webpages</h2>
+<h3 class="article-title"><a href="http://members.shaw.ca/akochoi-gallery/">My Photo Gallery</a></h3>
+<h3 class="article-title"><a href="http://members.shaw.ca/akochoi-old/blog/">My Old Blog</a></h3>
+<h2 class="title">My Old Projects</h2>
+<h3 class="article-title"><a href="http://members.shaw.ca/akochoi-xemacs/">Carbon XEmacs</a></h3>
+<h3 class="article-title"><a href="http://members.shaw.ca/akochoi-emacs/">Emacs for Mac OS X “Carbon Emacs”</a></h3>
+<h3 class="article-title"><a href="http://mac-emacs.sourceforge.net/">Emacs for Mac OS 8/9</a></h3>
+</div>
+</div></div>
+<div id="footer">Copyright © 2007, 2008, 2009, 2010, 2011, 2012 Andrew Choi. All rights reserved. Do not aggregate.</div>
+</div></body>
+</html>

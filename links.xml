@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<links>
+  <group name="My Other Webpages">
+    <link name="My Photo Gallery" href="http://members.shaw.ca/akochoi-gallery/"/>
+    <link name="My Old Blog" href="http://members.shaw.ca/akochoi-old/blog/"/>
+  </group>
+  <group name="My Old Projects">
+    <link name="Carbon XEmacs" href="http://members.shaw.ca/akochoi-xemacs/"/>
+    <link name="Emacs for Mac OS X “Carbon Emacs”" href="http://members.shaw.ca/akochoi-emacs/"/>
+    <link name="Emacs for Mac OS 8/9" href="http://mac-emacs.sourceforge.net/"/>
+  </group>
+</links>

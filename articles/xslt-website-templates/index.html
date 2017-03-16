@@ -1,0 +1,77 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>XSLT Website Templates</title>
+<link rel="stylesheet" href="../../css/base.css">
+<link rel="stylesheet" href="../../css/article.css">
+<link rel="stylesheet" href="../../css/highlight.css">
+</head>
+<body><div id="box0">
+<div id="header"><h1 class="blog-title"><a href="../../index.html">My OS X Programming Blog</a></h1></div>
+<div id="box1"><div id="box2">
+<div id="contents">
+<h2 class="title">XSLT Website Templates</h2>
+<div class="date">14 Dec 2007</div>
+<div class="abstract"><p>This article describes the advantages of a static website over of a dynamic one, and outlines the use of XSLT style sheets and XML templates to generate webpages with consistent appearance and global contents. [Hint: you’re looking at one.]</p></div>
+<div class="contents">
+<p>Everyone seems to write a blog these days. Most bloggers either use a free blog hosting service like MySpace or LiveJournal or run ready-made weblog software like <a href="http://wordpress.org/">WordPress</a> or Movable Type on their own servers. Using a free host isn’t an option for me since I need full control over backups and style of my webpages. And also that’s too easy :-). So about a year ago I subscribed to one of <a href="http://www.webnames.ca/">Webnames’s web hosting services</a> and I’ve been using WordPress since then. I now feel that this is an inefficient and inconvenient solution for my needs.</p>
+<p>The problem is that <em>my website isn’t really a blog</em>! It’s updated only occasionally. Comments and pings are turned off. Entries are typically quite long, and therefore unsuitable for display with other entries on the same page. Category indices are more useful than “calendar” indices. In other words, I don’t really need any of the benefits of generating webpages dynamically on the server! When I do the price I pay is the inefficiency of running a website on interpreted code, accessing a database system.</p>
+<p>The same problem exists for hosting a photo gallery. I’ve been using <a href="http://gallery.menalto.com/">Gallery 2</a>, which, like WordPress, runs PHP code on the server and stores images and their information in a MySQL database. That has to be a even bigger overkill for just posting a few photos! Again, the gallery isn’t updated that often. The set of webpages don’t change that drastically. And certainly, it’s more effective to generate reduced images and thumbnails statically instead of dynamically.</p>
+<p>A static website has the following advantages over a dynamic one:</p>
+<ul>
+      <li>
+<em>Efficiency.</em> No interpreted code. No database access.</li>
+      <li>
+<em>Better tools.</em> I can use a text editor such as Emacs or TextWrangler to create and preview my contents. In WordPress, blog entries are typed into a dialog box in the web browser. The save and preview operations are very slow.</li>
+      <li>
+<em>Easy maintenance.</em> I keep an image of the website on a local machine. This also serves as backup. I edit and preview locally. And I use the <code>mirror -R</code> command of <a href="http://lftp.yar.ru/">lftp</a> to upload.</li>
+      <li>
+<em>Security.</em> No executable code on the server means the website is impossible to spam, and much harder to hack into.</li>
+      <li>
+<em>Simple hosting requirement.</em> I can return to using the webhosting service already provided by my ISP.</li>
+    </ul>
+<p>A useful feature of weblog software is that a different choice (or customization) of a theme changes the appearance of every page in the entire blog. Also information that appears on every page such as the header, footer, and navigation (e.g., a “blogroll”) can be changed globally. For a “traditional” static website, pages that are affected by such a change must be regenerated and uploaded. This can of course be automated using a macro processor and a file synchronizer. But is there a better way?</p>
+<p>The answer is yes, and one solution lies in <a href="http://www.w3.org/TR/xslt">XSLT</a>. XSLT is a language for transforming XML documents into other XML documents. In this case it is used to convert information stored in a set of XML documents into an XHTML document (i.e., the webpage).</p>
+<p>Study the pages on this website (they’re already online!) to see how everything is set up. For example, to add the current article, I edited the file <a href="../../articles.xml"><code>articles.xml</code></a> and added an <em>article</em> element for this article. The children of that element describe the article’s title, its file location, the date it’s written, its categories, and its abstract. I then created the file <a href="index.xml"><code>index.xml</code></a> at the specified location which contains the text you’re reading in XHTML. That’s everything I need to do for each new article!</p>
+<p>All major web browsers <a href="http://en.wikipedia.org/wiki/Comparison_of_web_browsers#Web_technology_support">supports XSLT</a>. When your web browser loads the <a href="index.xml"><code>index.xml</code></a> file, its header says it should be processed through the <a href="../../xslt/article.xslt"><code>article.xslt</code></a> XSLT style sheet. That style sheet loads another style sheet <a href="../../xslt/page-template.xslt"><code>page-template.xslt</code></a>, which generates the header, footer, and navigation column of the webpage. Links in the navigation column come from the files <code>articles.xml</code> and <a href="../../links.xml"><code>links.xml</code></a>. The generated webpage links to a number of <a href="../../css">CSS style sheets</a>, which control its fonts, color, layout, etc. <em>Note that all processing is done on the client side by the web browser!</em></p>
+<p>The file <code>articles.xml</code> serves two additional purposes: the generation of the article indices (either <a href="../../all.xml">complete</a> or for a given category, e.g., <a href="../../Programming.xml">Programming</a>), and the generation of the news feed <a href="../../rss.xml">rss.xml</a>. These translations are specified in the XSLT style sheets <a href="../../xslt/articles.xslt"><code>articles.xslt</code></a> and <a href="../../xslt/rss.xslt"><code>rss.xslt</code></a>, respectively. RSS readers typically don’t process XSLT so the <code>rss.xml</code> file is generated locally from <a href="../../rss-gen.xml"><code>rss-gen.xml</code></a> using <code>xsltproc</code> and uploaded to the server.</p>
+<p>This way of organizing a website allows contents to be added, modified, or removed very simply while the necessary changes will “propagate” to all the webpages. And it does so without using a server-side scripting language and database system! It also provides a nice mode of web authoring: create and edit your webpages to your heart’s desire locally on your computer, and upload them only when they’re ready. No, web applications don’t appeal to me :-). In that way it’s similar to how one would use iWeb. Now if only someone will write a WYSIWYG web authoring application that generates XSLT :-).</p>
+</div>
+<div class="category"><p>Category: Programming</p></div>
+</div>
+<div id="navigation">
+<h2 class="title">Articles</h2>
+<h3 class="article-title"><a href="../../articles/cantonese-AI-phonetic-IM-year-of-the-ram-release/index.html">Cantonese Artificially-intelligent Phonetic Input Method—Year of the RAM Release</a></h3>
+<div class="date">Date: 23 Jan 2015</div>
+<h3 class="article-title"><a href="../../articles/cantonese-AI-phonetic-IM-for-Windows-7/index.html">Cantonese Artificially-intelligent Phonetic Input Method for Windows 7</a></h3>
+<div class="date">Date: 27 Jul 2012</div>
+<h3 class="article-title"><a href="../../articles/CAP/index.html">CAP — a Cantonese Artificially-intelligent Phonetic Input Method</a></h3>
+<div class="date">Date: 23 May 2012</div>
+<h3 class="article-title"><a href="../../articles/three-little-pieces/index.html">Three Little Pieces</a></h3>
+<div class="date">Date: 30 Apr 2012</div>
+<h3 class="article-title"><a href="../../articles/unicode-processing-c++0x/index.html">Unicode Processing with C++0x</a></h3>
+<div class="date">Date: 16 Oct 2010</div>
+<h3 class="article-title"><a href="../../all.html">[Complete Article List...]</a></h3>
+<h3 class="article-title"><a href="../../rss.xml">[RSS]</a></h3>
+<h2 class="title">Categories</h2>
+<h3 class="article-title"><a href="../../General.html">General</a></h3>
+<h3 class="article-title"><a href="../../Jazz.html">Jazz</a></h3>
+<h3 class="article-title"><a href="../../Programming.html">Programming</a></h3>
+<h3 class="article-title"><a href="../../T2.html">T2</a></h3>
+<h2 class="title">Information</h2>
+<h3 class="article-title"><a href="../../articles/about-the-author/index.html">About the Author</a></h3>
+<h3 class="article-title"><a href="../../articles/about-this-website/index.html">About This Website</a></h3>
+<h3 class="article-title"><a href="../../articles/contact-information/index.html">Contact Information</a></h3>
+<h2 class="title">My Other Webpages</h2>
+<h3 class="article-title"><a href="http://members.shaw.ca/akochoi-gallery/">My Photo Gallery</a></h3>
+<h3 class="article-title"><a href="http://members.shaw.ca/akochoi-old/blog/">My Old Blog</a></h3>
+<h2 class="title">My Old Projects</h2>
+<h3 class="article-title"><a href="http://members.shaw.ca/akochoi-xemacs/">Carbon XEmacs</a></h3>
+<h3 class="article-title"><a href="http://members.shaw.ca/akochoi-emacs/">Emacs for Mac OS X “Carbon Emacs”</a></h3>
+<h3 class="article-title"><a href="http://mac-emacs.sourceforge.net/">Emacs for Mac OS 8/9</a></h3>
+</div>
+</div></div>
+<div id="footer">Copyright © 2007, 2008, 2009, 2010, 2011, 2012 Andrew Choi. All rights reserved. Do not aggregate.</div>
+</div></body>
+</html>

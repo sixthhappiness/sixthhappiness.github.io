@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<?xml-stylesheet type="text/xsl" href="../../xslt/article.xslt"?>
+<article>
+  <title>OCaml, Python, Scheme, Tuareg Mode, Camldebug, and Carbon XEmacs</title>
+  <contents>
+<p>I’ve been learning the <a href="http://caml.inria.fr/">OCaml programming language</a> in the past few days.  I’ve known about ML since a colleague gave a talk on it in one of his seminars in the early nineties back when I was still teaching.  The idea of “type inference” struck me as something extremely clever.  Essentially it means you can still perform strict, static type checking without variable definitions, and generate efficient code.  It’s one of those magical and spectacular results of non-linear thinking in computer science.  I must have played with it a little, probably in the form of SML or Caml Light, and remember the language as a little “rough on the edges” and the implementations quite experimental.  Of course after years of evolution, OCaml is now a very nice language to write programs in and the INRIA implementation feels solid and mature.</p>
+
+<p>Let me step back a little and explain what I am trying to do with OCaml.  If you have been following the programs I’ve written :-): the Emacs and XEmacs ports were in C and Lisp;  MyJazzBand 1 was in C, C++, and Objective C; TOE was in C and Objective C, with <a href="http://www.swig.org/">SWIG</a> wrappers so it is callable from Scheme and Python, and other languages; and MJB2Lite was in Python.  I’m currently starting to work on version 2 of MyJazzBand and I need a programming language that will allow me to express my automatic composition algorithms easily and succinctly.  I took some time this winter to evaluate both Scheme and Python for this purpose: I implemented “jazz theory objects” such as notes, intervals, chords, and scales and a few “harmonic analysis algorithms” in them.  At some point I must have decided to go with Python and started to write MJB2Lite.</p>
+
+<p>Python is a nice enough language to write in.  It’s simple.  It’s reasonably expressive.  Lots of programming libraries are available.  And many people know it; if they don’t they can learn it quickly.  Also, it can be embedded which means I can build extensible applications (so that the list of chords and even algorithms can be customized after the application is shipped, e.g.).  The biggest problem with Python however is that <em>it is interpreted</em>.  As I was writing MJB2Lite I couldn’t help but think that much of my effort was destined to be wasted on code that would not run as fast as it possibly could.  I know about works like <a href="http://codespeak.net/pypy/dist/pypy/doc/news.html">PyPy</a>, <a href="http://mark.dufour.googlepages.com/">Shed Skin</a>, and <a href="http://www.cosc.canterbury.ac.nz/greg.ewing/python/Pyrex/">Pyrex</a>, but they don’t seem ready for production use.  Even then it may not be enough because of how the Python language is designed.  I don’t remember exactly what caused me to reexamine OCaml.  But when I did, I was reminded that one doesn’t need to sacrifice performance for expressiveness.</p>
+
+<p>Unfortunately the timing of my realization was horrible because it was around the time MJB2Lite (written in Python) was almost ready for release.  So I took the time to finish it and finally released it last week.  And now I’ve started to reimplement MJB2Lite in OCaml!  I have written about a thousand lines of OCaml.  I need to write a few thousand more.  OCaml is probably slightly more expressive than Python, but Python makes up for it by having more programming libraries in the official distribution.  So the two implementations will probably end up with similar number of lines.  I must say I don’t recommend such an approach for everyone: throwing out a perfectly good implementation and rewriting it while learning a new language.  But so far OCaml has been a lot of fun to learn and worked great.  There is still so much more of it to explore too: like <a href="http://caml.inria.fr/pub/docs/manual-camlp4/index.html">Camlp4</a> and <a href="http://www.metaocaml.org/">MetaOCaml</a>.  In this sense OCaml is a lot like C++, which I'm sure is something both OCaml and C++ people will find strange to hear someone say.</p>
+
+<p>So this is the lesson I have learned from this (and if you get only one thing from this post this is it):</p>
+
+<p class="quote"><em>If you’re starting a software project in Python or Scheme, <strong>stop</strong>: consider OCaml instead.</em></p>
+
+<p>To give you a taste, here are the OCaml, C++, Python, and Scheme versions of a function in my Band-in-a-Box reader code (Yes, I have 4 different versions; isn’t that crazy?).  It reads bytes from an input file and decodes a sort of run-length encoding they represent into a list of chord type-code and duration pairs (the C++ version only stores these in two arrays).</p>
+
+<p>OCaml:</p>
+
+<pre xml:space="preserve">
+<span class="hl kwa">let</span> read_new_format_chord_types ic <span class="hl sym">=</span>
+  <span class="hl kwa">let rec</span> loop beat result <span class="hl sym">=</span>
+    <span class="hl kwa">if</span> beat <span class="hl sym">&gt;=</span> <span class="hl num">1020</span> <span class="hl kwa">then</span>
+      beat<span class="hl sym">,</span> List.rev result
+    <span class="hl kwa">else</span>
+      <span class="hl kwa">let</span> chord_type <span class="hl sym">=</span> read_byte ic <span class="hl kwa">in</span>
+	<span class="hl kwa">if</span> chord_type <span class="hl sym">=</span> <span class="hl num">0</span> <span class="hl kwa">then</span>
+	  <span class="hl kwa">let</span> dur <span class="hl sym">=</span> read_byte ic <span class="hl kwa">in</span>
+	    <span class="hl kwa">match</span> result <span class="hl kwa">with</span>
+		<span class="hl sym">(</span>chord_type1<span class="hl sym">,</span> dur1<span class="hl sym">) ::</span> tl <span class="hl sym">-&gt;</span>
+		  <span class="hl kwd">loop</span> <span class="hl sym">(</span>beat <span class="hl sym">+</span> dur<span class="hl sym">) ((</span>chord_type1<span class="hl sym">,</span> dur1 <span class="hl sym">+</span> dur<span class="hl sym">) ::</span> tl<span class="hl sym">)</span>
+	      <span class="hl sym">| [] -&gt;</span>
+		  failwith <span class="hl str">&quot;First chord type cannot be 0&quot;</span>
+	<span class="hl kwa">else</span>
+	  <span class="hl kwd">loop</span> <span class="hl sym">(</span>beat <span class="hl sym">+</span> <span class="hl num">1</span><span class="hl sym">) ((</span>chord_type<span class="hl sym">,</span> <span class="hl num">1</span><span class="hl sym">) ::</span> result<span class="hl sym">)</span>
+  <span class="hl kwa">in</span>
+    loop <span class="hl num">0</span> <span class="hl sym">[]</span>
+</pre>
+
+<p>C++:</p>
+
+<pre xml:space="preserve">
+<span class="hl kwb">void</span> <span class="hl kwd">read_new_format_chord_types</span><span class="hl sym">(</span>
+  <span class="hl kwb">unsigned int</span> types<span class="hl sym">[</span><span class="hl num">1020</span><span class="hl sym">],</span>
+  <span class="hl kwb">unsigned int</span> beats<span class="hl sym">[</span><span class="hl num">1020</span><span class="hl sym">],</span>
+  <span class="hl kwb">unsigned int</span> <span class="hl sym">&amp;</span>beat<span class="hl sym">)</span>
+<span class="hl sym">{</span>
+  beat <span class="hl sym">=</span> <span class="hl num">0</span><span class="hl sym">;</span>
+  <span class="hl kwa">while</span> <span class="hl sym">(</span>beat <span class="hl sym">&lt;</span> <span class="hl num">1020</span><span class="hl sym">) {</span>
+    <span class="hl kwb">unsigned char</span> chordType <span class="hl sym">=</span> <span class="hl kwd">getByte</span><span class="hl sym">(</span>data<span class="hl sym">,</span> i<span class="hl sym">++);</span>
+    <span class="hl kwa">if</span> <span class="hl sym">(</span>chordType <span class="hl sym">==</span> <span class="hl num">0</span><span class="hl sym">) {</span>
+      <span class="hl kwb">unsigned char</span> duration <span class="hl sym">=</span> <span class="hl kwd">getByte</span><span class="hl sym">(</span>data<span class="hl sym">,</span> i<span class="hl sym">++);</span>
+      beat <span class="hl sym">+=</span> duration<span class="hl sym">;</span>
+    <span class="hl sym">}</span>
+    <span class="hl kwa">else</span> <span class="hl sym">{</span>
+      types<span class="hl sym">[</span>numberOfChords<span class="hl sym">] =</span> chordType<span class="hl sym">;</span>
+      beats<span class="hl sym">[</span>numberOfChords<span class="hl sym">] =</span> beat<span class="hl sym">;</span>
+      numberOfChords<span class="hl sym">++;</span>
+      beat <span class="hl sym">+=</span> <span class="hl num">1</span><span class="hl sym">;</span>
+    <span class="hl sym">}</span>
+  <span class="hl sym">}</span>
+<span class="hl sym">}</span>
+</pre>
+
+<p>Python:</p>
+
+<pre xml:space="preserve">
+<span class="hl kwa">def</span> <span class="hl kwd">read_new_format_chord_types</span><span class="hl sym">(</span>f<span class="hl sym">):</span>
+    beat <span class="hl sym">=</span> <span class="hl num">0</span>
+    result <span class="hl sym">= []</span>
+    <span class="hl kwa">while</span> beat <span class="hl sym">&lt;</span> <span class="hl num">1020</span><span class="hl sym">:</span>
+        chord_type <span class="hl sym">=</span> <span class="hl kwd">read_char_as_integer</span><span class="hl sym">(</span>f<span class="hl sym">)</span>
+        <span class="hl kwa">if</span> chord_type <span class="hl sym">==</span> <span class="hl num">0</span><span class="hl sym">:</span>
+            duration <span class="hl sym">=</span> <span class="hl kwd">read_char_as_integer</span><span class="hl sym">(</span>f<span class="hl sym">)</span>
+            beat <span class="hl sym">+=</span> duration
+            chord_type2<span class="hl sym">,</span> duration2 <span class="hl sym">=</span> result<span class="hl sym">[-</span><span class="hl num">1</span><span class="hl sym">]</span>
+            result <span class="hl sym">=</span> result<span class="hl sym">[:-</span><span class="hl num">1</span><span class="hl sym">] + [(</span>chord_type2<span class="hl sym">,</span> duration2 <span class="hl sym">+</span> duration<span class="hl sym">)]</span>
+        <span class="hl kwa">else</span><span class="hl sym">:</span>
+            beat <span class="hl sym">+=</span> <span class="hl num">1</span>
+            result<span class="hl sym">.</span><span class="hl kwd">append</span><span class="hl sym">((</span>chord_type<span class="hl sym">,</span> <span class="hl num">1</span><span class="hl sym">))</span>
+    <span class="hl kwa">return</span> <span class="hl sym">(</span>beat<span class="hl sym">,</span> result<span class="hl sym">)</span>
+</pre>
+
+<p>Scheme:</p>
+
+<pre xml:space="preserve">
+<span class="hl sym">(</span><span class="hl kwa">define</span> <span class="hl sym">(</span><span class="hl kwd">read-new-format-chord-types p</span><span class="hl sym">)</span>
+  <span class="hl sym">(</span><span class="hl kwa">let</span> <span class="hl kwd">loop</span> <span class="hl sym">((</span><span class="hl kwd">beat</span> <span class="hl num">0</span><span class="hl sym">) (</span><span class="hl kwd">result</span> '<span class="hl sym">()))</span>
+    <span class="hl sym">(</span><span class="hl kwc">if</span> <span class="hl sym">(&gt;=</span> <span class="hl kwd">beat</span> <span class="hl num">1020</span><span class="hl sym">)</span>
+        <span class="hl sym">(</span><span class="hl kwc">cons</span> <span class="hl kwd">beat</span> <span class="hl sym">(</span><span class="hl kwd">reverse result</span><span class="hl sym">))</span>
+        <span class="hl sym">(</span><span class="hl kwa">let</span> <span class="hl sym">((</span><span class="hl kwd">chord-type</span> <span class="hl sym">(</span><span class="hl kwd">read-char-as-integer p</span><span class="hl sym">)))</span>
+          <span class="hl sym">(</span><span class="hl kwc">if</span> <span class="hl sym">(=</span> <span class="hl kwd">chord-type</span> <span class="hl num">0</span><span class="hl sym">)</span>
+              <span class="hl sym">(</span><span class="hl kwa">let</span> <span class="hl sym">((</span><span class="hl kwd">duration</span> <span class="hl sym">(</span><span class="hl kwd">read-char-as-integer p</span><span class="hl sym">)))</span>
+                <span class="hl sym">(</span><span class="hl kwd">loop</span> <span class="hl sym">(+</span> <span class="hl kwd">beat duration</span><span class="hl sym">)</span>
+                      <span class="hl sym">(</span><span class="hl kwc">cons</span> <span class="hl sym">(</span><span class="hl kwc">cons</span> <span class="hl sym">(</span><span class="hl kwc">car</span> <span class="hl sym">(</span><span class="hl kwc">car</span> <span class="hl kwd">result</span><span class="hl sym">))</span>
+                                  <span class="hl sym">(+ (</span><span class="hl kwc">cdr</span> <span class="hl sym">(</span><span class="hl kwc">car</span> <span class="hl kwd">result</span><span class="hl sym">))</span> <span class="hl kwd">duration</span><span class="hl sym">))</span>
+                            <span class="hl sym">(</span><span class="hl kwc">cdr</span> <span class="hl kwd">result</span><span class="hl sym">))))</span>
+              <span class="hl sym">(</span><span class="hl kwd">loop</span> <span class="hl sym">(+</span> <span class="hl kwd">beat</span> <span class="hl num">1</span><span class="hl sym">) (</span><span class="hl kwc">cons</span> <span class="hl sym">(</span><span class="hl kwc">cons</span> <span class="hl kwd">chord-type</span> <span class="hl num">1</span><span class="hl sym">)</span> <span class="hl kwd">result</span><span class="hl sym">)))))))</span>
+</pre>
+
+<p>Note how nicely OCaml pattern matching avoids car’s and cdr’s and at the same time serves as control structure.  Of course I know any serious comparison of these programming languages will require more than just a simple example.  But you just have to trust me when I say OCaml feels right and seems to embody a right balance of everything a programming language should have.  If this gives you the urge to learn more about OCaml, the rest of this post consists of a few notes that will help you run it on Mac OS X (this is afterall an “OS X Programming Blog”).</p>
+
+<p>After <a href="http://caml.inria.fr/">downloading OCaml from INRIA</a> and before installation, apply <a href="http://caml.inria.fr/mantis/view.php?id=4086">this patch</a> for dynamic loading to work under OS X (otherwise #load "nums.cma" will not work in toplevel, e.g.) and <a href="http://caml.inria.fr/mantis/view.php?id=4087">this patch</a> for gprof to work on Intel Macs.</p>
+
+<p>Read the <a href="http://caml.inria.fr/pub/docs/manual-ocaml/index.html">official reference manual</a> and <a href="http://caml.inria.fr/pub/docs/oreilly-book/">on-line book</a>.  You may get a quick start by reading the <a href="http://www.ocaml-tutorial.org/">Objective Caml tutorials</a> and tips at the <a href="http://wiki.cocan.org/">OCaml Alliance Network</a>.  But you can’t really avoid reading the manual and the book.  When you get into trouble, search for answers in the <a href="http://groups.google.com/group/fa.caml/topics/">fa.caml USENET newsgroup archives</a>.  Look for additional programming libraries you can use at the <a href="http://caml.inria.fr/cgi-bin/hump.cgi">Caml Hump</a>.</p>
+
+<p>If you’re like me, you’ll use Emacs/XEmacs to edit OCaml code.  I use <a href="http://members.shaw.ca/akochoi-xemacs/">Carbon XEmacs</a>, which I think of as my own private implementation :-).  Don't use regular caml-mode that comes with many Emacs/XEmacs distributions (like the XEmacs sumo package).  Use the <a href="http://www-rocq.inria.fr/~acohen/tuareg/index.html.en">Tuareg mode</a> instead.  Follow the instructions in the README file to install it.  Tuareg mode uses (the somewhat archaic) sym-lock.el (included in the distribution), which calls a function named list-fonts.  This isn't defined in Carbon XEmacs.  So define it in your startup file:</p>
+<pre xml:space="preserve">
+<span class="hl sym">(</span><span class="hl kwd">defun list</span><span class="hl sym">-</span><span class="hl kwd">fonts</span> <span class="hl sym">(</span><span class="hl kwd">pattern</span><span class="hl sym">)</span>
+  <span class="hl sym">(</span><span class="hl kwd">font</span><span class="hl sym">-</span><span class="hl kwd">list pattern</span><span class="hl sym">))</span>
+</pre>
+<p>You’ll also need to customize the “Camldebug Event” and “Camldebug Underline” faces for face coloring in camldebug mode to work correctly.  You can of course also customize a number of faces that begin with the words “Font Lock” or the word “Tuareg” to control syntax coloring.  Here’s a screenshot of the camldebug debugger stopped within a function adjust_for_meter in Tuareg mode.  A great feature of camldebug is you can step <em>backward</em> as well as forward in time.  Great stuff!</p>
+
+<img class="centered" src='camldebug.jpg' alt='camldebug.jpg' />
+
+<p>Install the <a href="http://www.cs.ru.nl/~tews/otags/">otags program</a> to generate “tags” files from OCaml files for Emacs.  Tags allow you to jump quickly among definitions of functions and variables in different files of a project.  It is also used in text completion of function and variable names.</p>
+
+<p>As an aside, to display source code in OCaml and other languages in a Wordpress blog (like I’ve done above), use the <a href="http://wordpress.org/extend/plugins/wp-syntax/">WP-Syntax plugin</a>, which is based on <a href="http://qbnz.com/highlighter/">GeSHi: the Generic Syntax Highlighter</a>.  It’s a little strange to be colorizing code on the server, but <a href="http://www.andre-simon.de/">highlight</a> and <a href="http://www.gnu.org/software/src-highlite/">source-highlight</a> don’t work as well because they generate color information in CSS which needs to be included in the post.  I don't know an easy way to do that.</p>
+
+<p>Well, that just about wraps it up.  Look for MJB2Lite rewritten in OCaml soon!</p>
+  </contents>
+</article>

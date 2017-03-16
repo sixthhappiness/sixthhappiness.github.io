@@ -1,0 +1,175 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>A Few Notes on Ocamlbuild, Ocamldebug, and Caml-mode</title>
+<link rel="stylesheet" href="../../css/base.css">
+<link rel="stylesheet" href="../../css/article.css">
+<link rel="stylesheet" href="../../css/highlight.css">
+</head>
+<body><div id="box0">
+<div id="header"><h1 class="blog-title"><a href="../../index.html">My OS X Programming Blog</a></h1></div>
+<div id="box1"><div id="box2">
+<div id="contents">
+<h2 class="title">A Few Notes on Ocamlbuild, Ocamldebug, and Caml-mode</h2>
+<div class="date">2 Jun 2007</div>
+<div class="abstract"><p>A short writeup on programming in OCaml on Mac OS X. The use of ocamlbuild, ocamldebug, and caml-mode.</p></div>
+<div class="contents">
+<p>So it took me a few weeks to convert the Python version of MJB2Lite into OCaml.  Both the Python and OCaml implementations are about 3000 lines each.  While I was writing the OCaml code I also made a few improvements to the structure and design of the program.  Perhaps it would have taken a little less time if I was only doing a "line-for-line" translation.  But that would be less fun.  Working on an independent and unsupported project allows me to devote the extra time to do it right, rather than just meeting some arbitrary deadline.  Now I'll have to worry less about performance when some of the algorithms' complexity increases.</p>
+<p>During the rewrite, version 3.10.0 of OCaml was released (I started out writing in version 3.09.3).  I wasn't much affected by the new release (the biggest change was in Camlp4, which I haven't learned to use yet).  But a new tool <code>ocamlbuild</code>, described as a "compilation manager", became part of this release.  With it I no longer need the Makefile which I was using to specify how the project is to be compiled and linked.</p>
+<p>To learn to use <code>ocamlbuild</code>, one should certainly read the <a href="http://gallium.inria.fr/~pouillar/ocamlbuild/ocamlbuild-user-guide.pdf">Ocamlbuild Users Manual</a>.  Some details are still sketchy in that document but I'm sure it'll improve over time since ocamlbuild is such a useful tool.  In the meantime, some of the information I'll describe below has come from mailing list archives or is the result of experimentation.</p>
+<p>If everything has been set up correctly, the commands</p>
+<pre xml:space="preserve">
+ocamlbuild mjb2lite.native
+</pre>
+<p>and</p>
+<pre xml:space="preserve">
+ocamlbuild mjb2lite.byte
+</pre>
+<p>will generate the native-code and byte-code executables from the main program <code>mjb2lite.ml</code>, respectively.  <code>Ocamlbuild</code> determines the source files on which this main program depends and compiles/re-compiles and links them as necessary.  The command</p>
+<pre xml:space="preserve">
+ocamlbuild mjb2lite.d.byte
+</pre>
+<p>will generate a byte-code executable for debugging.  My <code>mjb2lite.ml</code> file is not contained in the project directory but in a directory <code>mjb2lite</code> in it.  So instead of what are listed above, I actually need to specify its pathname in the <code>ocamlbuild</code> command, for example:</p>
+<pre xml:space="preserve">
+ocamlbuild mjb2lite/mjb2lite.d.byte
+</pre>
+<p>Files that implement chord and scale theory objects, harmonic analysis algorithms, etc. are organized in the directories <code>mjb</code> and <code>toe</code>.  So the directory structure looks like this:</p>
+<pre xml:space="preserve">
+projdir/
+    _tags
+    load.ml
+    mjb2lite/
+        _tags
+        mjb2lite.ml
+    toe/
+        _tags
+        toe.mllib
+        note.ml
+        chord.ml
+        scale.ml
+        ...
+    mjb/
+        _tags
+        mjb.mllib
+        pattern.ml
+        compatscales.ml
+        tonalana.ml
+        ...
+</pre>
+<p><code>Ocamlbuild</code> needs to be told that the directories <code>toe</code> and <code>mjb</code> should be included in the search for modules.  The <code>_tags</code> file in the project directory provides this information by containing the line:</p>
+<pre xml:space="preserve">
+&lt;toe&gt; or &lt;mjb&gt;: include
+</pre>
+<p>Some of the files in <code>mjb2lite</code>, <code>toe</code>, and <code>mjb</code> use the OCaml libraries Unix, Num, and Str.  To specify this the <code>_tags</code> files in these directories should contain the lines:</p>
+<pre xml:space="preserve">
+true: use_unix
+true: use_str
+true: use_nums
+</pre>
+<p>Instead of building a byte-code or native-code executable, it is sometimes useful to run and test code in the OCaml toplevel (I do this in XEmacs).  If this code uses modules defined in <code>toe</code> and <code>mjb</code>, the latter must be first loaded into the toplevel.  To do this, files in each of these directories can be compiled and linked into a byte-code library.  The files <code>toe.mllib</code> and <code>mjb.mllib</code> list the modules in their respective directories.  For example, <code>toe.mllib</code> contains the lines:</p>
+<pre xml:space="preserve">
+Note
+Chord
+Scale
+...
+</pre>
+<p>To build the libraries, issue the commands:</p>
+<pre xml:space="preserve">
+ocamlbuild toe/toe.cma
+</pre>
+<p>and</p>
+<pre xml:space="preserve">
+ocamlbuild mjb/mjb.cma
+</pre>
+<p>To load either of these libraries, one can use the toplevel command <code>#load</code>.  Since this is done quite often, the file <code>load.ml</code> in the project directory contains the lines:</p>
+<pre xml:space="preserve">
+#load "str.cma";;
+#load "nums.cma";;
+let pp_num formatter x = Format.pp_print_string formatter (Num.string_of_num x);
+#install_printer pp_num;;
+#load "unix.cma";;
+
+#directory "_build/toe";;
+#load "toe.cma";;
+#install_printer Note.pp;;
+#install_printer Chord.pp;;
+#install_printer Scale.pp;;
+
+#directory "_build/mjb";;
+#load "mjb.cma";;
+</pre>
+<p>and these can be executed as a whole by the toplevel command:</p>
+<pre xml:space="preserve">
+#use "load.ml";;
+</pre>
+<p>Note that "using" the <code>load.ml</code> file loads the OCaml libraries Unix, Num, and Str as well as sets up custom printer functions for types defined in our modules.  Note also that the libraries generated are located in the directory <code>_build</code> because <code>ocamlbuild</code> always leaves our project directory otherwise unchanged.</p>
+<p>When a program is debugged under ocamldebug (again this can be done within XEmacs), it is useful to know the <code>directory</code> command.  It lets one specify the directories in which ocamldebug can look for source files.  If ocamldebug is started from the project directory, we can issue the commands:</p>
+<pre xml:space="preserve">
+directory _build/toe
+directory _build/mjb
+</pre>
+<p>so it can find the appropriate files when execution stops within them.  The ocamldebug command <code>source</code> can save you a few keystrokes.</p>
+<p>The final usage note on ocamlbuild concerns the target extension <code>.inferred.mli</code>.  All my <code>.ml</code> files were written without first writing the <code>.mli</code> files.  This is faster and makes more sense to me since we're using a <em>type inference system</em>!  Since (for example) <code>chord.ml</code> depends on other files (such as <code>note.ml</code>), we cannot simply use the command <code>ocaml -i chord.ml</code> to generate its interface file.  However,</p>
+<pre xml:space="preserve">
+ocamlbuild toe/chord.inferred.mli
+</pre>
+<p>will correctly determine dependencies and generate an interface file in <code>_build/toe/chord.inferred.mli</code>.  Then you can copy that file to your source directory, rename it to chord.mli, and edit out the declarations that should be hiddened.  Two (bash) shell script snippets will prove convenient for batch processing these interface files:</p>
+<pre xml:space="preserve">
+<span class="hl kwa">for</span> f <span class="hl kwa">in</span> toe<span class="hl sym">/*</span>.ml<span class="hl sym">;</span><span class="hl kwa">do</span> ocamlbuild <span class="hl str">"${f%.*}.inferred.mli"</span><span class="hl sym">;</span><span class="hl kwa">done</span>
+</pre>
+<p>and</p>
+<pre xml:space="preserve">
+<span class="hl kwa">for</span> f <span class="hl kwa">in</span> ..<span class="hl sym">/</span>_build<span class="hl sym">/</span>toe<span class="hl sym">/*</span>.mli<span class="hl sym">;</span><span class="hl kwa">do</span> name<span class="hl sym">=</span><span class="hl str">`basename "${f%.*.*}.mli"`</span><span class="hl sym">;</span> cp <span class="hl kwb">$f $name</span><span class="hl sym">;</span><span class="hl kwa">done</span>
+</pre>
+<p>Finally, I re-examined and installed the caml-mode in the "emacs" directory in the standard OCaml distribution and have been using it ever since.  I must say I cannot see that great a difference between it and tuareg-mode which I <a href="../ocaml-python-scheme-tuareg-mode-camldebug-and-carbon-xemacs/index.html">recommended a few weeks ago</a>.  (I admit I did that because everyone was recommending it; but I suppose so much of what people write on the Web is hearsay.)  I do miss the two key bindings <code>C-x C-e</code> and <code>C-c C-b</code> from tuareg-mode but these can be easier added by a tiny bit of ELisp:</p>
+<pre xml:space="preserve">
+<span class="hl sym">(</span><span class="hl kwd">add</span><span class="hl sym">-</span><span class="hl kwd">hook</span> '<span class="hl kwd">caml</span><span class="hl sym">-</span><span class="hl kwd">mode</span><span class="hl sym">-</span><span class="hl kwd">hook</span>
+          '<span class="hl sym">(</span><span class="hl kwa">lambda</span> <span class="hl sym">()</span>
+	     <span class="hl sym">(</span><span class="hl kwd">define</span><span class="hl sym">-</span><span class="hl kwd">key caml</span><span class="hl sym">-</span><span class="hl kwd">mode</span><span class="hl sym">-</span><span class="hl kwd">map</span> <span class="hl str">"\C-x\C-e"</span> '<span class="hl kwd">caml</span><span class="hl sym">-</span><span class="hl kwd">eval</span><span class="hl sym">-</span><span class="hl kwd">phrase</span><span class="hl sym">)</span>
+             <span class="hl sym">(</span><span class="hl kwd">define</span><span class="hl sym">-</span><span class="hl kwd">key caml</span><span class="hl sym">-</span><span class="hl kwd">mode</span><span class="hl sym">-</span><span class="hl kwd">map</span> <span class="hl str">"\C-c\C-b"</span>
+               <span class="hl sym">(</span><span class="hl kwa">lambda</span> <span class="hl sym">()</span>
+                 <span class="hl str">"Eval the entire buffer"</span>
+                 <span class="hl sym">(</span><span class="hl kwa">interactive</span><span class="hl sym">)</span>
+                 <span class="hl sym">(</span><span class="hl kwd">caml</span><span class="hl sym">-</span><span class="hl kwd">eval</span><span class="hl sym">-</span><span class="hl kwd">region</span> <span class="hl sym">(</span><span class="hl kwd">point</span><span class="hl sym">-</span><span class="hl kwd">min</span><span class="hl sym">) (</span><span class="hl kwd">point</span><span class="hl sym">-</span><span class="hl kwd">max</span><span class="hl sym">))))))</span>
+</pre>
+<p>I now prefer and recommend caml-mode if only for the reason that it comes standard with OCaml.</p>
+<p>Finally, unlike version 3.09.3, OCaml 3.10.0 does not require any additional patches to work correctly on Intel Macs.</p>
+</div>
+<div class="category"><p>Category: Programming</p></div>
+</div>
+<div id="navigation">
+<h2 class="title">Articles</h2>
+<h3 class="article-title"><a href="../../articles/cantonese-AI-phonetic-IM-year-of-the-ram-release/index.html">Cantonese Artificially-intelligent Phonetic Input Method—Year of the RAM Release</a></h3>
+<div class="date">Date: 23 Jan 2015</div>
+<h3 class="article-title"><a href="../../articles/cantonese-AI-phonetic-IM-for-Windows-7/index.html">Cantonese Artificially-intelligent Phonetic Input Method for Windows 7</a></h3>
+<div class="date">Date: 27 Jul 2012</div>
+<h3 class="article-title"><a href="../../articles/CAP/index.html">CAP — a Cantonese Artificially-intelligent Phonetic Input Method</a></h3>
+<div class="date">Date: 23 May 2012</div>
+<h3 class="article-title"><a href="../../articles/three-little-pieces/index.html">Three Little Pieces</a></h3>
+<div class="date">Date: 30 Apr 2012</div>
+<h3 class="article-title"><a href="../../articles/unicode-processing-c++0x/index.html">Unicode Processing with C++0x</a></h3>
+<div class="date">Date: 16 Oct 2010</div>
+<h3 class="article-title"><a href="../../all.html">[Complete Article List...]</a></h3>
+<h3 class="article-title"><a href="../../rss.xml">[RSS]</a></h3>
+<h2 class="title">Categories</h2>
+<h3 class="article-title"><a href="../../General.html">General</a></h3>
+<h3 class="article-title"><a href="../../Jazz.html">Jazz</a></h3>
+<h3 class="article-title"><a href="../../Programming.html">Programming</a></h3>
+<h3 class="article-title"><a href="../../T2.html">T2</a></h3>
+<h2 class="title">Information</h2>
+<h3 class="article-title"><a href="../../articles/about-the-author/index.html">About the Author</a></h3>
+<h3 class="article-title"><a href="../../articles/about-this-website/index.html">About This Website</a></h3>
+<h3 class="article-title"><a href="../../articles/contact-information/index.html">Contact Information</a></h3>
+<h2 class="title">My Other Webpages</h2>
+<h3 class="article-title"><a href="http://members.shaw.ca/akochoi-gallery/">My Photo Gallery</a></h3>
+<h3 class="article-title"><a href="http://members.shaw.ca/akochoi-old/blog/">My Old Blog</a></h3>
+<h2 class="title">My Old Projects</h2>
+<h3 class="article-title"><a href="http://members.shaw.ca/akochoi-xemacs/">Carbon XEmacs</a></h3>
+<h3 class="article-title"><a href="http://members.shaw.ca/akochoi-emacs/">Emacs for Mac OS X “Carbon Emacs”</a></h3>
+<h3 class="article-title"><a href="http://mac-emacs.sourceforge.net/">Emacs for Mac OS 8/9</a></h3>
+</div>
+</div></div>
+<div id="footer">Copyright © 2007, 2008, 2009, 2010, 2011, 2012 Andrew Choi. All rights reserved. Do not aggregate.</div>
+</div></body>
+</html>
