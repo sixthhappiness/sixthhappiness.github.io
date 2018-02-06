@@ -25,15 +25,15 @@
 <p>The convenience function <code>update</code> applies a function to change the value corresponding to a key if the latter exists in the JudySL array. Otherwise it does nothing. <code>Update0</code> also changes the value for a key, except when it doesn’t exist, its value is first initialized to zero before the update function is applied. Its only use is probably to implement some form of “counters”, such as frequency counters for <em>n</em>-grams. Versions of these two functions with the <code>s</code> suffix are also provided.</p>
 <p>There are also convenience functions for converting entire Judy arrays to and from lists of key-value pairs. The <code>toList</code> function returns its results <em>lazily</em>, so a Judy array can be written to disk (say) very efficiently even when only a small part of main memory remains free for heap allocation.</p>
 <p>So how well do Judy arrays work? Here’s a version of the program I used to test my Db 1.85 FFI and <code>Database.Berkeley.Db</code> in <a href="../Db-1.85-the-original-BSD-license-Berkeley-DB/index.html">my last article</a>, now modified to use this JudySL FFI.</p>
-<pre class="sourceCode literate literatehaskell"><code class="sourceCode literatehaskell"><span class="ot">&gt;</span> <span class="kw">module</span> <span class="dt">Main</span> <span class="kw">where</span>
+<div class="sourceCode"><pre class="sourceCode literate literatehaskell"><code class="sourceCode literatehaskell"><span class="ot">&gt;</span> <span class="kw">module</span> <span class="dt">Main</span> <span class="kw">where</span>
 <span class="ot">&gt;</span> 
 <span class="ot">&gt;</span> <span class="kw">import </span><span class="dt">System.IO</span>
 <span class="ot">&gt;</span> <span class="kw">import </span><span class="dt">Data.Maybe</span> (isJust)
 <span class="ot">&gt;</span> <span class="kw">import </span><span class="dt">Control.Monad</span> (foldM, mapM_, liftM2, liftM)
 <span class="ot">&gt;</span> 
-<span class="ot">&gt;</span> <span class="kw">import qualified</span> <span class="dt">JudySL</span> <span class="kw">as</span> <span class="dt">J</span></code></pre>
+<span class="ot">&gt;</span> <span class="kw">import qualified</span> <span class="dt">JudySL</span> <span class="kw">as</span> <span class="dt">J</span></code></pre></div>
 <p>It reads all the words in the standard Unix word list file <code>/usr/share/dict/words</code>, builds a Judy array with them, and writes it to the file <code>words.db</code>.</p>
-<pre class="sourceCode literate literatehaskell"><code class="sourceCode literatehaskell"><span class="ot">&gt;</span> buildWordDb <span class="fu">=</span> <span class="kw">do</span>
+<div class="sourceCode"><pre class="sourceCode literate literatehaskell"><code class="sourceCode literatehaskell"><span class="ot">&gt;</span> buildWordDb <span class="fu">=</span> <span class="kw">do</span>
 <span class="ot">&gt;</span>   j <span class="ot">&lt;-</span> J.new
 <span class="ot">&gt;</span> 
 <span class="ot">&gt;</span>   withFile <span class="st">"/usr/share/dict/words"</span> <span class="dt">ReadMode</span> <span class="fu">$</span> \ h <span class="ot">-&gt;</span> <span class="kw">do</span>
@@ -41,9 +41,9 @@
 <span class="ot">&gt;</span>     mapM_ (\ w <span class="ot">-&gt;</span> J.puts j w <span class="dv">1</span>) (lines c)
 <span class="ot">&gt;</span> 
 <span class="ot">&gt;</span>   withFile <span class="st">"words.db"</span> <span class="dt">WriteMode</span> <span class="fu">$</span> \g <span class="ot">-&gt;</span>
-<span class="ot">&gt;</span>     J.toList j <span class="fu">&gt;&gt;=</span> mapM_ (\ (k, _) <span class="ot">-&gt;</span> hPutStrLn g k)</code></pre>
+<span class="ot">&gt;</span>     J.toList j <span class="fu">&gt;&gt;=</span> mapM_ (\ (k, _) <span class="ot">-&gt;</span> hPutStrLn g k)</code></pre></div>
 <p>Then it reads the word list file again and verifies that each word in it is indeed in the Judy array.</p>
-<pre class="sourceCode literate literatehaskell"><code class="sourceCode literatehaskell"><span class="ot">&gt;</span> verifyWordDb <span class="fu">=</span>
+<div class="sourceCode"><pre class="sourceCode literate literatehaskell"><code class="sourceCode literatehaskell"><span class="ot">&gt;</span> verifyWordDb <span class="fu">=</span>
 <span class="ot">&gt;</span>   withFile <span class="st">"words.db"</span> <span class="dt">ReadMode</span> <span class="fu">$</span> \ h <span class="ot">-&gt;</span> <span class="kw">do</span>
 <span class="ot">&gt;</span>     c <span class="ot">&lt;-</span> hGetContents h
 <span class="ot">&gt;</span>     j <span class="ot">&lt;-</span> J.fromList [(w, <span class="dv">1</span>) <span class="fu">|</span> w <span class="ot">&lt;-</span> lines c]
@@ -51,11 +51,11 @@
 <span class="ot">&gt;</span>       c <span class="ot">&lt;-</span> hGetContents h
 <span class="ot">&gt;</span>       foldM (\r w <span class="ot">-&gt;</span> liftM2 (<span class="fu">&amp;&amp;</span>) (liftM isJust (J.gets j w)) (return r))
 <span class="ot">&gt;</span>             <span class="dt">True</span>
-<span class="ot">&gt;</span>             (lines c)</code></pre>
+<span class="ot">&gt;</span>             (lines c)</code></pre></div>
 <p>Here’s the main function which should print <code>True</code> when it is run.</p>
-<pre class="sourceCode literate literatehaskell"><code class="sourceCode literatehaskell"><span class="ot">&gt;</span> main <span class="fu">=</span> <span class="kw">do</span>
+<div class="sourceCode"><pre class="sourceCode literate literatehaskell"><code class="sourceCode literatehaskell"><span class="ot">&gt;</span> main <span class="fu">=</span> <span class="kw">do</span>
 <span class="ot">&gt;</span>   buildWordDb
-<span class="ot">&gt;</span>   verifyWordDb <span class="fu">&gt;&gt;=</span> print</code></pre>
+<span class="ot">&gt;</span>   verifyWordDb <span class="fu">&gt;&gt;=</span> print</code></pre></div>
 <p>The running time for the tuned, Db 1.85 version of this program was:</p>
 <pre><code>$ /usr/bin/time -f "%E real, %U user, %S sys" ./DbTest
 True

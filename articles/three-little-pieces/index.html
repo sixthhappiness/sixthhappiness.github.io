@@ -29,7 +29,7 @@
 <p>This is just a quick update to my previous <a href="../unicode-processing-c++0x/index.html">Unicode Processing with C++0x</a> article. The GNU standard C++ library libstdc++ still lacks the <code>codecvt</code> facets <a href="http://en.cppreference.com/w/cpp/locale/codecvt_utf8"><code>codecvt_utf8</code></a> and <a href="http://en.cppreference.com/w/cpp/locale/codecvt_utf8_utf16"><code>codecvt_utf8_utf16</code></a> from the C++0x standard. If you use that library you’ll still need the code from my previous article to convert among UTF-8, UTF-16 and UTF-32 encodings.</p>
 <p>If you’re on Linux, there are two options: install the <a href="http://www.boost.org/">Boost C++ Libraries</a> or <a href="http://solarianprogrammer.com/2011/10/16/llvm-clang-libc-linux/">install LLVM and libc++</a>. If you’re on Mac OS X Lion, Xcode 4.3.2 already includes LLVM and libc++.</p>
 <p>Libc++ provides <code>codecvt_utf8</code> and <code>codecvt_utf8_utf16</code>. With these, the function <code>to_u8string</code>, <code>to_u16string</code>, and <code>to_u32string</code> are much simpler to implement:</p>
-<pre class="sourceCode Cpp"><code class="sourceCode cpp"><span class="ot">#include &lt;codecvt&gt;</span>
+<div class="sourceCode"><pre class="sourceCode Cpp"><code class="sourceCode cpp"><span class="ot">#include &lt;codecvt&gt;</span>
 <span class="ot">#include &lt;string&gt;</span>
 
 <span class="kw">inline</span> std::string to_u8string(<span class="dt">const</span> std::u16string&amp; s)
@@ -69,12 +69,12 @@
 <span class="kw">inline</span> std::u32string to_u32string(<span class="dt">const</span> std::u16string&amp; s)
 {
   <span class="kw">return</span> to_u32string(to_u8string(s));
-}</code></pre>
+}</code></pre></div>
 <p>Note that since <code>wstring_convert</code> converts between a wide string and a byte string, conversions between UTF-16 and UTF-32 encodings require a call to <code>to_bytes</code> followed by one to <code>from_bytes</code>. Had we used <code>codecvt</code> instances directly, we should be able to perform the conversion in one step. But the code will be more complicated.</p>
 <h1 id="makescreencast">makeScreencast</h1>
 <p>I want to make screencasts on a Linux PC to demonstrate how to install and use my new software. So I’ve tested a number of programs for doing that. The most often recommended programs are <a href="http://recordmydesktop.sourceforge.net/about.php">recordMyDesktop</a>, <a href="http://www.youtube.com/results?search_query=ffmpeg+screencast"><code>ffmpeg</code></a>, and the <a href="http://live.gnome.org/GnomeShell/CheatSheet#Screencast_recording">Gnome screencast tool</a>. I’d like to record at full screen resolution (1920x1080) and record audio commentary at the same time. None of the tested programs worked very well for me: the common problem is the video lags behind audio.</p>
 <p>I found a shell script <a href="http://audacity.238276.n2.nabble.com/New-script-for-recording-screencasts-on-Ubuntu-9-04-tt3081264.html">my-shooting-script-norm-lossless.sh</a> on the Web that prevents this audio/video synchronization problem by recording audio and video separately using two invocations of <code>ffmpeg</code> and then merging the results into a single file. Go download it and give it a try if you are experiencing synchronization problems with recording your screencasts. The following is a version which I’ve simplified and cleaned up to handle process IDs correctly. That’s really all you need.</p>
-<pre class="sourceCode Bash"><code class="sourceCode bash"><span class="co">#!/bin/bash</span>
+<div class="sourceCode"><pre class="sourceCode Bash"><code class="sourceCode bash"><span class="co">#!/bin/bash</span>
 
 <span class="ot">basename=$1</span>
 
@@ -104,7 +104,7 @@
 <span class="kw">ffmpeg</span> -isync -i <span class="st">"</span><span class="ot">$basename</span><span class="st">-video.avi"</span> -i <span class="st">"</span><span class="ot">$basename</span><span class="st">-audio.wav"</span> -map 0:0 -map 1:0 -acodec copy -vcodec copy <span class="st">"</span><span class="ot">$basename</span><span class="st">.mov"</span>
 
 <span class="kw">rm</span> <span class="st">"</span><span class="ot">$basename</span><span class="st">-video.avi"</span>
-<span class="kw">rm</span> <span class="st">"</span><span class="ot">$basename</span><span class="st">-audio.wav"</span></code></pre>
+<span class="kw">rm</span> <span class="st">"</span><span class="ot">$basename</span><span class="st">-audio.wav"</span></code></pre></div>
 <p>To use it, save the script in a file, say, <code>makeScreencast</code>, make the file executable, and type <code>./makeScreencast &lt;filename&gt;</code>. To end the screencast, go back to the terminal window in which the <code>makeScreencast</code> command was issued and hit <em>Enter</em>. Note that my microphone is connected to alsa device <code>hw:2,0</code>. You will have to change that in your script according to your system configuration.</p>
 <p>Have fun!</p>
 </div></div>
