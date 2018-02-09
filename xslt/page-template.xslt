@@ -61,7 +61,7 @@
     </div>
   </xsl:template>
   <xsl:template name="footer">
-    <div id="footer">Copyright © 2007, 2008, 2009, 2010, 2011, 2012 Andrew Choi. All rights reserved. Do not aggregate.</div>
+    <div id="footer">Copyright © 2007, 2008, 2009, 2010, 2011, 2012, 2015, 2018 Andrew Choi. All rights reserved. Do not aggregate.</div>
   </xsl:template>
   <xsl:template match="article" mode="nav-article">
     <h3 class="article-title">
