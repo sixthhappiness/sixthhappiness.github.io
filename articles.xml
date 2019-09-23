@@ -1,6 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <article-list>
   <article>
+    <filename>articles/cantonese-AI-phonetic-IM-black-bauhinia-release/</filename>
+    <title>Cantonese Artificially-intelligent Phonetic Input Method—Black Bauhinia Release</title>
+    <date>Thu, 19 Sep 2019 17:00 MDT</date>
+    <category>Programming</category>
+    <abstract>
+      <p>Here’s the latest release of my Cantonese Artificially-intelligent
+      Phonetic (CAP) Input Method for macOS, Linux, and Windows 10.  Its
+      statistical language model now incorporates the 2019-08-02 Chinese version
+      of the Wikipedia, among other sources.  I also corrected the
+      pronounciation of some words such as 鵪鶉 (am chun), 芫茜 (yim sai), and 猥瑣
+      (wui soh).  This release also uses a new and prettier icon.</p>
+    </abstract>
+  </article>
+  <article>
     <filename>articles/cantonese-AI-phonetic-IM-year-of-the-dog-release/</filename>
     <title>Cantonese Artificially-intelligent Phonetic Input Method—Year of the Dog Release</title>
     <date>Tue, 6 Feb 2018 17:00 MDT</date>

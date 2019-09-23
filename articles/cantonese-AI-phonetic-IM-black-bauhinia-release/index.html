@@ -1,0 +1,115 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Cantonese Artificially-intelligent Phonetic Input Method—Black Bauhinia Release</title>
+<link rel="stylesheet" href="../../css/base.css">
+<link rel="stylesheet" href="../../css/article.css">
+<link rel="stylesheet" href="../../css/highlight.css">
+</head>
+<body><div id="box0">
+<div id="header"><h1 class="blog-title"><a href="../../index.html">My OS X Programming Blog</a></h1></div>
+<div id="box1"><div id="box2">
+<div id="contents">
+<h2 class="title">Cantonese Artificially-intelligent Phonetic Input Method—Black Bauhinia Release</h2>
+<div class="date">19 Sep 2019</div>
+<div class="abstract"><p>Here’s the latest release of my Cantonese Artificially-intelligent
+      Phonetic (CAP) Input Method for macOS, Linux, and Windows 10.  Its
+      statistical language model now incorporates the 2019-08-02 Chinese version
+      of the Wikipedia, among other sources.  I also corrected the
+      pronounciation of some words such as 鵪鶉 (am chun), 芫茜 (yim sai), and 猥瑣
+      (wui soh).  This release also uses a new and prettier icon.</p></div>
+<div class="contents"><div>
+
+<h1 id="new-icon">New icon</h1>
+<p>This release of CAP uses a new icon that I’ve been using personally in recent weeks. This is what it looks like on macOS:</p>
+<blockquote><p><img src="CAP-MacOS-screenshot.png"></p></blockquote>
+<p>On KDE/Linux:</p>
+<blockquote><p><img src="CAP-Linux-screenshot.png"></p></blockquote>
+<p>And on Windows:</p>
+<blockquote><p><img src="CAP-Windows-screenshot.png"></p></blockquote>
+<p>If this release replaces an existing installation on macOS or Windows, the new icon should appear instead of the old one automatically. On KDE, you may need to clear the icon cache using the command <code>rm ~/.cache/icon-cache.kcache</code> and re-login.</p>
+<h1 id="download-links">Download Links</h1>
+<p>Download this release of the CAP input method for your platform with one of the following links.</p>
+<table>
+<thead><tr class="header">
+<th style="text-align: left;">Version</th>
+<th style="text-align: left;">Download Location</th>
+<th style="text-align: left;">MD5 Checksum</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">macOS</td>
+<td style="text-align: left;"><a href="https://drive.google.com/open?id=1yxRGn1r4_ClF6RsX9V4NIs4LDIsDE3Iz"><code>Chinese - Cantonese AI Phonetic IM.zip</code></a></td>
+<td style="text-align: left;"><code>bc324c815981bdfa387b2c1094d7b7d1</code></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Windows 10 (64-bit)</td>
+<td style="text-align: left;"><a href="https://drive.google.com/open?id=1FlCr8DOCw4xiBn5h0sBB4tT5K3YhgoIw"><code>CAPInstallerReleaseNew.msi</code></a></td>
+<td style="text-align: left;"><code>9c50aa1146e81b18aea639ccd0f90e1a</code></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Linux</td>
+<td style="text-align: left;"><a href="https://drive.google.com/open?id=17i5ntyvCE1WX39aEyjMJLHSSrifp_Hob"><code>fcitx-cap_1.0.0_amd64.deb</code></a></td>
+<td style="text-align: left;"><code>21f455e0ba68655d184e5b7ae9af622d</code></td>
+</tr>
+</tbody>
+</table>
+<h1 id="installing-cap-on-windows-10-64-bit">Installing CAP on Windows 10 (64-bit)</h1>
+<p>To installing CAP on Windows 10 (64-bit):</p>
+<ol type="1"><li>Download and install the <a href="https://support.microsoft.com/en-ca/help/2977003/the-latest-supported-visual-c-downloads">Microsoft Visual C++ redistributable packages for Visual Studio 2015, 2017 and 2019</a>. Note that you must download and install <em>both</em> the 32-bit (x86) and 64-bit (x64) versions of the Visual C++ redistributable from that page.</li></ol>
+<ol start="2" type="1"><li>Download the file <a href="https://drive.google.com/open?id=1FlCr8DOCw4xiBn5h0sBB4tT5K3YhgoIw"><code>CAPInstallerReleaseNew.msi</code></a> and follow the <a href="../cantonese-AI-phonetic-IM-year-of-the-dog-release/index.html">instructions for the previous version</a>.</li></ol>
+<h1 id="manual-installation-on-windows-10-64-bit">Manual Installation on Windows 10 (64-bit)</h1>
+<p>Installing and debugging input method editors (IMEs) on Windows can be tricky because there is so much variation in system and library versions and configurations. Sometimes one may find better success by installing CAP manually. Try the following if the installer method above fails.</p>
+<ol type="1">
+<li><p>Download and install <em>both</em> the 32-bit (x86) and 64-bit (x64) versions of <a href="https://support.microsoft.com/en-ca/help/2977003/the-latest-supported-visual-c-downloads">Microsoft Visual C++ redistributable packages for Visual Studio 2015, 2017 and 2019</a>.</p></li>
+<li><p>Download <a href="https://drive.google.com/open?id=1O7ewDtuVWLYKSqDoydfp3xkO4FViQ3M1">this ZIP file</a> containing the components of the CAP input method. Unzip and move the entire “<code>Sixth Happiness</code>” directory into <code>C:\Program Files</code>. Windows 10 may say “You’ll need to provide administrator permission to copy this file”. Make sure you have permission and that the operation completes successfully.</p></li>
+</ol>
+<ol start="3" type="1"><li>Register both the 64-bit and 32-bit versions of <code>CAP.dll</code> manually. Execute the following commands in a command prompt window <em>run as administrator</em>.</li></ol>
+<pre><code>  regsvr32 "C:\Program Files\Sixth Happiness\CAP\x64\CAP.dll"
+  regsvr32 "C:\Program Files\Sixth Happiness\CAP\Win32\CAP.dll"</code></pre>
+<h1 id="manual-installation-on-windows-10-32-bit-experimental">Manual Installation on Windows 10 (32-bit) (experimental)</h1>
+<p>To install CAP manually on Windows 10 (32-bit), try following the above instructions for manual installation on Windows 10 (64-bit). However, install only the 32-bit version of Microsoft Visual C++ redistributable package <code>vc_redist.x86.exe</code> and only register the 32-bit <code>CAP.DLL</code>.</p>
+<h1 id="installing-cap-on-macos-and-linux">Installing CAP on macOS and Linux</h1>
+<p>Installing of CAP on macOS and Linux is the same as for the <a href="../cantonese-AI-phonetic-IM-year-of-the-dog-release/index.html">previous version</a>. The macOS version has been tested on High Sierra and Mojave. The Linux version has been tested on Kubuntu 18.04.</p>
+<h1 id="cap-license">CAP License</h1>
+<p>Note that according to <a href="LICENSE.txt">CAP’s license</a>, you can use it for personal and non-commercial purposes, and are prohibited from redistributing it, or any of its parts.</p>
+<p>Otherwise, have a lot of fun with it!</p>
+</div></div>
+<div class="category"><p>Category: Programming</p></div>
+</div>
+<div id="navigation">
+<h2 class="title">Articles</h2>
+<h3 class="article-title"><a href="../../articles/cantonese-AI-phonetic-IM-black-bauhinia-release/index.html">Cantonese Artificially-intelligent Phonetic Input Method—Black Bauhinia Release</a></h3>
+<div class="date">Date: 19 Sep 2019</div>
+<h3 class="article-title"><a href="../../articles/cantonese-AI-phonetic-IM-year-of-the-dog-release/index.html">Cantonese Artificially-intelligent Phonetic Input Method—Year of the Dog Release</a></h3>
+<div class="date">Date: 6 Feb 2018 </div>
+<h3 class="article-title"><a href="../../articles/cantonese-AI-phonetic-IM-year-of-the-ram-release/index.html">Cantonese Artificially-intelligent Phonetic Input Method—Year of the RAM Release</a></h3>
+<div class="date">Date: 23 Jan 2015</div>
+<h3 class="article-title"><a href="../../articles/cantonese-AI-phonetic-IM-for-Windows-7/index.html">Cantonese Artificially-intelligent Phonetic Input Method for Windows 7</a></h3>
+<div class="date">Date: 27 Jul 2012</div>
+<h3 class="article-title"><a href="../../articles/CAP/index.html">CAP — a Cantonese Artificially-intelligent Phonetic Input Method</a></h3>
+<div class="date">Date: 23 May 2012</div>
+<h3 class="article-title"><a href="../../all.html">[Complete Article List...]</a></h3>
+<h3 class="article-title"><a href="../../rss.xml">[RSS]</a></h3>
+<h2 class="title">Categories</h2>
+<h3 class="article-title"><a href="../../General.html">General</a></h3>
+<h3 class="article-title"><a href="../../Jazz.html">Jazz</a></h3>
+<h3 class="article-title"><a href="../../Programming.html">Programming</a></h3>
+<h3 class="article-title"><a href="../../T2.html">T2</a></h3>
+<h2 class="title">Information</h2>
+<h3 class="article-title"><a href="../../articles/about-the-author/index.html">About the Author</a></h3>
+<h3 class="article-title"><a href="../../articles/about-this-website/index.html">About This Website</a></h3>
+<h3 class="article-title"><a href="../../articles/contact-information/index.html">Contact Information</a></h3>
+<h2 class="title">My Other Webpages</h2>
+<h3 class="article-title"><a href="http://members.shaw.ca/akochoi-gallery/">My Photo Gallery</a></h3>
+<h3 class="article-title"><a href="http://members.shaw.ca/akochoi-old/blog/">My Old Blog</a></h3>
+<h2 class="title">My Old Projects</h2>
+<h3 class="article-title"><a href="http://members.shaw.ca/akochoi-xemacs/">Carbon XEmacs</a></h3>
+<h3 class="article-title"><a href="http://members.shaw.ca/akochoi-emacs/">Emacs for Mac OS X “Carbon Emacs”</a></h3>
+<h3 class="article-title"><a href="http://mac-emacs.sourceforge.net/">Emacs for Mac OS 8/9</a></h3>
+</div>
+</div></div>
+<div id="footer">Copyright © 2007, 2008, 2009, 2010, 2011, 2012, 2015, 2018 Andrew Choi. All rights reserved. Do not aggregate.</div>
+</div></body>
+</html>

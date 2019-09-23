@@ -1,0 +1,109 @@
+% Cantonese Artificially-intelligent Phonetic Input Method—Black Bauhinia Release
+% Andrew Choi
+% 19 Sep 2019
+
+# New icon
+
+This release of CAP uses a new icon that I’ve been using personally in recent
+weeks.  This is what it looks like on macOS:
+
+> ![](CAP-MacOS-screenshot.png)
+
+On KDE/Linux:
+
+> ![](CAP-Linux-screenshot.png)
+
+And on Windows:
+
+> ![](CAP-Windows-screenshot.png)
+
+If this release replaces an existing installation on macOS or Windows, the new
+icon should appear instead of the old one automatically.  On KDE, you may need
+to clear the icon cache using the command `rm ~/.cache/icon-cache.kcache` and
+re-login.
+
+
+# Download Links
+
+Download this release of the CAP input method for your platform with one of the
+following links.
+
+  Version              Download Location                                   MD5 Checksum
+  -------------------- --------------------------------------------------- ----------------------------------
+  macOS                [`Chinese - Cantonese AI Phonetic IM.zip`][CAP mac] `bc324c815981bdfa387b2c1094d7b7d1`
+  Windows 10 (64-bit)  [`CAPInstallerReleaseNew.msi`][CAP w10]             `9c50aa1146e81b18aea639ccd0f90e1a`
+  Linux                [`fcitx-cap_1.0.0_amd64.deb`][CAP deb]              `21f455e0ba68655d184e5b7ae9af622d`
+  -------------------- --------------------------------------------------- ----------------------------------
+
+[CAP mac]: https://drive.google.com/open?id=1yxRGn1r4_ClF6RsX9V4NIs4LDIsDE3Iz
+[CAP w10]: https://drive.google.com/open?id=1FlCr8DOCw4xiBn5h0sBB4tT5K3YhgoIw
+[CAP deb]: https://drive.google.com/open?id=17i5ntyvCE1WX39aEyjMJLHSSrifp_Hob
+
+
+# Installing CAP on Windows 10 (64-bit)
+
+To installing CAP on Windows 10 (64-bit):
+
+1. Download and install the [Microsoft Visual C++ redistributable packages for
+Visual Studio 2015, 2017 and 2019][vc_redist].  Note that you must download and
+install *both* the 32-bit (x86) and 64-bit (x64) versions of the Visual C++
+redistributable from that page.
+
+[vc_redist]: https://support.microsoft.com/en-ca/help/2977003/the-latest-supported-visual-c-downloads
+
+2. Download the file [`CAPInstallerReleaseNew.msi`][CAP w10] and follow the
+[instructions for the previous version][CAP Year of Dog].
+
+[CAP Year of Dog]: ../cantonese-AI-phonetic-IM-year-of-the-dog-release/index.html
+
+
+# Manual Installation on Windows 10 (64-bit)
+
+Installing and debugging input method editors (IMEs) on Windows can be tricky
+because there is so much variation in system and library versions and
+configurations.  Sometimes one may find better success by installing CAP
+manually.  Try the following if the installer method above fails.
+
+1. Download and install *both* the 32-bit (x86) and 64-bit (x64) versions of [Microsoft Visual C++ redistributable packages for Visual Studio 2015, 2017 and 2019][vc_redist].
+
+2. Download [this ZIP file][CAP Windows ZIP] containing the components of the
+CAP input method.  Unzip and move the entire "`Sixth Happiness`" directory into
+`C:\Program Files`.  Windows 10 may say "You'll need to provide administrator
+permission to copy this file".  Make sure you have permission and that the
+operation completes successfully.
+
+[CAP Windows ZIP]: https://drive.google.com/open?id=1O7ewDtuVWLYKSqDoydfp3xkO4FViQ3M1
+
+3. Register both the 64-bit and 32-bit versions of `CAP.dll` manually.  Execute
+the following commands in a command prompt window *run as administrator*.
+
+```
+  regsvr32 "C:\Program Files\Sixth Happiness\CAP\x64\CAP.dll"
+  regsvr32 "C:\Program Files\Sixth Happiness\CAP\Win32\CAP.dll"
+```
+
+
+# Manual Installation on Windows 10 (32-bit) (experimental)
+
+To install CAP manually on Windows 10 (32-bit), try following the above
+instructions for manual installation on Windows 10 (64-bit).  However, install
+only the 32-bit version of Microsoft Visual C++ redistributable package
+`vc_redist.x86.exe` and only register the 32-bit `CAP.DLL`.
+
+
+# Installing CAP on macOS and Linux
+
+Installing of CAP on macOS and Linux is the same as for the [previous
+version][CAP Year of Dog].  The macOS version has been tested on High Sierra and
+Mojave.  The Linux version has been tested on Kubuntu 18.04.
+
+
+# CAP License
+
+Note that according to [CAP’s license][license], you can use it for personal and
+non-commercial purposes, and are prohibited from redistributing it, or any of
+its parts.
+
+[license]: LICENSE.txt
+
+Otherwise, have a lot of fun with it!
