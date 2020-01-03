@@ -24,13 +24,13 @@
     <p>Here are the downloads for the different platforms:</p>
     <ul>
       <li>
-        <a href="http://members.shaw.ca/akochoi-files/chart-translate/charttranslate.zip" title="charttranslate.zip">Mac OS X (tested under 10.4)</a>
+        <a href="charttranslate.zip" title="charttranslate.zip">Mac OS X (tested under 10.4)</a>
       </li>
       <li>
-        <a href="http://members.shaw.ca/akochoi-files/chart-translate/dist.zip" title="dist.zip">Windows (tested under XP)</a>
+        <a href="dist.zip" title="dist.zip">Windows (tested under XP)</a>
       </li>
       <li>
-        <a href="http://members.shaw.ca/akochoi-files/chart-translate/dist.tgz" title="dist.tgz">All other systems, such as Linux and BSD’s</a>
+        <a href="dist.tgz" title="dist.tgz">All other systems, such as Linux and BSD’s</a>
       </li>
     </ul>
   </contents>
