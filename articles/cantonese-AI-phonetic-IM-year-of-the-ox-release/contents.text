@@ -1,0 +1,50 @@
+% Cantonese Artificially-intelligent Phonetic Input Method—Year of the Ox Release
+% Andrew Choi
+% 5 Apr 2021
+
+
+# macOS Dark Mode
+
+This release of CAP honors the setting of dark/light mode on macOS:
+
+> ![](macOS-Dark-Mode.png)
+
+> ![](macOS-Light-Mode.png)
+
+Its statistical language model was built using sentences collected from the 2021-04-01
+Chinese and Cantonese versions of the Wikipedia, and other sources.
+
+
+# Download
+
+Download this release of the CAP input method for your platform with one of the
+following links.
+
+  Version              Download Location                                   MD5 Checksum
+  -------------------- --------------------------------------------------- ----------------------------------
+  macOS                [`Chinese - Cantonese AI Phonetic IM.zip`][CAP mac] `bd23c8492b8642c8d747f8ee7e949774`
+  Windows 10 (64-bit)  [`CAPInstallerReleaseNew.msi`][CAP w10]             `218d9c063f3f7cd27a4c32aef4e42e5c`
+  Linux                [`fcitx-cap_1.0.0_amd64.deb`][CAP deb]              `cd2e766353c123b4c448414b36ed151a`
+  -------------------- --------------------------------------------------- ----------------------------------
+
+[CAP mac]: https://drive.google.com/file/d/1-ZHP4bh_89isLRPbnrPV6eAKhiEE7NL1/view?usp=sharing
+[CAP w10]: https://drive.google.com/file/d/1xeYaeigGpBkIcaLTE_F-fkv7nXIWH-Nn/view?usp=sharing
+[CAP deb]: https://drive.google.com/file/d/1aFlczju2OhTgwdlKX-1-j8yrzZ_n9PeL/view?usp=sharing
+
+
+# Installation
+
+To install CAP, follow the instructions for the [previous release][CAP Black Bauhinia].
+
+[CAP Black Bauhinia]: ../cantonese-AI-phonetic-IM-black-bauhinia-release/index.html
+
+
+# CAP License
+
+Note that according to [CAP’s license][license], you can use it for personal and
+non-commercial purposes, and are prohibited from redistributing it, or any of
+its parts.
+
+[license]: LICENSE.txt
+
+Enjoy!

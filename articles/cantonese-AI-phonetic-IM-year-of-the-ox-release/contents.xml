@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE article [
+  <!ENTITY nbsp "&#160;">
+  <!ENTITY mdash "&#x2014;">
+  <!ENTITY ndash "&#x2013;">
+  <!ENTITY hellip "&#x2026;">
+  <!ENTITY lsquo "&#x2018;">
+  <!ENTITY rsquo "&#x2019;">
+  <!ENTITY ldquo "&#x201c;">
+  <!ENTITY rdquo "&#x201d;">
+]>
+
+<div>
+
+<h1 id="macos-dark-mode">macOS Dark Mode</h1><p>This release of CAP honors the setting of dark/light mode on macOS:</p><blockquote><p><img src="macOS-Dark-Mode.png" /></p></blockquote><blockquote><p><img src="macOS-Light-Mode.png" /></p></blockquote><p>Its statistical language model was built using sentences collected from the 2021-04-01 Chinese and Cantonese versions of the Wikipedia, and other sources.</p><h1 id="download">Download</h1><p>Download this release of the CAP input method for your platform with one of the following links.</p><table><thead><tr class="header"><th style="text-align: left;">Version</th><th style="text-align: left;">Download Location</th><th style="text-align: left;">MD5 Checksum</th></tr></thead><tbody><tr class="odd"><td style="text-align: left;">macOS</td><td style="text-align: left;"><a href="https://drive.google.com/file/d/1-ZHP4bh_89isLRPbnrPV6eAKhiEE7NL1/view?usp=sharing"><code>Chinese - Cantonese AI Phonetic IM.zip</code></a></td><td style="text-align: left;"><code>bd23c8492b8642c8d747f8ee7e949774</code></td></tr><tr class="even"><td style="text-align: left;">Windows 10 (64-bit)</td><td style="text-align: left;"><a href="https://drive.google.com/file/d/1xeYaeigGpBkIcaLTE_F-fkv7nXIWH-Nn/view?usp=sharing"><code>CAPInstallerReleaseNew.msi</code></a></td><td style="text-align: left;"><code>218d9c063f3f7cd27a4c32aef4e42e5c</code></td></tr><tr class="odd"><td style="text-align: left;">Linux</td><td style="text-align: left;"><a href="https://drive.google.com/file/d/1aFlczju2OhTgwdlKX-1-j8yrzZ_n9PeL/view?usp=sharing"><code>fcitx-cap_1.0.0_amd64.deb</code></a></td><td style="text-align: left;"><code>cd2e766353c123b4c448414b36ed151a</code></td></tr></tbody></table><h1 id="installation">Installation</h1><p>To install CAP, follow the instructions for the <a href="../cantonese-AI-phonetic-IM-black-bauhinia-release/index.html">previous release</a>.</p><h1 id="cap-license">CAP License</h1><p>Note that according to <a href="LICENSE.txt">CAP’s license</a>, you can use it for personal and non-commercial purposes, and are prohibited from redistributing it, or any of its parts.</p><p>Enjoy!</p>
+</div>
