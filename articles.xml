@@ -1,6 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <article-list>
   <article>
+    <filename>articles/cantonese-AI-phonetic-IM-year-of-the-ox-release/</filename>
+    <title>Cantonese Artificially-intelligent Phonetic Input Method—Year of the Ox Release</title>
+    <date>Mon, 5 Apr 2021 17:00 MDT</date>
+    <category>Programming</category>
+    <abstract>
+      <p>Here’s yet another release of my Cantonese Artificially-intelligent
+      Phonetic (CAP) Input Method for macOS, Linux, and Windows 10.  Its
+      statistical language model now incorporates the 2021-04-01 Chinese and
+      Cantonese versions of the Wikipedia, among other sources.  A small change
+      to the macOS version allows the candidate window to be displayed correctly
+      under either dark or light mode setting.</p>
+    </abstract>
+  </article>
+  <article>
     <filename>articles/cantonese-AI-phonetic-IM-black-bauhinia-release/</filename>
     <title>Cantonese Artificially-intelligent Phonetic Input Method—Black Bauhinia Release</title>
     <date>Thu, 19 Sep 2019 17:00 MDT</date>
