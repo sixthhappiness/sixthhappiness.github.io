@@ -1,0 +1,39 @@
+% Cantonese Artificially-intelligent Phonetic Input Method—Thanksgiving Release
+% Andrew Choi
+% 2 Nov 2023
+
+
+# Downloads
+
+Follow one of these links to download the version of CAP for your platform.
+
+  Version              Download Location                                       MD5 Checksum
+  -------------------- ------------------------------------------------------- ----------------------------------
+  Windows 10 (64-bit)  [`CAP-Windows-Release.zip`][CAP w10]                    `b23d1aa386c667742877d5f9acaf73a4`
+  Linux                [`fcitx-cap_1.0.0_amd64.deb`][CAP deb]                  `a4bd5f6e8cccc8e9d76c88c1fdf4bd9f`
+  macOS                [`Chinese - Cantonese AI Phonetic IM.app.zip`][CAP mac] `e984a755d25a4568cb562a9b5b7ada99`
+  -------------------- ------------------------------------------------------- ----------------------------------
+
+[CAP w10]: https://drive.google.com/file/d/14hyMn1jnyQU4apwLCVhDKQULymE3qlY7/view?usp=sharing
+[CAP deb]: https://drive.google.com/file/d/1o8mpUZ66gxkwZoIOC_2sd4TcBQclUNKT/view?usp=sharing
+[CAP mac]: https://drive.google.com/file/d/1XX_wNf5PEsuGDBYhkf4-5mAAuNOmW2Ne/view?usp=sharing
+
+
+# Installation
+
+To install, follow the instructions for a previous release of CAP, for example [the Black Bauhinia release][CAP Black Bauhinia].
+
+For the Windows version, unzip the distributed ZIP file and click/double click on the `setup.exe` file.  This will automatically download and install a Microsoft Visual C++ Redistributable package on which CAP depends before its installation, if necessary.
+
+[CAP Black Bauhinia]: ../cantonese-AI-phonetic-IM-black-bauhinia-release/index.html
+
+
+# CAP License
+
+Note that according to [CAP’s license][license], you can use it for personal and
+non-commercial purposes, and are prohibited from redistributing it, or any of
+its parts.
+
+[license]: LICENSE.txt
+
+Enjoy!

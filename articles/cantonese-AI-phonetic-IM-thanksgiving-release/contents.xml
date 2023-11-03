@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE article [
+  <!ENTITY nbsp "&#160;">
+  <!ENTITY mdash "&#x2014;">
+  <!ENTITY ndash "&#x2013;">
+  <!ENTITY hellip "&#x2026;">
+  <!ENTITY lsquo "&#x2018;">
+  <!ENTITY rsquo "&#x2019;">
+  <!ENTITY ldquo "&#x201c;">
+  <!ENTITY rdquo "&#x201d;">
+]>
+
+<div>
+
+<h1 id="downloads">Downloads</h1>
+<p>Follow one of these links to download the version of CAP for your platform.</p>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Version</th>
+<th style="text-align: left;">Download Location</th>
+<th style="text-align: left;">MD5 Checksum</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Windows 10 (64-bit)</td>
+<td style="text-align: left;"><a href="https://drive.google.com/file/d/14hyMn1jnyQU4apwLCVhDKQULymE3qlY7/view?usp=sharing"><code>CAP-Windows-Release.zip</code></a></td>
+<td style="text-align: left;"><code>b23d1aa386c667742877d5f9acaf73a4</code></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Linux</td>
+<td style="text-align: left;"><a href="https://drive.google.com/file/d/1o8mpUZ66gxkwZoIOC_2sd4TcBQclUNKT/view?usp=sharing"><code>fcitx-cap_1.0.0_amd64.deb</code></a></td>
+<td style="text-align: left;"><code>a4bd5f6e8cccc8e9d76c88c1fdf4bd9f</code></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">macOS</td>
+<td style="text-align: left;"><a href="https://drive.google.com/file/d/1XX_wNf5PEsuGDBYhkf4-5mAAuNOmW2Ne/view?usp=sharing"><code>Chinese - Cantonese AI Phonetic IM.app.zip</code></a></td>
+<td style="text-align: left;"><code>e984a755d25a4568cb562a9b5b7ada99</code></td>
+</tr>
+</tbody>
+</table>
+<h1 id="installation">Installation</h1>
+<p>To install, follow the instructions for a previous release of CAP, for example <a href="../cantonese-AI-phonetic-IM-black-bauhinia-release/index.html">the Black Bauhinia release</a>.</p>
+<p>For the Windows version, unzip the distributed ZIP file and click/double click on the <code>setup.exe</code> file. This will automatically download and install a Microsoft Visual C++ Redistributable package on which CAP depends before its installation, if necessary.</p>
+<h1 id="cap-license">CAP License</h1>
+<p>Note that according to <a href="LICENSE.txt">CAP’s license</a>, you can use it for personal and non-commercial purposes, and are prohibited from redistributing it, or any of its parts.</p>
+<p>Enjoy!</p>
+</div>

@@ -21,6 +21,9 @@
     <div class="right-section">
       <h2>News</h2>
 
+      <p>Does the world seem a bit more normal now?  Maybe?  Maybe not?  Personally, the past two years have been rough.  But I won't talk about that here!  The good news for Windows CAP users is I've fixed a number of pretty tricky bugs, which used to cause crashes.  A few memory leaks have also been fixed: not incapacitating, but annoying nonetheless.  As a result the Windows version of CAP is a lot more stable now.  If you've had bad experience with a previous release of the Windows version, please consider it again.  The SLM and pronounciation tables have also been updated.  You're now able to type 旮旯頭, 山旮旯, 梁朝偉, 率領, 瞓覺, 昆明, <a href="https://zh.wikipedia.org/zh-hk/%E8%B2%AA%E7%9D%A1%E7%AF%80">貪睡節</a>, <a href="https://zh.wikipedia.org/zh-hk/%E9%80%9F%E5%BA%A6%E5%A4%A7%E5%B8%AB">速度大師</a>, <a href="https://zh.wikipedia.org/zh-hk/%E9%9C%A7%E9%8E%96%E5%8D%B1%E6%83%85">霧鎖危情</a>, etc.  <a href="articles/cantonese-AI-phonetic-IM-thanksgiving-release/index.html">Go take a look!</a>
+      <em>[2 Nov 2023.]</em></p>
+
       <p>Did I really ask whether the world had gone mad during my last release of CAP?
       It’s a case of “I spoke too soon”, to put it mildly.  Anyway, for those who are still using CAP,
       <a href="articles/cantonese-AI-phonetic-IM-year-of-the-ox-release/index.html">here’s

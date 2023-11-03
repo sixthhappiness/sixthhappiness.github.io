@@ -1,6 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <article-list>
   <article>
+    <filename>articles/cantonese-AI-phonetic-IM-thanksgiving-release/</filename>
+    <title>Cantonese Artificially-intelligent Phonetic Input Method—Thanksgiving Release</title>
+    <date>Thu, 2 Nov 2023 17:00 MDT</date>
+    <category>Programming</category>
+    <abstract>
+      <p>This is a new bug fix release of my Cantonese Artificially-intelligent Phonetic (CAP) Input Method for macOS, Linux, and Windows 10.  Most significantly, a number of long standing bugs resulting in crashes have finally been removed in the Windows version.  If you have used CAP in Windows and experienced problems previously, please try this new version.  It's a lot more stable.  Also, its SLM has been updated and new words and pronounciations have been added.</p>
+    </abstract>
+  </article>
+  <article>
     <filename>articles/cantonese-AI-phonetic-IM-year-of-the-ox-release/</filename>
     <title>Cantonese Artificially-intelligent Phonetic Input Method—Year of the Ox Release</title>
     <date>Mon, 5 Apr 2021 17:00 MDT</date>
