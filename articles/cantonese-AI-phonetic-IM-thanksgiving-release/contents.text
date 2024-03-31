@@ -14,10 +14,15 @@ Follow one of these links to download the version of CAP for your platform.
   macOS                [`Chinese - Cantonese AI Phonetic IM.app.zip`][CAP mac] `e984a755d25a4568cb562a9b5b7ada99`
   -------------------- ------------------------------------------------------- ----------------------------------
 
+Update: 2024-03-31. Alternative download for macOS version; same MD5 checksum as above (`<s>`thanks a
+lot Google Drive people!`</s>`): [`Chinese - Cantonese AI Phonetic IM.app.zip`][CAP mac alt].
+
+Also, the Windows version has been tested and it works correctly on Windows 11.
+
 [CAP w10]: https://drive.google.com/file/d/14hyMn1jnyQU4apwLCVhDKQULymE3qlY7/view?usp=sharing
 [CAP deb]: https://drive.google.com/file/d/1o8mpUZ66gxkwZoIOC_2sd4TcBQclUNKT/view?usp=sharing
 [CAP mac]: https://drive.google.com/file/d/1XX_wNf5PEsuGDBYhkf4-5mAAuNOmW2Ne/view?usp=sharing
-
+[CAP mac alt]: Chinese%20-%20Cantonese%20AI%20Phonetic%20IM.app.zip
 
 # Installation
 
